@@ -83,8 +83,7 @@ namespace ColonistBarKF.Bar
             List<Thing> list = ColonistsOrCorpsesInScreenRect(rect);
             for (int i = 0; i < list.Count; i++)
             {
-                Pawn pawn = list[i] as Pawn;
-                if (pawn != null && pawn.IsCaravanMember())
+                if (list[i] is Pawn pawn && pawn.IsCaravanMember())
                 {
                     BarHelperKF.TmpCaravanPawns.Add(pawn);
                 }

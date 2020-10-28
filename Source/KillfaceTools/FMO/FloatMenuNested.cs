@@ -1,13 +1,13 @@
-﻿namespace KillfaceTools.FMO
+﻿using System.Collections.Generic;
+
+using JetBrains.Annotations;
+
+using UnityEngine;
+
+using Verse;
+
+namespace KillfaceTools.FMO
 {
-    using System.Collections.Generic;
-
-    using JetBrains.Annotations;
-
-    using UnityEngine;
-
-    using Verse;
-
     public class FloatMenuNested : FloatMenu
     {
         public FloatMenuNested([NotNull] List<FloatMenuOption> options, [CanBeNull] string label)

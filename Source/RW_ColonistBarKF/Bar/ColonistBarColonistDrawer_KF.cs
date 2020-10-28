@@ -1,20 +1,19 @@
 ﻿using KillfaceTools.FMO;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using ColonistBarKF.PSI;
+using JetBrains.Annotations;
+using RimWorld;
+using RimWorld.Planet;
+using UnityEngine;
+using Verse;
+using Verse.AI;
+using Verse.AI.Group;
+using Verse.Sound;
 
 namespace ColonistBarKF.Bar
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using PSI;
-    using JetBrains.Annotations;
-    using RimWorld;
-    using RimWorld.Planet;
-    using UnityEngine;
-    using Verse;
-    using Verse.AI;
-    using Verse.AI.Group;
-    using Verse.Sound;
-
     [StaticConstructorOnStartup]
     public class ColonistBarColonistDrawer_KF
     {

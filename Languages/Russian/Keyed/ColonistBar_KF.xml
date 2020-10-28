@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
   <CBKF.Settings.Advanced>Дополнительные настройки</CBKF.Settings.Advanced>
   <CBKF.Settings.BarPosition>Основные настройки</CBKF.Settings.BarPosition>
@@ -147,7 +147,6 @@
   <PSI.Settings.Visibility.Toxicity>Токсичность</PSI.Settings.Visibility.Toxicity>
   <PSI.Settings.Visibility.Unarmed>Безоружный</PSI.Settings.Visibility.Unarmed>
   <PSI.Settings.VisibilityButton>Видимый</PSI.Settings.VisibilityButton>
-
   <!--New - August 2017-->
   <CBKF.Settings.Grouping>Группировка</CBKF.Settings.Grouping>
   <CBKF.Settings.UseGrouping>Свернуть группы</CBKF.Settings.UseGrouping>

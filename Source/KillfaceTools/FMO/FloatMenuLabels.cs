@@ -1,12 +1,12 @@
-﻿namespace KillfaceTools.FMO
+﻿using System;
+using System.Collections.Generic;
+
+using UnityEngine;
+
+using Verse;
+
+namespace KillfaceTools.FMO
 {
-    using System;
-    using System.Collections.Generic;
-
-    using UnityEngine;
-
-    using Verse;
-
     public class FloatMenuLabels : FloatMenu
     {
         public FloatMenuLabels(List<FloatMenuOption> options)

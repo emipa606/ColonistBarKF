@@ -279,8 +279,7 @@ namespace ColonistBarKF
 
         private static void DeSpawn_Postfix([NotNull] Thing __instance)
         {
-            Pawn pawn = __instance as Pawn;
-            if (pawn == null)
+            if (!(__instance is Pawn pawn))
             {
                 return;
             }

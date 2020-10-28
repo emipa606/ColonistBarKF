@@ -1,30 +1,78 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-  <name>Colonist Bar KF 1.1</name>
+  <name>Colonist Bar KF (Continued)</name>
+  <packageId>Mlie.ColonistBarKF</packageId>
   <author>Killface</author>
+  <url>https://github.com/emipa606/ColonistBarKF</url>
   <supportedVersions>
     <li>1.0</li>
     <li>1.1</li>
+    <li>1.2</li>
   </supportedVersions>
-  <packageId>killface.colonistbarkf</packageId>
-  <description>
-    <![CDATA[More options for the Colonist Bar, including new status icons and a mood bar.
+  <modDependencies>
+    <li>
+      <packageId>brrainz.harmony</packageId>
+      <displayName>Harmony</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+      <downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
+    </li>
+  </modDependencies>
+  <loadAfter>
+    <li>brrainz.harmony</li>
+  </loadAfter>
+  <description>[img]https://i.imgur.com/WAEzk68.png[/img]
+Update of Killfaces mod
+https://steamcommunity.com/sharedfiles/filedetails/?id=729908976
 
-    Allows custom scaling and sorting functionality.
-    All options available with Right Mouse Button click on any colonist portrait.
-    FollowMe™ functionality via Middle Mouse Button click.
+[img]https://i.imgur.com/7Gzt3Rg.png[/img]
 
-    Includes icon stats based on 'Pawn State Icons™' by Dan Sadler
-    Includes 'FollowMe™' functionality by Fluffy with updated code by alexschrod
-    (Needed for more mouse button options. Please deactivate Fluffy's original version in case of any conflicts.)
-    Includes 'ZoomToMouse™' functionality by Fluffy (cause I like it and it wasn't updated a few RW alphas back)
+[table]
+    [tr]
+        [td][url=https://invite.gg/Mlie][img]https://i.imgur.com/zdzzBrc.png[/img][/url][/td]
+        [td][url=https://github.com/emipa606/ColonistBarKF][img]https://i.imgur.com/kTkpTOE.png[/img][/url][/td]
+    [/tr]
+[/table]
+	
+[img]https://i.imgur.com/NOW7jU1.png[/img]
+[b]Development stopped.[/b]
+[i]I've ceased all my modding activities, due to lack of free time and new found hobbies. 
+Please enjoy this mod while it's still working with RW 1.0, but don't expect any updates or fixes.[/i]
 
-    Chinese translation (simplified & traditional) by duduluu
-    French translation by Gorgious
-    English translation by me
-    Russian translation by dragomano
-    Spanish translation by Ninnetyer
-    
-    Updated for RW 1.0 by azelion]]>
-  </description>
+More options for the Colonist Bar.
+- Allows custom sorting as well as custom scaling.
+- All options available with Right Mouse Button click on any icon.
+- FollowMe™ functionality via Middle Mouse Button click.
+
+Includes icon stats based on 'Pawn State Icons™' by Dan Sadler
+Includes 'FollowMe™' functionality by Fluffy with updated code by alexschrod
+Includes 'ZoomToMouse™' functionality by Fluffy
+
+To access the new options menu + sorting, right mouse click on any colonist icon.
+
+[h1]Mood bar explaination[/h1] 
+The mood bar is calculated for each colonist individually. Each time you have a minor break risk, the first blue bar is depleted, then you have a full yellow bar that will become a major break risk if depleted. So each break risk color is just a tiny bit of the vanilla mood.
+
+[h1]Supported languages[/h1] 
+Chinese (simplified and traditional) – thx to duduluu
+English
+French – thx to Gorgious
+German
+Russian – thx to skyarkhangel (taken from HardCore SK)
+Spanish – thx to Ninnetyer
+
+[b]Don't forget to rate this mod if you like it.[/b]
+
+[h1]License[/h1] 
+All textures ©Killface. Please don't repost without asking.
+
+[h1]External Download[/h1] 
+https://github.com/Killface1980/RW_ColonistBarKF/releases
+
+[h1]Donations[/h1]
+If you like my mods and consider buying me a drink or a nice little meal, don't hesitate!
+[url=https://paypal.me/Killface][img]https://i.imgur.com/428WESu.png[/img] [/url]
+
+[h1]Personal Note[/h1]
+As people started asking me if I could buy/gift them RimWorld – no way! 
+Get your own copy and leave me alone.</description>
 </ModMetaData>

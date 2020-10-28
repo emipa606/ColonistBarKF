@@ -1,14 +1,12 @@
-﻿namespace KillfaceTools.FMO
+﻿using JetBrains.Annotations;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+using Verse;
+
+namespace KillfaceTools.FMO
 {
-    using JetBrains.Annotations;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-
-    using UnityEngine;
-
-    using Verse;
-
     public static class Tools
     {
         public const string NestedString = " ►";

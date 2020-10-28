@@ -138,7 +138,6 @@
   <PSI.Settings.Visibility.Toxicity>毒性積累</PSI.Settings.Visibility.Toxicity>
   <PSI.Settings.Visibility.LeftUnburied>殖民者離開了</PSI.Settings.Visibility.LeftUnburied>
   <PSI.Settings.Visibility.Marriage>婚姻</PSI.Settings.Visibility.Marriage>
-
   <FollowMe.StartFollow>FollowMe™</FollowMe.StartFollow>
   <FollowMe.StopFollow>Stop FollowMe™</FollowMe.StopFollow>
   <PSI.Settings.Visibility.Drunk>Drug addictions and unstable pawns</PSI.Settings.Visibility.Drunk>
@@ -147,5 +146,4 @@
   <PSI.Settings.UsePSIOnAnimals>Show Pawn State Icons™ on Animals</PSI.Settings.UsePSIOnAnimals>
   <PSI.Settings.ShowRelationsOnStrangers>Show Pawn Health Icon™ on Strangers with relations</PSI.Settings.ShowRelationsOnStrangers>
   <CBKF.Settings.useFollowMessage>Use FollowMe notification</CBKF.Settings.useFollowMessage>
-
 </LanguageData>

@@ -197,8 +197,7 @@ namespace ColonistBarKF
         public override void PostSpawnSetup(bool respawningAfterLoad)
         {
             base.PostSpawnSetup(respawningAfterLoad);
-            Pawn p = this.parent as Pawn;
-            if (p == null)
+            if (!(this.parent is Pawn p))
             {
                 return;
             }
@@ -561,7 +560,7 @@ namespace ColonistBarKF
                         new IconEntryBar(
                             Icon.Pacific,
                             Textures.ColBlueishGreen,
-                            "IsIncapableOfViolence".Translate(this.Pawn.LabelShort)));
+                            "IsIncapableOfViolenceLower".Translate(Pawn.LabelShort, Pawn)));
                 }
 
                 if (psiSettings.ShowPacific)
@@ -625,7 +624,7 @@ namespace ColonistBarKF
             this._tooCold = (float)((this.Pawn.ComfortableTemperatureRange().min
                                     - (double)PSISettings.LimitTempComfortOffset - temperatureForCell) / 10f);
 
-            this._tooHot = (float)((temperatureForCell - (double) this.Pawn.ComfortableTemperatureRange().max
+            this._tooHot = (float)((temperatureForCell - (double)this.Pawn.ComfortableTemperatureRange().max
                                    - PSISettings.LimitTempComfortOffset) / 10f);
 
             this._tooCold = Mathf.Clamp(this._tooCold, 0f, 2f);

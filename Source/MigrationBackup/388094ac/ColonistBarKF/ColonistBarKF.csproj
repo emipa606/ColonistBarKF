@@ -18,7 +18,7 @@
     <DebugSymbols>false</DebugSymbols>
     <DebugType>none</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\1.2\Assemblies\</OutputPath>
+    <OutputPath>..\..\1.1\Assemblies\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -46,9 +46,49 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="0Harmony, Version=2.0.0.7, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lib.Harmony.2.0.0.7\lib\net472\0Harmony.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>..\..\..\..\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Assembly-CSharp-firstpass">
+      <HintPath>..\..\..\..\RimWorldWin64_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation" />
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\..\..\RimWorldWin64_Data\Managed\UnityEngine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>..\..\..\..\RimWorldWin64_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\RimWorldWin64_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\RimWorldWin64_Data\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\RimWorldWin64_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Alignment.cs" />
     <Compile Include="EntryKF.cs" />
     <None Include="ColonistBarKF.ruleset" />
+    <None Include="packages.config" />
     <None Include="Settings\ControllerBar.cs" />
     <Compile Include="PSI\BarIconDrawer.cs" />
     <Compile Include="Settings\Settings.cs" />
@@ -83,20 +123,41 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\..\About\About.xml">
+      <Link>About.xml</Link>
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="..\..\Defs\KeyBindingDefs\keybinding.xml">
       <Link>Fluffy\keybinding.xml</Link>
     </Content>
+    <Content Include="..\..\Languages\ChineseSimplified\Keyed\ColonistBar_KF.xml">
+      <Link>Languages\ChineseSimplified\ColonistBar_KF.xml</Link>
+    </Content>
+    <Content Include="..\..\Languages\ChineseTraditional\Keyed\ColonistBar_KF.xml">
+      <Link>Languages\ChineseTraditional\ColonistBar_KF.xml</Link>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="..\..\Languages\English\Keyed\ColonistBar_KF.xml">
+      <Link>Languages\English\ColonistBar_KF.xml</Link>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="..\..\Languages\French\Keyed\ColonistBar_KF.xml">
+      <Link>Languages\French\ColonistBar_KF.xml</Link>
+    </Content>
+    <Content Include="..\..\Languages\German\Keyed\ColonistBar_KF.xml">
+      <Link>Languages\German\ColonistBar_KF.xml</Link>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="..\..\Languages\Russian\Keyed\ColonistBar_KF.xml">
+      <Link>Languages\Russian\ColonistBar_KF.xml</Link>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="..\..\Languages\Spanish\Keyed\ColonistBar_KF.xml">
+      <Link>Languages\Spanish\ColonistBar_KF.xml</Link>
+    </Content>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <PackageReference Include="Krafs.Rimworld.Ref">
-      <Version>1.2.2753</Version>
-      <ExcludeAssets>runtime</ExcludeAssets>
-    </PackageReference>
-    <PackageReference Include="Lib.Harmony">
-      <Version>2.0.2</Version>
-      <ExcludeAssets>runtime</ExcludeAssets>
-    </PackageReference>
+    <Folder Include="Menus\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\KillfaceTools\KillfaceTools.csproj">

@@ -85,8 +85,7 @@ namespace ColonistBarKF
                     return string.Empty;
                 }
 
-                Pawn pawn = FollowedThing as Pawn;
-                if (pawn != null)
+                if (FollowedThing is Pawn pawn)
                 {
                     return pawn.LabelShort;
                 }

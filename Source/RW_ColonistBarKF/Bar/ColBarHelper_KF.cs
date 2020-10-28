@@ -1,20 +1,20 @@
-﻿namespace ColonistBarKF.Bar
-{
-    using JetBrains.Annotations;
-    using RimWorld;
-    using RimWorld.Planet;
-    using System.Collections.Generic;
-    using System.Linq;
-    using UnityEngine;
-    using Verse;
+﻿using JetBrains.Annotations;
+using RimWorld;
+using RimWorld.Planet;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using Verse;
 
+namespace ColonistBarKF.Bar
+{
     // ReSharper disable once InconsistentNaming
     public class ColBarHelper_KF : IExposable
     {
         #region Public Fields
 
         [NotNull]
-        private List<Vector2> _cachedDrawLocs = new List<Vector2>();
+        private readonly List<Vector2> _cachedDrawLocs = new List<Vector2>();
 
         [NotNull]
         public List<Pawn> TmpCaravanPawns = new List<Pawn>();
@@ -105,7 +105,7 @@
                 }
             }
 
-            entry = default(EntryKF);
+            entry = default;
             return false;
         }
 

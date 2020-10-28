@@ -1,9 +1,5 @@
 ﻿namespace ColonistBarKF
 {
-    using JetBrains.Annotations;
-
-    using Verse;
-
     public class SettingsColonistBar
     {
         public float BaseIconSize = 48f;
