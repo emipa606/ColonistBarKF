@@ -28,8 +28,8 @@ namespace ColonistBarKF.PSI
             }
 
             SettingsColonistBar colBarSettings = Settings.BarSettings;
-            int barIconNum = 0;
-            int rowCount = pawnStats.ThisColCount;
+            var barIconNum = 0;
+            var rowCount = pawnStats.ThisColCount;
 
             // Drafted
             if (colBarSettings.ShowDraft && pawn.Drafted)
@@ -47,10 +47,10 @@ namespace ColonistBarKF.PSI
             List<IconEntryBar> drawIconEntries = pawnStats.BarIconList;
             if (!pawnStats.BarIconList.NullOrEmpty())
             {
-                int maxIconCount = Mathf.Min(
+                var maxIconCount = Mathf.Min(
                     Settings.BarSettings.IconsInColumn * 2,
                     drawIconEntries.Count + barIconNum);
-                for (int index = 0; index < maxIconCount - barIconNum; index++)
+                for (var index = 0; index < maxIconCount - barIconNum; index++)
                 {
                     IconEntryBar iconEntryBar = drawIconEntries[index];
                     iconEntryBar.Color.a *= rectAlpha;
@@ -61,7 +61,7 @@ namespace ColonistBarKF.PSI
             }
 
             // Idle - bar icon already included - vanilla
-            int colCount = Mathf.CeilToInt((float)barIconNum / Settings.BarSettings.IconsInColumn);
+            var colCount = Mathf.CeilToInt((float)barIconNum / Settings.BarSettings.IconsInColumn);
 
             pawnStats.ThisColCount = colCount;
         }
@@ -70,7 +70,7 @@ namespace ColonistBarKF.PSI
         {
             SettingsColonistBar settings = Settings.BarSettings;
             _iconPosRectsBar = new Vector3[40];
-            for (int index = 0; index < _iconPosRectsBar.Length; ++index)
+            for (var index = 0; index < _iconPosRectsBar.Length; ++index)
             {
                 int num1;
                 int num2;
@@ -78,7 +78,7 @@ namespace ColonistBarKF.PSI
                 num2 = index % settings.IconsInColumn;
                 if (settings.IconsHorizontal)
                 {
-                    int num3 = num1;
+                    var num3 = num1;
                     num1 = num2;
                     num2 = num3;
 
@@ -111,9 +111,9 @@ namespace ColonistBarKF.PSI
 
             material.color = color;
 
-            Rect iconRect = new Rect(rect);
+            var iconRect = new Rect(rect);
 
-            float size = Mathf.Min(iconRect.width, iconRect.height) / rowCount;
+            var size = Mathf.Min(iconRect.width, iconRect.height) / rowCount;
 
             iconRect.height = iconRect.width = size;
 
@@ -207,9 +207,9 @@ namespace ColonistBarKF.PSI
 
             material.color = iconEntryBar.Color;
 
-            Rect iconRect = new Rect(psiRect);
+            var iconRect = new Rect(psiRect);
 
-            float size = Mathf.Min(iconRect.width, iconRect.height) / rowCount;
+            var size = Mathf.Min(iconRect.width, iconRect.height) / rowCount;
 
             iconRect.height = iconRect.width = size;
 

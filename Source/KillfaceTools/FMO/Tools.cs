@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+using UnityEngine;
+
 using Verse;
 
 namespace KillfaceTools.FMO
@@ -29,13 +31,13 @@ namespace KillfaceTools.FMO
         public static FloatMenuOption MakeMenuItemForLabel([NotNull] string label, [NotNull] List<FloatMenuOption> fmo)
         {
             // List<SortByWhat> sortByWhats = fmo.Keys.ToList();
-            List<FloatMenuOption> options = fmo.ToList();
-            string labelFixed = label;
-            bool isSingle = options.Count == 1 && !labelFixed.Contains(NestedString);
+            var options = fmo.ToList();
+            var labelFixed = label;
+            var isSingle = options.Count == 1 && !labelFixed.Contains(NestedString);
 
 
 
-            FloatMenuOptionNoClose option = new FloatMenuOptionNoClose(
+            var option = new FloatMenuOptionNoClose(
                                                                        labelFixed,
                                                                        () =>
                                                                        {
@@ -52,13 +54,13 @@ namespace KillfaceTools.FMO
                                                                            }
                                                                            else
                                                                            {
-                                                                               int i = 0;
-                                                                               List<FloatMenuOption> actions =
+                                                                               var i = 0;
+                                                                               var actions =
                                                                                new List<FloatMenuOption>();
                                                                                fmo.ForEach(
                                                                                       menuOption =>
                                                                                       {
-                                                                                          FloatMenuOption
+                                                                                          var
                                                                                           floatMenuOption =
                                                                                           new FloatMenuOption(
                                                                                                               menuOption
@@ -76,7 +78,7 @@ namespace KillfaceTools.FMO
                                                                                                                  .action();
                                                                                                               },
                                                                                                               (MenuOptionPriority
-                                                                                                              ) i++,
+                                                                                                              )i++,
                                                                                                               menuOption
                                                                                                              .mouseoverGuiAction,
                                                                                                               menuOption
@@ -94,9 +96,9 @@ namespace KillfaceTools.FMO
                                                                        },
                                                                        isSingle ? options[0].extraPartWidth : 0f,
                                                                        isSingle ? options[0].extraPartOnGUI : null)
-                                            {
-                                            Disabled = options.All(o => o.Disabled),
-                                            };
+            {
+                Disabled = options.All(o => o.Disabled),
+            };
             return option;
         }
     }

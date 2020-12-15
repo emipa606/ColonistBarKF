@@ -14,10 +14,10 @@ namespace ColonistBarKF.PSI
 
         public IconEntryPSI(Icon icon, Color color, float opacity, int priority = 10)
         {
-            this.Icon = icon;
-            this.Color = color;
-            this.Opacity = opacity;
-            this.Priority = priority;
+            Icon = icon;
+            Color = color;
+            Opacity = opacity;
+            Priority = priority;
         }
     }
 }

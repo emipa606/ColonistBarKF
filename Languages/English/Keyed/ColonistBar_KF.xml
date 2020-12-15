@@ -43,6 +43,7 @@
   <CBKF.Settings.useZoomToMouse>Use ZoomToMouse™</CBKF.Settings.useZoomToMouse>
   <CBKF.Settings.Vanilla>Vanilla</CBKF.Settings.Vanilla>
   <CBKF.Settings.Weapons>Weapons</CBKF.Settings.Weapons>
+  <CBKF.Settings.useFollowMMC>Start FollowMe™ by middle mouse click on the portrait</CBKF.Settings.useFollowMMC>
   <FollowMe.Cancel>No longer following {0}.</FollowMe.Cancel>
   <FollowMe.Follow>Following {0}.</FollowMe.Follow>
   <FollowMe.MiddleClick>Middle click on colonist to start FollowMe™</FollowMe.MiddleClick>
@@ -152,5 +153,4 @@
   <CBKF.Settings.UseGrouping>Collapse groups</CBKF.Settings.UseGrouping>
   <CBKF.Settings.UseGroupColors>Color code colonist groups</CBKF.Settings.UseGroupColors>
   <CBKF.Settings.ChoicesForPawn>{0}'s choices with {1}</CBKF.Settings.ChoicesForPawn>
-
 </LanguageData>

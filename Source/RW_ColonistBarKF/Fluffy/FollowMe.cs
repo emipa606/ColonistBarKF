@@ -128,7 +128,7 @@ namespace ColonistBarKF
                     Messages.Message("FollowMe.RejectNotAThing".Translate(), MessageTypeDefOf.RejectInput);
                 }
             }
-            else if (CurrentlyFollowing && thing == null || thing == FollowedThing)
+            else if ((CurrentlyFollowing && thing == null) || thing == FollowedThing)
             {
                 // cancel current follow (toggle or thing == null)
                 StopFollow("toggled");
@@ -177,14 +177,14 @@ namespace ColonistBarKF
                         return;
                     }
 
-                    this.CheckKeyScroll();
-                    this.CheckScreenEdgeScroll();
-                    this.CheckCameraJump();
+                    CheckKeyScroll();
+                    CheckScreenEdgeScroll();
+                    CheckCameraJump();
                     CheckDolly();
                 }
 
                 // start/stop following thing on key press
-                if (this._followKey.KeyDownEvent)
+                if (_followKey.KeyDownEvent)
                 {
                     TryStartFollow(Find.Selector.SingleSelectedObject as Thing);
                 }
@@ -285,7 +285,7 @@ namespace ColonistBarKF
             Map mapHeld = thing.MapHeld;
             if (mapHeld != null && thing.PositionHeld.IsValid && thing.PositionHeld.InBounds(mapHeld))
             {
-                bool flag = CameraJumper.TryHideWorld();
+                var flag = CameraJumper.TryHideWorld();
                 if (Current.Game.CurrentMap != mapHeld)
                 {
                     Current.Game.CurrentMap = mapHeld;
@@ -313,7 +313,7 @@ namespace ColonistBarKF
                 IntVec3 currentCameraPosition = Find.CameraDriver.MapPosition;
 
                 // the location the camera has been requested to be at
-                IntVec3 requestedCameraPosition = CameraRootPosition.ToIntVec3();
+                var requestedCameraPosition = CameraRootPosition.ToIntVec3();
 
                 // these normally stay in sync while following is active, since we were the last to request where the camera should go.
                 // If they get out of sync, it's because the camera has been asked to jump to somewhere else, and we should stop
@@ -327,7 +327,7 @@ namespace ColonistBarKF
 
         private void CheckKeyScroll()
         {
-            if (this._followBreakingKeyBindingDefs.Any(key => key.IsDown))
+            if (_followBreakingKeyBindingDefs.Any(key => key.IsDown))
             {
                 StopFollow("moved map (key)");
             }

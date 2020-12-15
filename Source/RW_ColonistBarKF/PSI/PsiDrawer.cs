@@ -17,25 +17,25 @@ namespace ColonistBarKF.PSI
 
             // _iconPosVectors = new Vector3[18];
             IconPosVectorsPSI = new Vector3[40];
-            for (int index = 0; index < IconPosVectorsPSI.Length; ++index)
+            for (var index = 0; index < IconPosVectorsPSI.Length; ++index)
             {
-                int num1 = index / psiSettings.IconsInColumn;
-                int num2 = index % psiSettings.IconsInColumn;
+                var num1 = index / psiSettings.IconsInColumn;
+                var num2 = index % psiSettings.IconsInColumn;
                 if (psiSettings.IconsHorizontal)
                 {
-                    int num3 = num1;
+                    var num3 = num1;
                     num1 = num2;
                     num2 = num3;
                 }
 
-                float y = Altitudes.AltitudeFor(AltitudeLayer.MetaOverlays);
+                var y = Altitudes.AltitudeFor(AltitudeLayer.MetaOverlays);
 
                 IconPosVectorsPSI[index] = new Vector3(
-                    (float)(-0.600000023841858 * psiSettings.IconMarginX - 0.550000011920929 * psiSettings.IconSize
-                            * psiSettings.IconOffsetX * num1),
+                    (float)((-0.600000023841858 * psiSettings.IconMarginX) - (0.550000011920929 * psiSettings.IconSize
+                            * psiSettings.IconOffsetX * num1)),
                     y,
-                    (float)(-0.600000023841858 * psiSettings.IconMarginY + 0.550000011920929 * psiSettings.IconSize
-                            * psiSettings.IconOffsetY * num2));
+                    (float)((-0.600000023841858 * psiSettings.IconMarginY) + (0.550000011920929 * psiSettings.IconSize
+                            * psiSettings.IconOffsetY * num2)));
             }
         }
 
@@ -52,7 +52,7 @@ namespace ColonistBarKF.PSI
             GUI.color = color;
             Vector2 vectorAtBody;
 
-            float worldScale = WorldScale;
+            var worldScale = WorldScale;
             if (Settings.PSISettings.IconsScreenScale)
             {
                 worldScale = 45f;
@@ -65,10 +65,10 @@ namespace ColonistBarKF.PSI
                 vectorAtBody = (bodyPos + posOffset).MapToUIPosition();
             }
 
-            float num2 = worldScale * (Settings.PSISettings.IconSizeMult * 0.5f);
+            var num2 = worldScale * (Settings.PSISettings.IconSizeMult * 0.5f);
 
             // On Colonist
-            Rect position = new Rect(
+            var position = new Rect(
                 vectorAtBody.x,
                 vectorAtBody.y,
                 num2 * Settings.PSISettings.IconSize,
@@ -105,7 +105,7 @@ namespace ColonistBarKF.PSI
             GUI.color = entryPSI.Color;
             Vector2 vectorAtBody;
 
-            float worldScale = WorldScale;
+            var worldScale = WorldScale;
             if (Settings.PSISettings.IconsScreenScale)
             {
                 worldScale = 45f;
@@ -118,10 +118,10 @@ namespace ColonistBarKF.PSI
                 vectorAtBody = (bodyPos + posOffset).MapToUIPosition();
             }
 
-            float num2 = worldScale * (Settings.PSISettings.IconSizeMult * 0.5f);
+            var num2 = worldScale * (Settings.PSISettings.IconSizeMult * 0.5f);
 
             // On Colonist
-            Rect position = new Rect(
+            var position = new Rect(
                 vectorAtBody.x,
                 vectorAtBody.y,
                 num2 * Settings.PSISettings.IconSize,

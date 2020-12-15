@@ -17,20 +17,20 @@ namespace ColonistBarKF
 
         public static void SaveBarSettings([NotNull] string path = "ColonistBar_KF.xml")
         {
-            string configFolder = Path.GetDirectoryName(GenFilePaths.ModsConfigFilePath);
+            var configFolder = Path.GetDirectoryName(GenFilePaths.ModsConfigFilePath);
             DirectXmlSaver.SaveDataObject(BarSettings, configFolder + "/" + path);
         }
 
         public static void SavePSISettings([NotNull] string path = "ColonistBar_PSIKF.xml")
         {
-            string configFolder = Path.GetDirectoryName(GenFilePaths.ModsConfigFilePath);
+            var configFolder = Path.GetDirectoryName(GenFilePaths.ModsConfigFilePath);
             DirectXmlSaver.SaveDataObject(PSISettings, configFolder + "/" + path);
         }
 
         [NotNull]
         internal static SettingsColonistBar LoadBarSettings([NotNull] string path = "ColonistBar_KF.xml")
         {
-            string configFolder = Path.GetDirectoryName(GenFilePaths.ModsConfigFilePath);
+            var configFolder = Path.GetDirectoryName(GenFilePaths.ModsConfigFilePath);
             SettingsColonistBar __result =
                 DirectXmlLoader.ItemFromXmlFile<SettingsColonistBar>(configFolder + "/" + path);
             return __result;
@@ -39,7 +39,7 @@ namespace ColonistBarKF
         [NotNull]
         internal static SettingsPSI LoadPSISettings([NotNull] string path = "ColonistBar_PSIKF.xml")
         {
-            string configFolder = Path.GetDirectoryName(GenFilePaths.ModsConfigFilePath);
+            var configFolder = Path.GetDirectoryName(GenFilePaths.ModsConfigFilePath);
             SettingsPSI __result = DirectXmlLoader.ItemFromXmlFile<SettingsPSI>(configFolder + "/" + path);
             return __result;
         }

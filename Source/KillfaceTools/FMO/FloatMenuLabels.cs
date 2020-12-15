@@ -12,9 +12,9 @@ namespace KillfaceTools.FMO
         public FloatMenuLabels(List<FloatMenuOption> options)
             : base(options, null)
         {
-            this.givesColonistOrders = false;
-            this.vanishIfMouseDistant = true;
-            this.closeOnClickedOutside = false;
+            givesColonistOrders = false;
+            vanishIfMouseDistant = true;
+            closeOnClickedOutside = false;
         }
     }
 

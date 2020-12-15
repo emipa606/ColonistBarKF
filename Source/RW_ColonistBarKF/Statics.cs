@@ -18,7 +18,7 @@ namespace ColonistBarKF
         static Statics()
         {
             // Build gradients
-            GradientColorKey[] gck = new GradientColorKey[4];
+            var gck = new GradientColorKey[4];
             gck[0].color = Textures.ColorNeutralStatus;
             gck[0].time = 0.0f;
             gck[1].color = Textures.ColYellow;
@@ -27,7 +27,7 @@ namespace ColonistBarKF
             gck[2].time = 0.66f;
             gck[3].color = Textures.ColVermillion;
             gck[3].time = 1f;
-            GradientAlphaKey[] gak = new GradientAlphaKey[3];
+            var gak = new GradientAlphaKey[3];
             gak[0].alpha = 0.8f;
             gak[0].time = 0.0f;
             gak[1].alpha = 1f;

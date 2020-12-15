@@ -13,7 +13,7 @@ namespace ColonistBarKF.Bar
         public const float SpacingLabel = 15f;
 
         public static ColBarHelper_KF BarHelperKF = new ColBarHelper_KF();
-
+        private static readonly List<Pawn> colonistsToHighlight = new List<Pawn>();
         [NotNull]
         public static ColonistBarColonistDrawer_KF Drawer = new ColonistBarColonistDrawer_KF();
 
@@ -45,7 +45,7 @@ namespace ColonistBarKF.Bar
             {
                 return 2;
 
-                int maxRows = 0;
+                var maxRows = 0;
                 foreach (Pawn pawn in PawnsFinder.AllMaps_FreeColonistsSpawned)
                 {
                     maxRows = Mathf.Max(pawn.GetComp<CompPSI>().ThisColCount, maxRows);
@@ -81,7 +81,7 @@ namespace ColonistBarKF.Bar
             }
 
             List<Thing> list = ColonistsOrCorpsesInScreenRect(rect);
-            for (int i = 0; i < list.Count; i++)
+            for (var i = 0; i < list.Count; i++)
             {
                 if (list[i] is Pawn pawn && pawn.IsCaravanMember())
                 {
@@ -91,6 +91,14 @@ namespace ColonistBarKF.Bar
 
             return BarHelperKF.TmpCaravanPawns;
         }
+        public static void Highlight(Pawn pawn)
+        {
+            if (Visible && !colonistsToHighlight.Contains(pawn))
+            {
+                colonistsToHighlight.Add(pawn);
+            }
+        }
+        public static float SpaceBetweenColonistsHorizontal => 24f * Scale;
 
         public static bool ColonistBarOnGUI_Prefix()
         {
@@ -98,42 +106,57 @@ namespace ColonistBarKF.Bar
             {
                 return false;
             }
-
             if (Event.current.type != EventType.Layout)
             {
                 List<EntryKF> entries = BarHelperKF.Entries;
-                int num = -1;
-                bool showGroupFrames = BarHelperKF.ShowGroupFrames;
-                for (int i = 0; i < BarHelperKF.DrawLocs.Count; i++)
+                var num = -1;
+                var showGroupFrames = BarHelperKF.ShowGroupFrames;
+                var reorderableGroup = -1;
+                for (var i = 0; i < BarHelperKF.DrawLocs.Count; i++)
                 {
-                    Rect rect = new Rect(
+                    var rect = new Rect(
                         BarHelperKF.DrawLocs[i].x,
                         BarHelperKF.DrawLocs[i].y,
                         FullSize.x,
                         FullSize.y + SpacingLabel);
                     EntryKF entry = entries[i];
-                    bool flag = num != entry.Group;
-                    num = entry.Group;
-                    if (entry.GroupCount > 0)
+                    var flag = num != entry.@group;
+                    num = entry.@group;
+                    if (flag)
                     {
-                        // Pawn can be null, click extends group
-                        Drawer.HandleClicks(rect, entry.Pawn, entry.Group);
+                        reorderableGroup = ReorderableWidget.NewGroup(entry.reorderAction, ReorderableDirection.Horizontal, SpaceBetweenColonistsHorizontal, entry.extraDraggedItemOnGUI);
                     }
-
+                    bool reordering;
+                    if (entry.pawn != null)
+                    {
+                        Drawer.HandleClicks(rect, entry.pawn, reorderableGroup, out reordering);
+                    }
+                    else
+                    {
+                        reordering = false;
+                    }
                     if (Event.current.type == EventType.Repaint)
                     {
                         if (flag && showGroupFrames)
                         {
-                            Drawer.DrawGroupFrame(entry.Group);
+                            Drawer.DrawGroupFrame(entry.@group);
                         }
 
-                        if (entry.Pawn != null)
+                        if (entry.pawn != null)
                         {
-                            Drawer.DrawColonist(rect, entry.Pawn, entry.Map);
+                            Drawer.DrawColonist(rect, entry.pawn, entry.map, colonistsToHighlight.Contains(entry.pawn), reordering);
+                            if (entry.pawn.HasExtraHomeFaction())
+                            {
+                                Faction extraHomeFaction = entry.pawn.GetExtraHomeFaction();
+                                GUI.color = extraHomeFaction.Color;
+                                var num2 = rect.width * 0.5f;
+                                GUI.DrawTexture(new Rect(rect.xMax - num2 - 2f, rect.yMax - num2 - 2f, num2, num2), extraHomeFaction.def.FactionIcon);
+                                GUI.color = Color.white;
+                            }
                         }
                         else
                         {
-                            Drawer.DrawEmptyFrame(rect, entry.Map, entry.GroupCount);
+                            Drawer.DrawEmptyFrame(rect, entry.map, entry.@group);
                         }
                     }
                 }
@@ -141,11 +164,11 @@ namespace ColonistBarKF.Bar
                 num = -1;
                 if (showGroupFrames)
                 {
-                    for (int j = 0; j < BarHelperKF.DrawLocs.Count; j++)
+                    for (var j = 0; j < BarHelperKF.DrawLocs.Count; j++)
                     {
                         EntryKF entry2 = entries[j];
-                        int entry2Group = entry2.Group;
-                        bool flag2 = num != entry2Group;
+                        var entry2Group = entry2.@group;
+                        var flag2 = num != entry2Group;
                         num = entry2Group;
                         if (flag2)
                         {
@@ -154,7 +177,10 @@ namespace ColonistBarKF.Bar
                     }
                 }
             }
-
+            if (Event.current.type == EventType.Repaint)
+            {
+                colonistsToHighlight.Clear();
+            }
             return false;
         }
 
@@ -165,11 +191,11 @@ namespace ColonistBarKF.Bar
             List<EntryKF> entries = BarHelperKF.Entries;
             Vector2 size = FullSize;
             BarHelperKF.TmpColonistsWithMap.Clear();
-            for (int i = 0; i < drawLocs.Count; i++)
+            for (var i = 0; i < drawLocs.Count; i++)
             {
                 if (rect.Overlaps(new Rect(drawLocs[i].x, drawLocs[i].y, size.x, size.y)))
                 {
-                    Pawn pawn = entries[i].Pawn;
+                    Pawn pawn = entries[i].pawn;
                     if (pawn != null)
                     {
                         Thing first;
@@ -182,12 +208,12 @@ namespace ColonistBarKF.Bar
                             first = pawn;
                         }
 
-                        BarHelperKF.TmpColonistsWithMap.Add(new Pair<Thing, Map>(first, entries[i].Map));
+                        BarHelperKF.TmpColonistsWithMap.Add(new Pair<Thing, Map>(first, entries[i].map));
                     }
                 }
             }
 
-            bool flag = true;
+            var flag = true;
 
             if (WorldRendererUtility.WorldRenderedNow)
             {
@@ -207,7 +233,7 @@ namespace ColonistBarKF.Bar
             }
 
             BarHelperKF.TmpColonists.Clear();
-            for (int j = 0; j < BarHelperKF.TmpColonistsWithMap.Count; j++)
+            for (var j = 0; j < BarHelperKF.TmpColonistsWithMap.Count; j++)
             {
                 BarHelperKF.TmpColonists.Add(BarHelperKF.TmpColonistsWithMap[j].First);
             }
@@ -218,7 +244,7 @@ namespace ColonistBarKF.Bar
 
         public static float GetEntryRectAlpha(Rect rect)
         {
-            if (Messages.CollidesWithAnyMessage(rect, out float t))
+            if (Messages.CollidesWithAnyMessage(rect, out var t))
             {
                 return Mathf.Lerp(1f, 0.2f, t);
             }

@@ -16,8 +16,8 @@ namespace ColonistBarKF
     {
         static HarmonyPatches()
         {
-            bool   injected = false;
-            string patchLog = "Start injecting PSI to pawns ...";
+            var   injected = false;
+            var patchLog = "Start injecting PSI to pawns ...";
             foreach (ThingDef def in DefDatabase<ThingDef>.AllDefs.Where(
                                                                          x => x.race != null && x.race.Humanlike &&
                                                                               x.race.IsFlesh))
@@ -72,6 +72,11 @@ namespace ColonistBarKF
                           AccessTools.Method(typeof(ColonistBar), nameof(ColonistBar.MarkColonistsDirty)),
                           null,
                           new HarmonyMethod(typeof(HarmonyPatches), nameof(MarkColonistsDirty_Postfix)));
+          
+            harmony.Patch(
+                AccessTools.Method(typeof(ColonistBar), nameof(ColonistBar.Highlight)),
+                null,
+                new HarmonyMethod(typeof(ColonistBar_KF), nameof(ColonistBar_KF.Highlight)));
 
             harmony.Patch(
                           AccessTools.Method(typeof(Caravan), nameof(Caravan.Notify_PawnAdded)),
@@ -239,7 +244,7 @@ namespace ColonistBarKF
             }
 
             List<Pawn> list = ColonistBar_KF.CaravanMembersInScreenRect(rect);
-            for (int i = 0; i < list.Count; i++)
+            for (var i = 0; i < list.Count; i++)
             {
                 ColonistBar_KF.BarHelperKF.TmpCaravans.Add(list[i].GetCaravan());
             }
@@ -262,7 +267,7 @@ namespace ColonistBarKF
                 return false;
             }
 
-            Pawn  pawn = entry.Pawn;
+            Pawn  pawn = entry.pawn;
             Thing result;
             if (pawn != null && pawn.Dead && pawn.Corpse != null && pawn.Corpse.SpawnedOrAnyParentSpawned)
             {
@@ -306,11 +311,11 @@ namespace ColonistBarKF
         {
             List<EntryKF> entries = ColonistBar_KF.BarHelperKF.Entries;
             ColonistBar_KF.BarHelperKF.TmpColonistsInOrder.Clear();
-            for (int i = 0; i < entries.Count; i++)
+            for (var i = 0; i < entries.Count; i++)
             {
-                if (entries[i].Pawn != null)
+                if (entries[i].pawn != null)
                 {
-                    ColonistBar_KF.BarHelperKF.TmpColonistsInOrder.Add(entries[i].Pawn);
+                    ColonistBar_KF.BarHelperKF.TmpColonistsInOrder.Add(entries[i].pawn);
                 }
             }
 
@@ -344,7 +349,7 @@ namespace ColonistBarKF
             }
 
             List<Thing> list = ColonistBar_KF.ColonistsOrCorpsesInScreenRect(rect);
-            for (int i = 0; i < list.Count; i++)
+            for (var i = 0; i < list.Count; i++)
             {
                 if (list[i].Spawned)
                 {
@@ -413,7 +418,7 @@ namespace ColonistBarKF
         {
             FieldInfo pawnFieldInfo =
             typeof(Pawn_HealthTracker).GetField("pawn", BindingFlags.NonPublic | BindingFlags.Instance);
-            Pawn pawn = (Pawn) pawnFieldInfo?.GetValue(__instance);
+            var pawn = (Pawn) pawnFieldInfo?.GetValue(__instance);
 
             if (pawn?.Faction != null && pawn.Faction.IsPlayer && Current.ProgramState == ProgramState.Playing)
             {

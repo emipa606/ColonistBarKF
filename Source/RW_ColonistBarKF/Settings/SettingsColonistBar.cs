@@ -1,4 +1,8 @@
-﻿namespace ColonistBarKF
+﻿using JetBrains.Annotations;
+
+using Verse;
+
+namespace ColonistBarKF
 {
     public class SettingsColonistBar
     {
@@ -135,6 +139,8 @@
         public bool UseWeaponIcons = true;
 
         public bool useZoomToMouse = false;
+
+        public bool useFollowMMC = true;
 
         public bool useFollowMessage = true;
 

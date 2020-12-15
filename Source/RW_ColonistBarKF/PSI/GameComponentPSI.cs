@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Reflection;
 using JetBrains.Annotations;
 using RimWorld;
 using RimWorld.Planet;
@@ -91,7 +92,7 @@ namespace ColonistBarKF.PSI
                 return;
             }
 
-            if (this.hidePSIOnGUI)
+            if (hidePSIOnGUI)
             {
                 return;
 
@@ -108,13 +109,13 @@ namespace ColonistBarKF.PSI
                 return;
             }
 
-            this._viewRect = Find.CameraDriver.CurrentViewRect;
-            this._viewRect = this._viewRect.ExpandedBy(5);
+            _viewRect = Find.CameraDriver.CurrentViewRect;
+            _viewRect = _viewRect.ExpandedBy(5);
             Map map = Find.CurrentMap;
 
             foreach (Pawn pawn in map.mapPawns.AllPawnsSpawned)
             {
-                if (!this._viewRect.Contains(pawn.Position))
+                if (!_viewRect.Contains(pawn.Position))
                 {
                     continue;
                 }
@@ -179,7 +180,7 @@ namespace ColonistBarKF.PSI
         {
                 if (Input.GetKeyUp(KeyBindingDefOf.ToggleScreenshotMode.MainKey))
                 {
-                    this.hidePSIOnGUI  =!this.hidePSIOnGUI;
+                    hidePSIOnGUI  =!hidePSIOnGUI;
             }
 
             WorldScale = UI.screenHeight / (2f * Camera.current.orthographicSize);
@@ -192,7 +193,7 @@ namespace ColonistBarKF.PSI
                 return;
             }
 
-            int iconNum = 0;
+            var iconNum = 0;
             Vector3 bodyLoc = animal.DrawPos;
 
             if (animal.Faction?.IsPlayer == true)
@@ -201,7 +202,7 @@ namespace ColonistBarKF.PSI
                 {
                     if (animal.health?.hediffSet != null)
                     {
-                        float hediffSetBleedRateTotal = animal.health.hediffSet.BleedRateTotal;
+                        var hediffSetBleedRateTotal = animal.health.hediffSet.BleedRateTotal;
 
                         if (hediffSetBleedRateTotal > 0.01f)
                         {
@@ -216,7 +217,7 @@ namespace ColonistBarKF.PSI
 
                     if (animal.health?.summaryHealth != null)
                     {
-                        float summaryHealthSummaryHealthPercent = 1f - animal.health.summaryHealth.SummaryHealthPercent;
+                        var summaryHealthSummaryHealthPercent = 1f - animal.health.summaryHealth.SummaryHealthPercent;
                         if (summaryHealthSummaryHealthPercent > 0.01f)
                         {
                             PSIDrawer.DrawIconOnColonist(
@@ -258,9 +259,9 @@ namespace ColonistBarKF.PSI
             }
 
             SettingsPSI psiSettings = Settings.PSISettings;
-            float viewOpacity = psiSettings.IconOpacity;
+            var viewOpacity = psiSettings.IconOpacity;
 
-            int iconNum = 0;
+            var iconNum = 0;
 
             Vector3 bodyLoc = pawn.DrawPos;
 
@@ -312,7 +313,7 @@ namespace ColonistBarKF.PSI
             List<IconEntryPSI> drawIconEntries = pawnStats.PSIIconList;
             if (!drawIconEntries.NullOrEmpty())
             {
-                for (int index = 0; index < drawIconEntries.Count; index++)
+                for (var index = 0; index < drawIconEntries.Count; index++)
                 {
                     IconEntryPSI iconEntryBar = drawIconEntries[index];
                     PSIDrawer.DrawIconOnColonist(bodyLoc, iconEntryBar, index + iconNum);
@@ -342,12 +343,12 @@ namespace ColonistBarKF.PSI
             }
 
             // Log.Message("Has relation");
-            int iconNum = 0;
+            var iconNum = 0;
 
             // Pawn is no colonist, thus no further stat checks
             Vector3 bodyLoc = pawn.DrawPos;
             {
-                float hediffSetBleedRateTotal = pawn.health.hediffSet.BleedRateTotal;
+                var hediffSetBleedRateTotal = pawn.health.hediffSet.BleedRateTotal;
 
                 if (hediffSetBleedRateTotal > 0.01f)
                 {

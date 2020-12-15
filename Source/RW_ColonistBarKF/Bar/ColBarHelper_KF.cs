@@ -14,7 +14,7 @@ namespace ColonistBarKF.Bar
         #region Public Fields
 
         [NotNull]
-        private readonly List<Vector2> _cachedDrawLocs = new List<Vector2>();
+        private readonly List<Vector2> cachedDrawLocs = new List<Vector2>();
 
         [NotNull]
         public List<Pawn> TmpCaravanPawns = new List<Pawn>();
@@ -45,13 +45,13 @@ namespace ColonistBarKF.Bar
         #region Private Fields
 
         [NotNull]
-        private readonly List<EntryKF> _cachedEntries = new List<EntryKF>();
+        private readonly List<EntryKF> cachedEntries = new List<EntryKF>();
 
         [NotNull]
         private readonly List<Map> _tmpMaps = new List<Map>();
 
         [NotNull]
-        private List<Pawn> _tmpPawns = new List<Pawn>();
+        private List<Pawn> tmpPawns = new List<Pawn>();
 
 
         #endregion Private Fields
@@ -59,15 +59,15 @@ namespace ColonistBarKF.Bar
         #region Public Properties
 
         [NotNull]
-        public List<Vector2> DrawLocs => this._cachedDrawLocs;
+        public List<Vector2> DrawLocs => cachedDrawLocs;
 
         [NotNull]
         public List<EntryKF> Entries
         {
             get
             {
-                this.CheckRecacheEntries();
-                return this._cachedEntries;
+                CheckRecacheEntries();
+                return cachedEntries;
             }
         }
 
@@ -75,29 +75,119 @@ namespace ColonistBarKF.Bar
 
         #region Public Methods
 
-        public bool AnyBarEntryAt(Vector2 pos)
+        public bool AnyColonistOrCorpseAt(Vector2 pos)
         {
-            if (!this.TryGetEntryAt(pos, out EntryKF entry))
+            if (!TryGetEntryAt(pos, out EntryKF entry))
             {
                 return false;
             }
+            return entry.pawn != null;
+        }
 
-            return entry.GroupCount > 0;
+        public void DrawColonistMouseAttachment(int index, Vector2 dragStartPos, int entryGroup)
+        {
+            Pawn pawn = null;
+            Vector2 vector = default;
+            var num = 0;
+            for (var i = 0; i < cachedEntries.Count; i++)
+            {
+                if (cachedEntries[i].group == entryGroup && cachedEntries[i].pawn != null)
+                {
+                    if (num == index)
+                    {
+                        pawn = cachedEntries[i].pawn;
+                        vector = cachedDrawLocs[i];
+                        break;
+                    }
+                    num++;
+                }
+            }
+            if (pawn != null)
+            {
+                RenderTexture iconTex = PortraitsCache.Get(pawn, ColonistBarColonistDrawer.PawnTextureSize, ColonistBarColonistDrawer.PawnTextureCameraOffset, 1.28205f);
+                var rect = new Rect(vector.x, vector.y, ColonistBar_KF.FullSize.x, ColonistBar_KF.FullSize.y);
+                Rect pawnTextureRect = ColonistBar_KF.Drawer.GetPawnTextureRect(rect.position);
+                pawnTextureRect.position += Event.current.mousePosition - dragStartPos;
+                GenUI.DrawMouseAttachment(iconTex, "", 0f, default, pawnTextureRect);
+            }
+        }
+
+
+    public void Reorder(int from, int to, int entryGroup)
+        {
+            var num = 0;
+            Pawn pawn = null;
+            Pawn pawn2 = null;
+            Pawn pawn3 = null;
+            for (var i = 0; i < cachedEntries.Count; i++)
+            {
+                if (cachedEntries[i].@group == entryGroup && cachedEntries[i].pawn != null)
+                {
+                    if (num == @from)
+                    {
+                        pawn = cachedEntries[i].pawn;
+                    }
+                    if (num == to)
+                    {
+                        pawn2 = cachedEntries[i].pawn;
+                    }
+                    pawn3 = cachedEntries[i].pawn;
+                    num++;
+                }
+            }
+            if (pawn == null)
+            {
+                return;
+            }
+            var num2 = pawn2?.playerSettings.displayOrder ?? (pawn3.playerSettings.displayOrder + 1);
+            for (var j = 0; j < cachedEntries.Count; j++)
+            {
+                Pawn pawn4 = cachedEntries[j].pawn;
+                if (pawn4 == null)
+                {
+                    continue;
+                }
+                if (pawn4.playerSettings.displayOrder == num2)
+                {
+                    if (pawn2 != null && cachedEntries[j].@group == entryGroup)
+                    {
+                        if (pawn4.thingIDNumber < pawn2.thingIDNumber)
+                        {
+                            pawn4.playerSettings.displayOrder--;
+                        }
+                        else
+                        {
+                            pawn4.playerSettings.displayOrder++;
+                        }
+                    }
+                }
+                else if (pawn4.playerSettings.displayOrder > num2)
+                {
+                    pawn4.playerSettings.displayOrder++;
+                }
+                else
+                {
+                    pawn4.playerSettings.displayOrder--;
+                }
+            }
+            pawn.playerSettings.displayOrder = num2;
+            HarmonyPatches.MarkColonistsDirty_Postfix();
+            MainTabWindowUtility.NotifyAllPawnTables_PawnsChanged();
         }
 
         public void ExposeData()
         {
-            Scribe_Values.Look(ref this.DisplayGroupForBar, "displayGroupForBar");
+            Scribe_Values.Look(ref DisplayGroupForBar, "displayGroupForBar");
         }
 
         public bool TryGetEntryAt(Vector2 pos, out EntryKF entry)
         {
-            List<Vector2> drawLocs = this._cachedDrawLocs;
-            List<EntryKF> entries = this.Entries;
+            List<Vector2> drawLocs = cachedDrawLocs;
+            List<EntryKF> entries = Entries;
             Vector2 size = ColonistBar_KF.FullSize;
-            for (int i = 0; i < drawLocs.Count; i++)
+            for (var i = 0; i < drawLocs.Count; i++)
             {
-                Rect rect = new Rect(drawLocs[i].x, drawLocs[i].y, size.x, size.y);
+                var rect = new Rect(drawLocs[i].x, drawLocs[i].y, size.x, size.y);
                 if (rect.Contains(pos))
                 {
                     entry = entries[i];
@@ -113,7 +203,7 @@ namespace ColonistBarKF.Bar
 
         #region Private Methods
 
-        private static void SortCachedColonists([NotNull] ref List<Pawn> tmpColonists)
+        private static void SortCachedColonists([NotNull]ref List<Pawn>  tmpColonists)
         {
             List<Pawn> sort;
             List<Pawn> others;
@@ -121,12 +211,6 @@ namespace ColonistBarKF.Bar
             List<Pawn> orderedEnumerable;
             switch (Settings.BarSettings.SortBy)
             {
-                case SettingsColonistBar.SortByWhat.vanilla:
-                    {
-                        tmpColonists.SortBy(x => x.thingIDNumber);
-                        break;
-                    }
-
                 case SettingsColonistBar.SortByWhat.byName:
                     {
                         tmpColonists.SortBy(x => x.LabelCap);
@@ -273,11 +357,11 @@ namespace ColonistBarKF.Bar
         {
             get
             {
-                List<EntryKF> entries = this.Entries;
-                int num = -1;
-                for (int i = 0; i < entries.Count; i++)
+                List<EntryKF> entries = Entries;
+                var num = -1;
+                for (var i = 0; i < entries.Count; i++)
                 {
-                    num = Mathf.Max(num, entries[i].Group);
+                    num = Mathf.Max(num, entries[i].@group);
                 }
 
                 return num >= 1;
@@ -285,23 +369,23 @@ namespace ColonistBarKF.Bar
         }
         private void CheckRecacheEntries()
         {
-            if (!this.EntriesDirty)
+            if (!EntriesDirty)
             {
                 return;
             }
 
-            this.EntriesDirty = false;
-            this._cachedEntries.Clear();
+            EntriesDirty = false;
+            cachedEntries.Clear();
             if (Find.PlaySettings.showColonistBar)
             {
-                this._tmpMaps.Clear();
-                this._tmpMaps.AddRange(Find.Maps);
-                this._tmpMaps.SortBy(x => !x.IsPlayerHome, x => x.uniqueID);
-                int groupInt = 0;
-                foreach (Map tempMap in this._tmpMaps)
+                _tmpMaps.Clear();
+                _tmpMaps.AddRange(Find.Maps);
+                _tmpMaps.SortBy(x => !x.IsPlayerHome, x => x.uniqueID);
+                var groupInt = 0;
+                foreach (Map tempMap in _tmpMaps)
                 {
-                    this._tmpPawns.Clear();
-                    this._tmpPawns.AddRange(tempMap.mapPawns.FreeColonists);
+                    tmpPawns.Clear();
+                    tmpPawns.AddRange(tempMap.mapPawns.FreeColonists);
                     List<Thing> list = tempMap.listerThings.ThingsInGroup(ThingRequestGroup.Corpse);
                     foreach (Thing thing in list)
                     {
@@ -317,7 +401,7 @@ namespace ColonistBarKF.Bar
                         }
                         if (innerPawn.IsColonist)
                         {
-                            this._tmpPawns.Add(innerPawn);
+                            tmpPawns.Add(innerPawn);
                         }
                     }
 
@@ -326,62 +410,76 @@ namespace ColonistBarKF.Bar
                                              .Select(spawnedPawn => spawnedPawn.carryTracker.CarriedThing as Corpse).Where(
                                                                                                                            corpse => corpse != null && !corpse.IsDessicated() && corpse.InnerPawn.IsColonist))
                     {
-                        this._tmpPawns.Add(corpse.InnerPawn);
+                        tmpPawns.Add(corpse.InnerPawn);
                     }
 
                     // tmpPawns.SortBy((Pawn x) => x.thingIDNumber);
-                    SortCachedColonists(ref this._tmpPawns);
-                    foreach (Pawn tempPawn in this._tmpPawns)
+                    if (Settings.BarSettings.SortBy == SettingsColonistBar.SortByWhat.vanilla)
                     {
-                        this._cachedEntries.Add(new EntryKF(tempPawn, tempMap, groupInt, this._tmpPawns.Count));
+                        PlayerPawnsDisplayOrderUtility.Sort(tmpPawns);
+                    }
+                    else
+                    {
+                        SortCachedColonists(ref tmpPawns);
+                    }
+                    foreach (Pawn tempPawn in tmpPawns)
+                    {
+                        cachedEntries.Add(new EntryKF(tempPawn, tempMap, groupInt, tmpPawns.Count));
 
-                        if (Settings.BarSettings.UseGrouping && groupInt != this.DisplayGroupForBar)
+                        if (Settings.BarSettings.UseGrouping && groupInt != DisplayGroupForBar)
                         {
-                            if (this._cachedEntries.FindAll(x => x.Group == groupInt).Count > 2)
+                            if (cachedEntries.FindAll(x => x.@group == groupInt).Count > 2)
                             {
-                                this._cachedEntries.Add(new EntryKF(null, tempMap, groupInt, this._tmpPawns.Count));
+                                cachedEntries.Add(new EntryKF(null, tempMap, groupInt, tmpPawns.Count));
                                 break;
                             }
                         }
                     }
 
-                    if (!this._tmpPawns.Any())
+                    if (!tmpPawns.Any())
                     {
-                        this._cachedEntries.Add(new EntryKF(null, tempMap, groupInt, 0));
+                        cachedEntries.Add(new EntryKF(null, tempMap, groupInt, 0));
                     }
 
                     groupInt++;
                 }
 
-                this.TmpCaravans.Clear();
-                this.TmpCaravans.AddRange(Find.WorldObjects.Caravans);
-                this.TmpCaravans.SortBy(x => x.ID);
-                foreach (Caravan caravan in this.TmpCaravans.Where(caravan => caravan.IsPlayerControlled))
+                TmpCaravans.Clear();
+                TmpCaravans.AddRange(Find.WorldObjects.Caravans);
+                TmpCaravans.SortBy(x => x.ID);
+                foreach (Caravan caravan in TmpCaravans.Where(caravan => caravan.IsPlayerControlled))
                 {
-                    this._tmpPawns.Clear();
-                    this._tmpPawns.AddRange(caravan.PawnsListForReading);
+                    tmpPawns.Clear();
+                    tmpPawns.AddRange(caravan.PawnsListForReading);
 
                     // tmpPawns.SortBy((Pawn x) => x.thingIDNumber);
-                    SortCachedColonists(ref this._tmpPawns);
-                    foreach (Pawn tempPawn in this._tmpPawns.Where(tempPawn => tempPawn.IsColonist))
+                    if (Settings.BarSettings.SortBy == SettingsColonistBar.SortByWhat.vanilla)
                     {
-                        this._cachedEntries.Add(
+                        PlayerPawnsDisplayOrderUtility.Sort(tmpPawns);
+                    }
+                    else
+                    {
+                        SortCachedColonists(ref tmpPawns);
+                    }
+                    foreach (Pawn tempPawn in tmpPawns.Where(tempPawn => tempPawn.IsColonist))
+                    {
+                        cachedEntries.Add(
                             new EntryKF(
                                 tempPawn,
                                 null,
                                 groupInt,
-                                this._tmpPawns.FindAll(x => x.IsColonist).Count));
+                                tmpPawns.FindAll(x => x.IsColonist).Count));
 
-                        if (Settings.BarSettings.UseGrouping && groupInt != this.DisplayGroupForBar)
+                        if (Settings.BarSettings.UseGrouping && groupInt != DisplayGroupForBar)
                         {
-                            if (this._cachedEntries.FindAll(x => x.Group == groupInt).Count > 2)
+                            if (cachedEntries.FindAll(x => x.@group == groupInt).Count > 2)
                             {
-                                this._cachedEntries.Add(
+                                cachedEntries.Add(
                                     new EntryKF(
                                         null,
                                         null,
                                         groupInt,
-                                        this._tmpPawns.FindAll(x => x.IsColonist).Count));
+                                        tmpPawns.FindAll(x => x.IsColonist).Count));
                                 break;
                             }
                         }
@@ -393,10 +491,10 @@ namespace ColonistBarKF.Bar
 
             // RecacheDrawLocs();
             ColonistBar_KF.Drawer.Notify_RecachedEntries();
-            this._tmpPawns.Clear();
-            this._tmpMaps.Clear();
-            this.TmpCaravans.Clear();
-            ColonistBar_KF.DrawLocsFinder.CalculateDrawLocs(this._cachedDrawLocs, out this.CachedScale);
+            tmpPawns.Clear();
+            _tmpMaps.Clear();
+            TmpCaravans.Clear();
+            ColonistBar_KF.DrawLocsFinder.CalculateDrawLocs(cachedDrawLocs, out CachedScale);
         }
 
         #endregion Private Methods

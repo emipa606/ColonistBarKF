@@ -13,22 +13,20 @@ namespace KillfaceTools.FMO
         public FloatMenuNested([NotNull] List<FloatMenuOption> options, [CanBeNull] string label)
             : base(options, label)
         {
-            this.givesColonistOrders = true;
-            this.vanishIfMouseDistant = true;
-            this.closeOnClickedOutside = true;
+            givesColonistOrders = true;
+            vanishIfMouseDistant = true;
+            closeOnClickedOutside = true;
         }
 
         public override void DoWindowContents(Rect rect)
         {
-            this.options.ForEach(
+            options.ForEach(
                 o =>
-                    {
                         // FloatMenuOptionSorting option = o as FloatMenuOptionSorting;
                         // option.Label = PathInfo.GetJobReport(option.sortBy);
-                        o.SetSizeMode(FloatMenuSizeMode.Normal);
-                    });
-            this.windowRect = new Rect(this.windowRect.x, this.windowRect.y, this.InitialSize.x, this.InitialSize.y);
-            base.DoWindowContents(this.windowRect);
+                        o.SetSizeMode(FloatMenuSizeMode.Normal));
+            windowRect = new Rect(windowRect.x, windowRect.y, InitialSize.x, InitialSize.y);
+            base.DoWindowContents(windowRect);
         }
 
         public override void PostClose()
