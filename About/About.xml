@@ -65,14 +65,15 @@ Spanish – thx to Ninnetyer
 [h1]License[/h1] 
 All textures ©Killface. Please don't repost without asking.
 
-[h1]External Download[/h1] 
-https://github.com/Killface1980/RW_ColonistBarKF/releases
-
-[h1]Donations[/h1]
-If you like my mods and consider buying me a drink or a nice little meal, don't hesitate!
-[url=https://paypal.me/Killface][img]https://i.imgur.com/428WESu.png[/img] [/url]
-
-[h1]Personal Note[/h1]
-As people started asking me if I could buy/gift them RimWorld – no way! 
-Get your own copy and leave me alone.</description>
+[img]https://i.imgur.com/Rs6T6cr.png[/img]
+[list]
+[*] See if the the error persists if you just have this mod and its requirements active.
+[*] If not, try adding your other mods until it happens again.
+[*] Post your error-log using [url=https://steamcommunity.com/workshop/filedetails/?id=818773962]HugsLib[/url] and command Ctrl+F12
+[*] For best support, please use the Discord-channel for error-reporting.
+[*] Do not report errors by making a discussion-thread, I get no notification of that.
+[*] If you have the solution for a problem, please post it to the GitHub repository.
+[/list]
+</description>
 </ModMetaData>
+
