@@ -1259,8 +1259,8 @@ namespace ColonistBarKF.Bar
             GUI.color = faction.Color;
             var rect2 = rect.ContractedBy(rect.width / 3);
 
-            rect2.x = rect.xMin + (rect.width / 12);
-            rect2.y = rect.yMax - rect2.height - (rect.height / 12);
+            rect2.x = rect.xMax - rect2.width - (rect.width / 12);
+            rect2.y = rect.yMin + (rect.height / 12);
 
             GUI.DrawTexture(
                 rect2,

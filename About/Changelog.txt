@@ -1,5 +1,8 @@
 # Changelog for ColonistBarKF
 
+1.0.5.0 - The extra faction icon was under the sleeping Z, moved to top right corner instead
+
+
 1.0.4.0 - Extra faction-icons should now be shown correctly
 
 
