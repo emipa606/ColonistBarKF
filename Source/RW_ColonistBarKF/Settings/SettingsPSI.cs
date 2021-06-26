@@ -19,8 +19,7 @@ namespace ColonistBarKF
 
         public float IconOpacityCritical = 0.6f;
 
-        [NotNull]
-        public string IconSet = "default";
+        [NotNull] public string IconSet = "default";
 
         public bool IconsHorizontal;
 
@@ -126,6 +125,5 @@ namespace ColonistBarKF
         public bool UsePSIOnAnimals = true;
 
         public bool UsePSIOnPrisoner = true;
-
     }
 }

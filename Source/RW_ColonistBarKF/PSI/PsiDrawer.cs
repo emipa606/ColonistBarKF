@@ -8,12 +8,11 @@ namespace ColonistBarKF.PSI
 {
     public static class PSIDrawer
     {
-        [NotNull]
-        public static Vector3[] IconPosVectorsPSI;
+        [NotNull] public static Vector3[] IconPosVectorsPSI;
 
         public static void RecalcIconPositionsPSI()
         {
-            SettingsPSI psiSettings = Settings.PSISettings;
+            var psiSettings = Settings.PSISettings;
 
             // _iconPosVectors = new Vector3[18];
             IconPosVectorsPSI = new Vector3[40];
@@ -28,14 +27,14 @@ namespace ColonistBarKF.PSI
                     num2 = num3;
                 }
 
-                var y = Altitudes.AltitudeFor(AltitudeLayer.MetaOverlays);
+                var y = AltitudeLayer.MetaOverlays.AltitudeFor();
 
                 IconPosVectorsPSI[index] = new Vector3(
-                    (float)((-0.600000023841858 * psiSettings.IconMarginX) - (0.550000011920929 * psiSettings.IconSize
-                            * psiSettings.IconOffsetX * num1)),
+                    (float) ((-0.600000023841858 * psiSettings.IconMarginX) - (0.550000011920929 * psiSettings.IconSize
+                        * psiSettings.IconOffsetX * num1)),
                     y,
-                    (float)((-0.600000023841858 * psiSettings.IconMarginY) + (0.550000011920929 * psiSettings.IconSize
-                            * psiSettings.IconOffsetY * num2)));
+                    (float) ((-0.600000023841858 * psiSettings.IconMarginY) + (0.550000011920929 * psiSettings.IconSize
+                        * psiSettings.IconOffsetY * num2)));
             }
         }
 
@@ -48,7 +47,7 @@ namespace ColonistBarKF.PSI
         {
             color.a = opacity;
             material.color = color;
-            Color guiColor = GUI.color;
+            var guiColor = GUI.color;
             GUI.color = color;
             Vector2 vectorAtBody;
 
@@ -81,8 +80,6 @@ namespace ColonistBarKF.PSI
         }
 
 
-
-
         public static void DrawIconOnColonist(Vector3 bodyPos, IconEntryPSI entryPSI, int entryCount)
         {
             if (WorldRendererUtility.WorldRenderedNow)
@@ -90,18 +87,18 @@ namespace ColonistBarKF.PSI
                 return;
             }
 
-            Material material = PSIMaterials[entryPSI.Icon];
+            var material = PSIMaterials[entryPSI.Icon];
             if (material == null)
             {
                 Debug.LogError("Material = null.");
                 return;
             }
 
-            Vector3 posOffset = IconPosVectorsPSI[entryCount];
+            var posOffset = IconPosVectorsPSI[entryCount];
 
             entryPSI.Color.a = entryPSI.Opacity;
             material.color = entryPSI.Color;
-            Color guiColor = GUI.color;
+            var guiColor = GUI.color;
             GUI.color = entryPSI.Color;
             Vector2 vectorAtBody;
 
@@ -140,7 +137,7 @@ namespace ColonistBarKF.PSI
                 return;
             }
 
-            Material material = PSIMaterials[icon];
+            var material = PSIMaterials[icon];
             if (material == null)
             {
                 // Debug.LogError("Material = null.");

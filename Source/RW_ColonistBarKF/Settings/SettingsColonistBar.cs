@@ -1,11 +1,38 @@
-﻿using JetBrains.Annotations;
-
-using Verse;
-
-namespace ColonistBarKF
+﻿namespace ColonistBarKF
 {
     public class SettingsColonistBar
     {
+        public enum SortByWhat
+        {
+            vanilla = -1,
+
+            sexage,
+
+            health,
+
+            bleedRate,
+
+            mood,
+
+            weapons,
+
+            medicTendQuality,
+
+            // medic,
+            medicSurgerySuccess,
+
+            byName,
+
+            diplomacy,
+            tradePrice,
+
+            shootingAccuracy,
+
+            shootingSkill,
+
+            moveSpeed
+        }
+
         public float BaseIconSize = 48f;
 
         public float BaseSpacingHorizontal = 24f;
@@ -28,9 +55,9 @@ namespace ColonistBarKF
         // public float LimitMoodLess = 0.25f;
         public float MarginHorizontal = 520f;
 
-        public float MarginVertical = 220f;
-
         public float MarginTop = 21f;
+
+        public float MarginVertical = 220f;
 
         public int MaxRowsCustom = 3;
 
@@ -126,6 +153,10 @@ namespace ColonistBarKF
 
         public bool UseExternalMoodBar = true;
 
+        public bool useFollowMessage = true;
+
+        public bool useFollowMMC = true;
+
         public bool UseGender = true;
 
         public bool UseGroupColors = true;
@@ -140,42 +171,6 @@ namespace ColonistBarKF
 
         public bool useZoomToMouse = false;
 
-        public bool useFollowMMC = true;
-
-        public bool useFollowMessage = true;
-
         public float VerticalOffset = 0f;
-
-        public enum SortByWhat
-        {
-            vanilla = -1,
-
-            sexage,
-
-            health,
-
-            bleedRate,
-
-            mood,
-
-            weapons,
-
-            medicTendQuality,
-
-            // medic,
-            medicSurgerySuccess,
-
-            byName,
-
-            diplomacy,
-            tradePrice,
-
-            shootingAccuracy,
-
-            shootingSkill,
-
-            moveSpeed,
-
-        }
     }
 }

@@ -7,11 +7,11 @@ namespace ColonistBarKF.Fluffy
     public class ZoomToMouse : GameComponent
     {
         // backing private fields / properties
-        private const BindingFlags AllFlags = (BindingFlags)60;
+        private const BindingFlags AllFlags = (BindingFlags) 60;
 
         // ReSharper disable once InconsistentNaming
         private readonly MethodInfo _curPos = typeof(CameraDriver).GetProperty("CurrentRealPosition", AllFlags)
-                                                                 ?.GetGetMethod(true);
+            ?.GetGetMethod(true);
 
         // ReSharper disable once InconsistentNaming
         private readonly FieldInfo _curSizeFi = typeof(CameraDriver).GetField("rootSize", AllFlags);

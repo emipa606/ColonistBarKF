@@ -7,11 +7,9 @@ namespace ColonistBarKF
 {
     public static class Settings
     {
-        [NotNull]
-        public static SettingsColonistBar BarSettings = new SettingsColonistBar();
+        [NotNull] public static SettingsColonistBar BarSettings = new SettingsColonistBar();
 
-        [NotNull]
-        public static SettingsPSI PSISettings = new SettingsPSI();
+        [NotNull] public static SettingsPSI PSISettings = new SettingsPSI();
 
         public static float ViewOpacityCrit => Mathf.Max(PSISettings.IconOpacityCritical, PSISettings.IconOpacity);
 
@@ -31,7 +29,7 @@ namespace ColonistBarKF
         internal static SettingsColonistBar LoadBarSettings([NotNull] string path = "ColonistBar_KF.xml")
         {
             var configFolder = Path.GetDirectoryName(GenFilePaths.ModsConfigFilePath);
-            SettingsColonistBar __result =
+            var __result =
                 DirectXmlLoader.ItemFromXmlFile<SettingsColonistBar>(configFolder + "/" + path);
             return __result;
         }
@@ -40,7 +38,7 @@ namespace ColonistBarKF
         internal static SettingsPSI LoadPSISettings([NotNull] string path = "ColonistBar_PSIKF.xml")
         {
             var configFolder = Path.GetDirectoryName(GenFilePaths.ModsConfigFilePath);
-            SettingsPSI __result = DirectXmlLoader.ItemFromXmlFile<SettingsPSI>(configFolder + "/" + path);
+            var __result = DirectXmlLoader.ItemFromXmlFile<SettingsPSI>(configFolder + "/" + path);
             return __result;
         }
     }

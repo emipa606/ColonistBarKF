@@ -16,122 +16,118 @@ namespace ColonistBarKF
     {
         static HarmonyPatches()
         {
-            var   injected = false;
+            var injected = false;
             var patchLog = "Start injecting PSI to pawns ...";
-            foreach (ThingDef def in DefDatabase<ThingDef>.AllDefs.Where(
-                                                                         x => x.race != null && x.race.Humanlike &&
-                                                                              x.race.IsFlesh))
+            foreach (var def in DefDatabase<ThingDef>.AllDefs.Where(
+                x => x.race != null && x.race.Humanlike &&
+                     x.race.IsFlesh))
             {
                 patchLog += "\nPSI check: " + def;
-                if (def?.comps != null)
+                if (def.comps == null)
                 {
-                    def.comps.Add(new CompProperties(typeof(CompPSI)));
-                    patchLog += " - PSI injected.";
-                    injected =  true;
+                    continue;
                 }
+
+                def.comps.Add(new CompProperties(typeof(CompPSI)));
+                patchLog += " - PSI injected.";
+                injected = true;
             }
 
             patchLog += injected ? string.Empty : "\nNo pawns found for PSI :(";
             Log.Message(patchLog);
 
-            var harmony = new HarmonyLib.Harmony("com.colonistbarkf.rimworld.mod");
+            var harmony = new Harmony("com.colonistbarkf.rimworld.mod");
 
             harmony.Patch(
-                          AccessTools.Method(typeof(ColonistBar), nameof(ColonistBar.ColonistBarOnGUI)),
-                          new HarmonyMethod(typeof(ColonistBar_KF), nameof(ColonistBar_KF.ColonistBarOnGUI_Prefix)),
-                          null);
+                AccessTools.Method(typeof(ColonistBar), nameof(ColonistBar.ColonistBarOnGUI)),
+                new HarmonyMethod(typeof(ColonistBar_KF), nameof(ColonistBar_KF.ColonistBarOnGUI_Prefix)));
 
             harmony.Patch(
-                          AccessTools.Method(typeof(ColonistBar),
-                                             nameof(ColonistBar.MapColonistsOrCorpsesInScreenRect)),
-                          new HarmonyMethod(typeof(HarmonyPatches), nameof(MapColonistsOrCorpsesInScreenRect_Prefix)),
-                          null);
+                AccessTools.Method(typeof(ColonistBar),
+                    nameof(ColonistBar.MapColonistsOrCorpsesInScreenRect)),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(MapColonistsOrCorpsesInScreenRect_Prefix)));
 
             harmony.Patch(
-                          AccessTools.Method(typeof(ColonistBar),
-                                             nameof(ColonistBar.CaravanMembersCaravansInScreenRect)),
-                          new HarmonyMethod(typeof(HarmonyPatches), nameof(CaravanMembersCaravansInScreenRect_Prefix)),
-                          null);
+                AccessTools.Method(typeof(ColonistBar),
+                    nameof(ColonistBar.CaravanMembersCaravansInScreenRect)),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(CaravanMembersCaravansInScreenRect_Prefix)));
 
             harmony.Patch(
-                          AccessTools.Method(typeof(ColonistBar), nameof(ColonistBar.ColonistOrCorpseAt)),
-                          new HarmonyMethod(typeof(HarmonyPatches), nameof(ColonistOrCorpseAt_Prefix)),
-                          null);
+                AccessTools.Method(typeof(ColonistBar), nameof(ColonistBar.ColonistOrCorpseAt)),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(ColonistOrCorpseAt_Prefix)));
 
             harmony.Patch(
-                          AccessTools.Method(typeof(ColonistBar), nameof(ColonistBar.CaravanMemberCaravanAt)),
-                          new HarmonyMethod(typeof(HarmonyPatches), nameof(CaravanMemberCaravanAt_Prefix)),
-                          null);
+                AccessTools.Method(typeof(ColonistBar), nameof(ColonistBar.CaravanMemberCaravanAt)),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(CaravanMemberCaravanAt_Prefix)));
 
             harmony.Patch(
-                          AccessTools.Method(typeof(ColonistBar), nameof(ColonistBar.GetColonistsInOrder)),
-                          new HarmonyMethod(typeof(HarmonyPatches), nameof(GetColonistsInOrder_Prefix)),
-                          null);
+                AccessTools.Method(typeof(ColonistBar), nameof(ColonistBar.GetColonistsInOrder)),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(GetColonistsInOrder_Prefix)));
 
             harmony.Patch(
-                          AccessTools.Method(typeof(ColonistBar), nameof(ColonistBar.MarkColonistsDirty)),
-                          null,
-                          new HarmonyMethod(typeof(HarmonyPatches), nameof(MarkColonistsDirty_Postfix)));
-          
+                AccessTools.Method(typeof(ColonistBar), nameof(ColonistBar.MarkColonistsDirty)),
+                null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(MarkColonistsDirty_Postfix)));
+
             harmony.Patch(
                 AccessTools.Method(typeof(ColonistBar), nameof(ColonistBar.Highlight)),
                 null,
                 new HarmonyMethod(typeof(ColonistBar_KF), nameof(ColonistBar_KF.Highlight)));
 
             harmony.Patch(
-                          AccessTools.Method(typeof(Caravan), nameof(Caravan.Notify_PawnAdded)),
-                          null,
-                          new HarmonyMethod(typeof(HarmonyPatches), nameof(EntriesDirty_Postfix)));
+                AccessTools.Method(typeof(Caravan), nameof(Caravan.Notify_PawnAdded)),
+                null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(EntriesDirty_Postfix)));
 
             harmony.Patch(
-                          AccessTools.Method(typeof(Caravan), nameof(Caravan.Notify_PawnRemoved)),
-                          null,
-                          new HarmonyMethod(typeof(HarmonyPatches), nameof(EntriesDirty_Postfix)));
+                AccessTools.Method(typeof(Caravan), nameof(Caravan.Notify_PawnRemoved)),
+                null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(EntriesDirty_Postfix)));
 
             harmony.Patch(
-                          AccessTools.Method(typeof(Caravan), nameof(Caravan.PostAdd)),
-                          null,
-                          new HarmonyMethod(typeof(HarmonyPatches), nameof(EntriesDirty_Postfix)));
+                AccessTools.Method(typeof(Caravan), nameof(Caravan.PostAdd)),
+                null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(EntriesDirty_Postfix)));
 
             harmony.Patch(
-                          AccessTools.Method(typeof(Caravan), nameof(Caravan.PostRemove)),
-                          null,
-                          new HarmonyMethod(typeof(HarmonyPatches), nameof(EntriesDirty_Postfix)));
+                AccessTools.Method(typeof(Caravan), nameof(Caravan.PostRemove)),
+                null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(EntriesDirty_Postfix)));
 
             harmony.Patch(
-                          AccessTools.Method(typeof(Game), nameof(Game.AddMap)),
-                          null,
-                          new HarmonyMethod(typeof(HarmonyPatches), nameof(EntriesDirty_Postfix)));
+                AccessTools.Method(typeof(Game), nameof(Game.AddMap)),
+                null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(EntriesDirty_Postfix)));
 
             harmony.Patch(
-                          AccessTools.Method(typeof(Window), nameof(Window.Notify_ResolutionChanged)),
-                          null,
-                          new HarmonyMethod(typeof(HarmonyPatches), nameof(IsPlayingDirty_Postfix)));
+                AccessTools.Method(typeof(Window), nameof(Window.Notify_ResolutionChanged)),
+                null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(IsPlayingDirty_Postfix)));
 
             harmony.Patch(
-                          AccessTools.Method(typeof(Game), nameof(Game.DeinitAndRemoveMap)),
-                          null,
-                          new HarmonyMethod(typeof(HarmonyPatches), nameof(IsPlayingDirty_Postfix)));
+                AccessTools.Method(typeof(Game), nameof(Game.DeinitAndRemoveMap)),
+                null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(IsPlayingDirty_Postfix)));
 
             harmony.Patch(
-                          AccessTools.Method(typeof(Pawn), nameof(Pawn.SetFaction)),
-                          null,
-                          new HarmonyMethod(typeof(HarmonyPatches), nameof(EntriesDirty_Postfix)));
+                AccessTools.Method(typeof(Pawn), nameof(Pawn.SetFaction)),
+                null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(EntriesDirty_Postfix)));
 
             harmony.Patch(
-                          AccessTools.Method(typeof(Pawn), nameof(Pawn.SpawnSetup)),
-                          null,
-                          new HarmonyMethod(typeof(HarmonyPatches), nameof(Pawn_SpawnSetup_Postfix)));
+                AccessTools.Method(typeof(Pawn), nameof(Pawn.SpawnSetup)),
+                null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Pawn_SpawnSetup_Postfix)));
 
             harmony.Patch(
-                          AccessTools.Method(typeof(Pawn), nameof(Pawn.Kill)),
-                          null,
-                          new HarmonyMethod(typeof(HarmonyPatches), nameof(Pawn_Kill_Postfix)));
+                AccessTools.Method(typeof(Pawn), nameof(Pawn.Kill)),
+                null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Pawn_Kill_Postfix)));
 
             harmony.Patch(
-                          AccessTools.Method(typeof(Pawn_HealthTracker), nameof(Pawn_HealthTracker.Notify_Resurrected)),
-                          null,
-                          new HarmonyMethod(typeof(HarmonyPatches), nameof(Pawn_Resurrected_Postfix)));
+                AccessTools.Method(typeof(Pawn_HealthTracker), nameof(Pawn_HealthTracker.Notify_Resurrected)),
+                null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Pawn_Resurrected_Postfix)));
 
             // NOT WORKING, FollowMe immediatly cancels if this is active
             // harmony.Patch(
@@ -139,70 +135,66 @@ namespace ColonistBarKF
             // new HarmonyMethod(typeof(HarmonyPatches), nameof(StopFollow_Prefix)),
             // null);
             harmony.Patch(
-                          AccessTools.Method(
-                                             typeof(WorldCameraDriver),
-                                             nameof(WorldCameraDriver.JumpTo),
-                                             new[] {typeof(Vector3)}),
-                          new HarmonyMethod(typeof(HarmonyPatches), nameof(StopFollow_Prefix)),
-                          null);
+                AccessTools.Method(
+                    typeof(WorldCameraDriver),
+                    nameof(WorldCameraDriver.JumpTo),
+                    new[] {typeof(Vector3)}),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(StopFollow_Prefix)));
 
             harmony.Patch(
-                          AccessTools.Method(
-                                             typeof(ThingSelectionUtility),
-                                             nameof(ThingSelectionUtility.SelectNextColonist)),
-                          new HarmonyMethod(typeof(HarmonyPatches), nameof(StartFollowSelectedColonist1)),
-                          new HarmonyMethod(typeof(HarmonyPatches), nameof(StartFollowSelectedColonist2)),
-                          null);
+                AccessTools.Method(
+                    typeof(ThingSelectionUtility),
+                    nameof(ThingSelectionUtility.SelectNextColonist)),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(StartFollowSelectedColonist1)),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(StartFollowSelectedColonist2)));
 
             harmony.Patch(
-                          AccessTools.Method(
-                                             typeof(ThingSelectionUtility),
-                                             nameof(ThingSelectionUtility.SelectPreviousColonist)),
-                          new HarmonyMethod(typeof(HarmonyPatches), nameof(StartFollowSelectedColonist1)),
-                          new HarmonyMethod(typeof(HarmonyPatches), nameof(StartFollowSelectedColonist2)),
-                          null);
+                AccessTools.Method(
+                    typeof(ThingSelectionUtility),
+                    nameof(ThingSelectionUtility.SelectPreviousColonist)),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(StartFollowSelectedColonist1)),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(StartFollowSelectedColonist2)));
 
             harmony.Patch(
-                          AccessTools.Method(
-                                             typeof(CameraDriver),
-                                             nameof(CameraDriver.JumpToCurrentMapLoc),
-                                             new[] {typeof(Vector3)}),
-                          new HarmonyMethod(typeof(HarmonyPatches), nameof(StopFollow_Prefix_Vector3)),
-                          null);
+                AccessTools.Method(
+                    typeof(CameraDriver),
+                    nameof(CameraDriver.JumpToCurrentMapLoc),
+                    new[] {typeof(Vector3)}),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(StopFollow_Prefix_Vector3)));
 
             harmony.Patch(
-                          AccessTools.Method(typeof(Pawn), nameof(Pawn.PostApplyDamage)),
-                          null,
-                          new HarmonyMethod(typeof(HarmonyPatches), nameof(Pawn_PostApplyDamage_Postfix)));
+                AccessTools.Method(typeof(Pawn), nameof(Pawn.PostApplyDamage)),
+                null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Pawn_PostApplyDamage_Postfix)));
 
             harmony.Patch(
-                          AccessTools.Method(typeof(Corpse), "NotifyColonistBar"),
-                          null,
-                          new HarmonyMethod(typeof(HarmonyPatches), nameof(NotifyColonistBar_Postfix)));
+                AccessTools.Method(typeof(Corpse), "NotifyColonistBar"),
+                null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(NotifyColonistBar_Postfix)));
 
             harmony.Patch(
-                          AccessTools.Method(typeof(MapPawns), "DoListChangedNotifications"),
-                          null,
-                          new HarmonyMethod(typeof(HarmonyPatches), nameof(IsColonistBarNull_Postfix)));
+                AccessTools.Method(typeof(MapPawns), "DoListChangedNotifications"),
+                null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(IsColonistBarNull_Postfix)));
 
             harmony.Patch(
-                          AccessTools.Method(typeof(ThingOwner), "NotifyColonistBarIfColonistCorpse"),
-                          null,
-                          new HarmonyMethod(typeof(HarmonyPatches), nameof(NotifyColonistBarIfColonistCorpse_Postfix)));
+                AccessTools.Method(typeof(ThingOwner), "NotifyColonistBarIfColonistCorpse"),
+                null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(NotifyColonistBarIfColonistCorpse_Postfix)));
 
             harmony.Patch(
-                          AccessTools.Method(typeof(Thing), nameof(Thing.DeSpawn)),
-                          null,
-                          new HarmonyMethod(typeof(HarmonyPatches), nameof(DeSpawn_Postfix)));
+                AccessTools.Method(typeof(Thing), nameof(Thing.DeSpawn)),
+                null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(DeSpawn_Postfix)));
 
             harmony.Patch(
-                          AccessTools.Method(typeof(PlaySettings), nameof(PlaySettings.DoPlaySettingsGlobalControls)),
-                          new HarmonyMethod(typeof(HarmonyPatches), nameof(PlaySettingsDirty_Prefix)),
-                          new HarmonyMethod(typeof(HarmonyPatches), nameof(PlaySettingsDirty_Postfix)));
+                AccessTools.Method(typeof(PlaySettings), nameof(PlaySettings.DoPlaySettingsGlobalControls)),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(PlaySettingsDirty_Prefix)),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(PlaySettingsDirty_Postfix)));
 
             Log.Message(
-                        "Colonistbar KF successfully completed " + harmony.GetPatchedMethods().Count()
-                                                                 + " patches with harmony.");
+                "Colonistbar KF successfully completed " + harmony.GetPatchedMethods().Count()
+                                                         + " patches with harmony.");
         }
 
         public static void MarkColonistsDirty_Postfix()
@@ -243,10 +235,10 @@ namespace ColonistBarKF
                 return false;
             }
 
-            List<Pawn> list = ColonistBar_KF.CaravanMembersInScreenRect(rect);
-            for (var i = 0; i < list.Count; i++)
+            var list = ColonistBar_KF.CaravanMembersInScreenRect(rect);
+            foreach (var pawn in list)
             {
-                ColonistBar_KF.BarHelperKF.TmpCaravans.Add(list[i].GetCaravan());
+                ColonistBar_KF.BarHelperKF.TmpCaravans.Add(pawn.GetCaravan());
             }
 
             __result = ColonistBar_KF.BarHelperKF.TmpCaravans;
@@ -261,13 +253,13 @@ namespace ColonistBarKF
                 return false;
             }
 
-            if (!ColonistBar_KF.BarHelperKF.TryGetEntryAt(pos, out EntryKF entry))
+            if (!ColonistBar_KF.BarHelperKF.TryGetEntryAt(pos, out var entry))
             {
                 __result = null;
                 return false;
             }
 
-            Pawn  pawn = entry.pawn;
+            var pawn = entry.pawn;
             Thing result;
             if (pawn != null && pawn.Dead && pawn.Corpse != null && pawn.Corpse.SpawnedOrAnyParentSpawned)
             {
@@ -309,7 +301,7 @@ namespace ColonistBarKF
 
         private static bool GetColonistsInOrder_Prefix([NotNull] ref List<Pawn> __result)
         {
-            List<EntryKF> entries = ColonistBar_KF.BarHelperKF.Entries;
+            var entries = ColonistBar_KF.BarHelperKF.Entries;
             ColonistBar_KF.BarHelperKF.TmpColonistsInOrder.Clear();
             for (var i = 0; i < entries.Count; i++)
             {
@@ -348,12 +340,12 @@ namespace ColonistBarKF
                 return false;
             }
 
-            List<Thing> list = ColonistBar_KF.ColonistsOrCorpsesInScreenRect(rect);
-            for (var i = 0; i < list.Count; i++)
+            var list = ColonistBar_KF.ColonistsOrCorpsesInScreenRect(rect);
+            foreach (var thing in list)
             {
-                if (list[i].Spawned)
+                if (thing.Spawned)
                 {
-                    ColonistBar_KF.BarHelperKF.TmpMapColonistsOrCorpsesInScreenRect.Add(list[i]);
+                    ColonistBar_KF.BarHelperKF.TmpMapColonistsOrCorpsesInScreenRect.Add(thing);
                 }
             }
 
@@ -363,7 +355,7 @@ namespace ColonistBarKF
 
         private static void NotifyColonistBar_Postfix([NotNull] Corpse __instance)
         {
-            Pawn innerPawn = __instance.InnerPawn;
+            var innerPawn = __instance.InnerPawn;
 
             if (innerPawn == null)
             {
@@ -386,51 +378,61 @@ namespace ColonistBarKF
             }
 
 
-            if (__instance is Corpse corpse)
+            if (__instance is not Corpse corpse)
             {
-                if (!corpse.Bugged)
-                {
-                    if (corpse.InnerPawn != null && corpse.InnerPawn.Faction?.IsPlayer == true)
-                    {
-                        EntriesDirty_Postfix();
-                    }
-                }
+                return;
+            }
+
+            if (corpse.Bugged)
+            {
+                return;
+            }
+
+            if (corpse.InnerPawn != null && corpse.InnerPawn.Faction?.IsPlayer == true)
+            {
+                EntriesDirty_Postfix();
             }
         }
 
         // ReSharper disable once InconsistentNaming
         private static void Pawn_Kill_Postfix([NotNull] Pawn __instance)
         {
-            if (__instance.Faction?.IsPlayer == true && Current.ProgramState == ProgramState.Playing)
+            if (__instance.Faction?.IsPlayer != true || Current.ProgramState != ProgramState.Playing)
             {
-                EntriesDirty_Postfix();
-                CompPSI compPSI = __instance.GetComp<CompPSI>();
-                if (compPSI != null)
-                {
-                    compPSI.BgColor      = Color.gray;
-                    compPSI.ThisColCount = 0;
-                }
+                return;
             }
+
+            EntriesDirty_Postfix();
+            var compPSI = __instance.GetComp<CompPSI>();
+            if (compPSI == null)
+            {
+                return;
+            }
+
+            compPSI.BgColor = Color.gray;
+            compPSI.ThisColCount = 0;
         }
 
         // ReSharper disable once InconsistentNaming
         private static void Pawn_Resurrected_Postfix([NotNull] Pawn_HealthTracker __instance)
         {
-            FieldInfo pawnFieldInfo =
-            typeof(Pawn_HealthTracker).GetField("pawn", BindingFlags.NonPublic | BindingFlags.Instance);
+            var pawnFieldInfo =
+                typeof(Pawn_HealthTracker).GetField("pawn", BindingFlags.NonPublic | BindingFlags.Instance);
             var pawn = (Pawn) pawnFieldInfo?.GetValue(__instance);
 
-            if (pawn?.Faction != null && pawn.Faction.IsPlayer && Current.ProgramState == ProgramState.Playing)
+            if (pawn?.Faction == null || !pawn.Faction.IsPlayer || Current.ProgramState != ProgramState.Playing)
             {
-                EntriesDirty_Postfix();
-                CompPSI compPSI = pawn.GetComp<CompPSI>();
-                compPSI?.CheckTraits();
+                return;
             }
+
+            EntriesDirty_Postfix();
+            var compPSI = pawn.GetComp<CompPSI>();
+            compPSI?.CheckTraits();
         }
 
         private static void Pawn_PostApplyDamage_Postfix([NotNull] Pawn __instance)
         {
-            CompPSI compPSI = __instance.GetComp<CompPSI>();
+            var compPSI = __instance.GetComp<CompPSI>();
 
             compPSI?.SetEntriesDirty();
         }
@@ -490,12 +492,14 @@ namespace ColonistBarKF
 
         private static void StopFollow_Prefix_Vector3([NotNull] Vector3 loc)
         {
-            if (FollowMe.CurrentlyFollowing)
+            if (!FollowMe.CurrentlyFollowing)
             {
-                if (FollowMe.FollowedThing.TrueCenter() != loc)
-                {
-                    FollowMe.StopFollow("Harmony");
-                }
+                return;
+            }
+
+            if (FollowMe.FollowedThing.TrueCenter() != loc)
+            {
+                FollowMe.StopFollow("Harmony");
             }
         }
     }

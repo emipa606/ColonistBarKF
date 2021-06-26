@@ -8,13 +8,11 @@ namespace ColonistBarKF
 {
     public struct EntryKF
     {
-        [CanBeNull]
-        public Pawn pawn;
+        [CanBeNull] public Pawn pawn;
 
-        [CanBeNull]
-        public Map map;
+        [CanBeNull] public Map map;
 
-        public int @group;
+        public int group;
 
         public Action<int, int> reorderAction;
 
@@ -26,13 +24,13 @@ namespace ColonistBarKF
             this.pawn = pawn;
             this.map = map;
             this.group = group;
-            reorderAction = delegate (int from, int to)
+            reorderAction = delegate(int from, int to)
             {
                 Settings.BarSettings.SortBy =
                     SettingsColonistBar.SortByWhat.vanilla;
                 ColonistBar_KF.BarHelperKF.Reorder(from, to, group);
             };
-            extraDraggedItemOnGUI = delegate (int index, Vector2 dragStartPos)
+            extraDraggedItemOnGUI = delegate(int index, Vector2 dragStartPos)
             {
                 ColonistBar_KF.BarHelperKF.DrawColonistMouseAttachment(index, dragStartPos, group);
             };

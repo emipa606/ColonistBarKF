@@ -30,15 +30,13 @@ namespace ColonistBarKF
 
         private static bool _enabled = true;
 
-        [NotNull]
-        private readonly KeyBindingDef[] _followBreakingKeyBindingDefs =
-            {
-                KeyBindingDefOf.MapDolly_Down, KeyBindingDefOf.MapDolly_Up, KeyBindingDefOf.MapDolly_Right,
-                KeyBindingDefOf.MapDolly_Left
-            };
+        [NotNull] private readonly KeyBindingDef[] _followBreakingKeyBindingDefs =
+        {
+            KeyBindingDefOf.MapDolly_Down, KeyBindingDefOf.MapDolly_Up, KeyBindingDefOf.MapDolly_Right,
+            KeyBindingDefOf.MapDolly_Left
+        };
 
-        [NotNull]
-        private readonly KeyBindingDef _followKey = KeyBindingDef.Named("FollowSelected");
+        [NotNull] private readonly KeyBindingDef _followKey = KeyBindingDef.Named("FollowSelected");
 
         public FollowMe([NotNull] Game game)
         {
@@ -58,7 +56,7 @@ namespace ColonistBarKF
                     throw new NullReferenceException("CameraDriver.desiredDolly field info NULL");
                 }
 
-                return (Vector2)CameraDriverDesiredDollyField.GetValue(Find.CameraDriver);
+                return (Vector2) CameraDriverDesiredDollyField.GetValue(Find.CameraDriver);
             }
         }
 
@@ -71,7 +69,7 @@ namespace ColonistBarKF
                     throw new NullReferenceException("CameraDriver.rootPos field info NULL");
                 }
 
-                return (Vector3)CameraDriverRootPosField.GetValue(Find.CameraDriver);
+                return (Vector3) CameraDriverRootPosField.GetValue(Find.CameraDriver);
             }
         }
 
@@ -106,6 +104,7 @@ namespace ColonistBarKF
             {
                 Messages.Message("FollowMe.Cancel".Translate(FollowedLabel), MessageTypeDefOf.NegativeEvent);
             }
+
             FollowedThing = null;
             CurrentlyFollowing = false;
             _cameraHasJumpedAtLeastOnce = false;
@@ -128,7 +127,7 @@ namespace ColonistBarKF
                     Messages.Message("FollowMe.RejectNotAThing".Translate(), MessageTypeDefOf.RejectInput);
                 }
             }
-            else if ((CurrentlyFollowing && thing == null) || thing == FollowedThing)
+            else if (CurrentlyFollowing && thing == null || thing == FollowedThing)
             {
                 // cancel current follow (toggle or thing == null)
                 StopFollow("toggled");
@@ -282,7 +281,7 @@ namespace ColonistBarKF
                 return;
             }
 
-            Map mapHeld = thing.MapHeld;
+            var mapHeld = thing.MapHeld;
             if (mapHeld != null && thing.PositionHeld.IsValid && thing.PositionHeld.InBounds(mapHeld))
             {
                 var flag = CameraJumper.TryHideWorld();
@@ -310,7 +309,7 @@ namespace ColonistBarKF
             if (_cameraHasJumpedAtLeastOnce)
             {
                 // the actual location of the camera right now
-                IntVec3 currentCameraPosition = Find.CameraDriver.MapPosition;
+                var currentCameraPosition = Find.CameraDriver.MapPosition;
 
                 // the location the camera has been requested to be at
                 var requestedCameraPosition = CameraRootPosition.ToIntVec3();
@@ -340,13 +339,13 @@ namespace ColonistBarKF
                 return;
             }
 
-            Vector3 mousePosition = Input.mousePosition;
+            var mousePosition = Input.mousePosition;
             Rect[] screenCorners =
-                {
-                    new Rect(0f, 0f, 200f, 200f), new Rect(Screen.width - 250, 0f, 255f, 255f),
-                    new Rect(0f, Screen.height - 250, 225f, 255f),
-                    new Rect(Screen.width - 250, Screen.height - 250, 255f, 255f)
-                };
+            {
+                new Rect(0f, 0f, 200f, 200f), new Rect(Screen.width - 250, 0f, 255f, 255f),
+                new Rect(0f, Screen.height - 250, 225f, 255f),
+                new Rect(Screen.width - 250, Screen.height - 250, 255f, 255f)
+            };
             if (screenCorners.Any(e => e.Contains(mousePosition)))
             {
                 return;

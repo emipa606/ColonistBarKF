@@ -11,8 +11,7 @@ namespace ColonistBarKF.PSI
 
         public int Priority;
 
-        [CanBeNull]
-        public string Tooltip;
+        [CanBeNull] public string Tooltip;
 
         public IconEntryBar(Icon icon, Color color, [CanBeNull] string tooltip, int priority = 10)
         {

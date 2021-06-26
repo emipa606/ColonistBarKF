@@ -11,83 +11,80 @@ namespace ColonistBarKF
 {
     public class ColonistBarKfSettings : Window
     {
-        private static readonly string Cbkfversion = "Colonist Bar KF 1.1";
+        private static readonly string Cbkfversion = "Colonist Bar KF 1.2";
 
         private static int _iconLimit;
 
-        [NotNull]
-        private readonly GUIStyle _darkGrayBgImage =
-            new GUIStyle { normal = { background = Textures.GrayFond } };
+        [NotNull] private readonly GUIStyle _darkGrayBgImage =
+            new GUIStyle {normal = {background = Textures.GrayFond}};
 
-        [NotNull]
-        private readonly GUIStyle _fondBoxes =
+        [NotNull] private readonly GUIStyle _fondBoxes =
             new GUIStyle
             {
-                normal = {
-                                background = Textures.DarkGrayFond
-                             },
-                hover = {
-                               background = Textures.GrayFond
-                            },
+                normal =
+                {
+                    background = Textures.DarkGrayFond
+                },
+                hover =
+                {
+                    background = Textures.GrayFond
+                },
                 padding = new RectOffset(15, 15, 6, 10),
                 margin = new RectOffset(0, 0, 10, 10)
             };
 
-        [NotNull]
-        private readonly GUIStyle _fondImages =
+        [NotNull] private readonly GUIStyle _fondImages =
             new GUIStyle
             {
-                normal = {
-                                background = Textures.DarkGrayFond
-                             },
-                hover = {
-                               background = Textures.RedHover
-                            }
+                normal =
+                {
+                    background = Textures.DarkGrayFond
+                },
+                hover =
+                {
+                    background = Textures.RedHover
+                }
             };
 
-        [NotNull]
-        private readonly GUIStyle _fontBold =
+        [NotNull] private readonly GUIStyle _fontBold =
             new GUIStyle
             {
                 fontStyle = FontStyle.Bold,
-                normal = {
-                                textColor = Color.white
-                             },
+                normal =
+                {
+                    textColor = Color.white
+                },
                 padding = new RectOffset(0, 0, 5, 0)
             };
 
-        [NotNull]
-        private readonly GUIStyle _grayLines = new GUIStyle { normal = { background = Textures.GrayLines } };
+        [NotNull] private readonly GUIStyle _grayLines = new GUIStyle {normal = {background = Textures.GrayLines}};
 
-        [NotNull]
-        private readonly GUIStyle _headline =
+        [NotNull] private readonly GUIStyle _headline =
             new GUIStyle
             {
                 fontStyle = FontStyle.Bold,
                 fontSize = 16,
-                normal = {
-                                textColor = Color.white
-                             },
+                normal =
+                {
+                    textColor = Color.white
+                },
                 padding = new RectOffset(0, 0, 12, 6)
             };
 
-        [NotNull]
-        private readonly string[] _mainToolbarStrings =
-            { "CBKF.Settings.ColonistBar".Translate(), "CBKF.Settings.PSI".Translate() };
+        [NotNull] private readonly string[] _mainToolbarStrings =
+            {"CBKF.Settings.ColonistBar".Translate(), "CBKF.Settings.PSI".Translate()};
 
-        [NotNull]
-        private readonly string[] _positionStrings =
-            {
-                "CBKF.Settings.useLeft".Translate(), "CBKF.Settings.useRight".Translate(),
-                "CBKF.Settings.useTop".Translate(), "CBKF.Settings.useBottom".Translate()
-            };
+        [NotNull] private readonly string[] _positionStrings =
+        {
+            "CBKF.Settings.useLeft".Translate(), "CBKF.Settings.useRight".Translate(),
+            "CBKF.Settings.useTop".Translate(), "CBKF.Settings.useBottom".Translate()
+        };
 
-        [NotNull]
-        private readonly string[] _psiToolbarStrings =
-            {
-                "PSI.Settings.ArrangementButton".Translate(), "PSI.Settings.OpacityButton".Translate(),
-                "PSI.Settings.IconButton".Translate(), "PSI.Settings.SensitivityButton".Translate()
-            };
+        [NotNull] private readonly string[] _psiToolbarStrings =
+        {
+            "PSI.Settings.ArrangementButton".Translate(), "PSI.Settings.OpacityButton".Translate(),
+            "PSI.Settings.IconButton".Translate(), "PSI.Settings.SensitivityButton".Translate()
+        };
 
         private int _moodBarPositionInt;
 
@@ -376,78 +373,78 @@ namespace ColonistBarKF
             switch (MainToolbarInt)
             {
                 case 0:
-                    {
-                        GUILayout.Space(Text.LineHeight / 2);
+                {
+                    GUILayout.Space(Text.LineHeight / 2);
 
-                        _scrollPositionBase = GUILayout.BeginScrollView(_scrollPositionBase);
+                    _scrollPositionBase = GUILayout.BeginScrollView(_scrollPositionBase);
 
-                        LabelHeadline("CBKF.Settings.BarPosition".Translate());
-                        GUILayout.BeginVertical();
-                        FillPageMain();
-                        GUILayout.EndVertical();
+                    LabelHeadline("CBKF.Settings.BarPosition".Translate());
+                    GUILayout.BeginVertical();
+                    FillPageMain();
+                    GUILayout.EndVertical();
 
-                        LabelHeadline("CBKF.Settings.Advanced".Translate());
-                        GUILayout.BeginVertical();
-                        FillPageAdvanced();
-                        GUILayout.EndVertical();
+                    LabelHeadline("CBKF.Settings.Advanced".Translate());
+                    GUILayout.BeginVertical();
+                    FillPageAdvanced();
+                    GUILayout.EndVertical();
 
-                        LabelHeadline("CBKF.Settings.Grouping".Translate());
-                        GUILayout.BeginVertical();
-                        FillPageCaravanSettings();
-                        GUILayout.EndVertical();
+                    LabelHeadline("CBKF.Settings.Grouping".Translate());
+                    GUILayout.BeginVertical();
+                    FillPageCaravanSettings();
+                    GUILayout.EndVertical();
 
-                        GUILayout.EndScrollView();
-                    }
+                    GUILayout.EndScrollView();
+                }
 
                     break;
 
                 case 1:
+                {
+                    // LabelHeadline("PSI.Settings.Title".Translate());
+                    GUILayout.Space(Text.LineHeight);
+
+                    var toolbarInt = Mathf.FloorToInt(viewRect.width / 150f);
+                    if (toolbarInt == 0)
                     {
-                        // LabelHeadline("PSI.Settings.Title".Translate());
-                        GUILayout.Space(Text.LineHeight);
-
-                        var toolbarInt = Mathf.FloorToInt(viewRect.width / 150f);
-                        if (toolbarInt == 0)
-                        {
-                            toolbarInt += 1;
-                        }
-
-                        GUILayout.BeginHorizontal();
-                        GUILayout.FlexibleSpace();
-                        PSIToolbarInt = GUILayout.SelectionGrid(PSIToolbarInt, _psiToolbarStrings,
-                            toolbarInt > _psiToolbarStrings.Length ? _psiToolbarStrings.Length : toolbarInt);
-                        GUILayout.FlexibleSpace();
-                        GUILayout.EndHorizontal();
-
-                        GUILayout.Space(Text.LineHeight / 2);
-
-                        switch (PSIToolbarInt)
-                        {
-                            case 0:
-                            {
-                                FillPSIPageSizeArrangement();
-                                break;
-                            }
-                            case 1:
-                            {
-                                FillPagePSIOpacityAndColor();
-                                break;
-                            }
-                            case 2:
-                            {
-                                FillPagePSIIconSet(viewRect);
-                                break;
-                            }
-                            case 3:
-                            {
-                                FillPSIPageSensitivity();
-                                break;
-                            }
-                            default:
-                                FillPagePSIIconSet(viewRect);
-                                break;
-                        }
+                        toolbarInt += 1;
                     }
+
+                    GUILayout.BeginHorizontal();
+                    GUILayout.FlexibleSpace();
+                    PSIToolbarInt = GUILayout.SelectionGrid(PSIToolbarInt, _psiToolbarStrings,
+                        toolbarInt > _psiToolbarStrings.Length ? _psiToolbarStrings.Length : toolbarInt);
+                    GUILayout.FlexibleSpace();
+                    GUILayout.EndHorizontal();
+
+                    GUILayout.Space(Text.LineHeight / 2);
+
+                    switch (PSIToolbarInt)
+                    {
+                        case 0:
+                        {
+                            FillPSIPageSizeArrangement();
+                            break;
+                        }
+                        case 1:
+                        {
+                            FillPagePSIOpacityAndColor();
+                            break;
+                        }
+                        case 2:
+                        {
+                            FillPagePSIIconSet(viewRect);
+                            break;
+                        }
+                        case 3:
+                        {
+                            FillPSIPageSensitivity();
+                            break;
+                        }
+                        default:
+                            FillPagePSIIconSet(viewRect);
+                            break;
+                    }
+                }
 
                     break;
             }
@@ -474,11 +471,13 @@ namespace ColonistBarKF
             GUILayout.EndVertical();
             GUILayout.EndArea();
 
-            if (GUI.changed)
+            if (!GUI.changed)
             {
-                HarmonyPatches.MarkColonistsDirty_Postfix();
-                Reinit(false, false);
+                return;
             }
+
+            HarmonyPatches.MarkColonistsDirty_Postfix();
+            Reinit(false, false);
         }
 
         public override void PreClose()
@@ -686,13 +685,15 @@ namespace ColonistBarKF
                 Settings.BarSettings.UseCustomIconSize,
                 "CBKF.Settings.BasicSize".Translate() + Settings.BarSettings.BaseIconSize.ToString("N0") + " px, "
                 + ColonistBar_KF.BarHelperKF.CachedScale.ToStringPercent() + " %, "
-                + (int)Settings.BarSettings.BaseSpacingHorizontal + " x, " + (int)Settings.BarSettings.BaseSpacingVertical + " y");
+                + (int) Settings.BarSettings.BaseSpacingHorizontal + " x, " +
+                (int) Settings.BarSettings.BaseSpacingVertical + " y");
 
             if (Settings.BarSettings.UseCustomIconSize)
             {
                 GUILayout.Space(Text.LineHeight / 2);
 
-                Settings.BarSettings.BaseIconSize = GUILayout.HorizontalSlider(Settings.BarSettings.BaseIconSize, 24f, 256f);
+                Settings.BarSettings.BaseIconSize =
+                    GUILayout.HorizontalSlider(Settings.BarSettings.BaseIconSize, 24f, 256f);
 
                 Settings.BarSettings.BaseSpacingHorizontal =
                     GUILayout.HorizontalSlider(Settings.BarSettings.BaseSpacingHorizontal, 1f, 72f);
@@ -794,18 +795,18 @@ namespace ColonistBarKF
             GUILayout.BeginVertical(_fondBoxes);
             Settings.BarSettings.UseCustomMarginTop = GUILayout.Toggle(
                 Settings.BarSettings.UseCustomMarginTop,
-                "CBKF.Settings.ColonistBarOffset".Translate() + (int)Settings.BarSettings.MarginTop + " y \n"
+                "CBKF.Settings.ColonistBarOffset".Translate() + (int) Settings.BarSettings.MarginTop + " y \n"
                 + "CBKF.Settings.MaxColonistBarWidth".Translate() + ": "
-                + ((float)UI.screenWidth - (int)Settings.BarSettings.MarginHorizontal) + " px");
+                + ((float) UI.screenWidth - (int) Settings.BarSettings.MarginHorizontal) + " px");
 
             if (Settings.BarSettings.UseCustomMarginTop)
             {
                 GUILayout.Space(Text.LineHeight / 2);
                 Settings.BarSettings.MarginTop =
-                    GUILayout.HorizontalSlider(Settings.BarSettings.MarginTop, 0f, (float)UI.screenHeight / 6);
+                    GUILayout.HorizontalSlider(Settings.BarSettings.MarginTop, 0f, (float) UI.screenHeight / 6);
                 Settings.BarSettings.MarginHorizontal = GUILayout.HorizontalSlider(
                     Settings.BarSettings.MarginHorizontal,
-                    (float)UI.screenWidth * 3 / 5,
+                    (float) UI.screenWidth * 3 / 5,
                     0f);
             }
             else
@@ -825,7 +826,8 @@ namespace ColonistBarKF
                 + (Settings.BarSettings.UseCustomRowCount ? Settings.BarSettings.MaxRowsCustom : 3));
             if (Settings.BarSettings.UseCustomRowCount)
             {
-                Settings.BarSettings.MaxRowsCustom = (int)GUILayout.HorizontalSlider(Settings.BarSettings.MaxRowsCustom, 1f, 11f);
+                Settings.BarSettings.MaxRowsCustom =
+                    (int) GUILayout.HorizontalSlider(Settings.BarSettings.MaxRowsCustom, 1f, 11f);
             }
 
             GUILayout.EndVertical();
@@ -905,38 +907,38 @@ namespace ColonistBarKF
                 var fmoDefault = new FloatMenuOption(
                     "PSI.Settings.Preset.0".Translate(),
                     () =>
+                    {
+                        try
                         {
-                            try
-                            {
-                                Settings.PSISettings.IconSet = "default";
-                                Settings.PSISettings.UseColoredTarget = true;
-                                Settings.SavePSISettings();
-                                Reinit(false, true, false);
-                            }
-                            catch (IOException)
-                            {
-                                Log.Error("PSI.Settings.LoadPreset.UnableToLoad".Translate() + "default");
-                            }
-                        });
+                            Settings.PSISettings.IconSet = "default";
+                            Settings.PSISettings.UseColoredTarget = true;
+                            Settings.SavePSISettings();
+                            Reinit(false, true, false);
+                        }
+                        catch (IOException)
+                        {
+                            Log.Error("PSI.Settings.LoadPreset.UnableToLoad".Translate() + "default");
+                        }
+                    });
 
                 var fmoPreset1 = new FloatMenuOption(
                     "PSI.Settings.Preset.1".Translate(),
                     () =>
+                    {
+                        try
                         {
-                            try
-                            {
-                                Settings.PSISettings.IconSet = "original";
-                                Settings.PSISettings.UseColoredTarget = false;
-                                Settings.SavePSISettings();
-                                Reinit(false, true, false);
-                            }
-                            catch (IOException)
-                            {
-                                Log.Error("PSI.Settings.LoadPreset.UnableToLoad".Translate() + "default");
-                            }
-                        });
+                            Settings.PSISettings.IconSet = "original";
+                            Settings.PSISettings.UseColoredTarget = false;
+                            Settings.SavePSISettings();
+                            Reinit(false, true, false);
+                        }
+                        catch (IOException)
+                        {
+                            Log.Error("PSI.Settings.LoadPreset.UnableToLoad".Translate() + "default");
+                        }
+                    });
 
-                var options = new List<FloatMenuOption> { fmoDefault, fmoPreset1 };
+                var options = new List<FloatMenuOption> {fmoDefault, fmoPreset1};
 
                 Find.WindowStack.Add(new FloatMenu(options));
             }
@@ -1166,8 +1168,9 @@ namespace ColonistBarKF
 
             GUILayout.BeginVertical(_fondBoxes);
             GUILayout.Label(
-                "PSI.Settings.IconOpacityAndColor.Opacity".Translate() + (Settings.PSISettings.IconOpacity * 100).ToString("N0")
-                + " %");
+                "PSI.Settings.IconOpacityAndColor.Opacity".Translate() + (Settings.PSISettings.IconOpacity * 100)
+                                                                       .ToString("N0")
+                                                                       + " %");
             Settings.PSISettings.IconOpacity = GUILayout.HorizontalSlider(Settings.PSISettings.IconOpacity, 0.1f, 1f);
             GUILayout.EndVertical();
 
@@ -1175,7 +1178,8 @@ namespace ColonistBarKF
             GUILayout.Label(
                 "PSI.Settings.IconOpacityAndColor.OpacityCritical".Translate()
                 + (Settings.PSISettings.IconOpacityCritical * 100).ToString("N0") + " %");
-            Settings.PSISettings.IconOpacityCritical = GUILayout.HorizontalSlider(Settings.PSISettings.IconOpacityCritical, 0.1f, 1f);
+            Settings.PSISettings.IconOpacityCritical =
+                GUILayout.HorizontalSlider(Settings.PSISettings.IconOpacityCritical, 0.1f, 1f);
             GUILayout.EndVertical();
 
             // if (listing.DoTextButton("PSI.Settings.ResetColors".Translate()))
@@ -1202,104 +1206,104 @@ namespace ColonistBarKF
             if (GUILayout.Button("PSI.Settings.LoadPresetButton".Translate()))
             {
                 var options = new List<FloatMenuOption>
-                                                    {
-                                                        new FloatMenuOption(
-                                                            "Less Sensitive",
-                                                            () =>
-                                                                {
-                                                                    try
-                                                                    {
-                                                                        Settings.PSISettings.LimitBleedMult
-                                                                            = 2f;
-                                                                        Settings.PSISettings
-                                                                                .LimitDiseaseLess =
-                                                                            1f;
-                                                                        Settings.PSISettings
-                                                                                .LimitEfficiencyLess =
-                                                                            0.6f;
-                                                                        Settings.PSISettings.LimitFoodLess
-                                                                            = 0.2f;
+                {
+                    new FloatMenuOption(
+                        "Less Sensitive",
+                        () =>
+                        {
+                            try
+                            {
+                                Settings.PSISettings.LimitBleedMult
+                                    = 2f;
+                                Settings.PSISettings
+                                        .LimitDiseaseLess =
+                                    1f;
+                                Settings.PSISettings
+                                        .LimitEfficiencyLess =
+                                    0.6f;
+                                Settings.PSISettings.LimitFoodLess
+                                    = 0.2f;
 
-                                                                        // PSISettings.LimitMoodLess = 0.2f;
-                                                                        Settings.PSISettings.LimitRestLess
-                                                                            = 0.2f;
-                                                                        Settings.PSISettings
-                                                                                .LimitTempComfortOffset
-                                                                            = 3f;
-                                                                    }
-                                                                    catch (IOException)
-                                                                    {
-                                                                        Log.Error(
-                                                                            "PSI.Settings.LoadPreset.UnableToLoad"
-                                                                                .Translate()
-                                                                            + "Less Sensitive");
-                                                                    }
-                                                                }),
-                                                        new FloatMenuOption(
-                                                            "Standard",
-                                                            () =>
-                                                                {
-                                                                    try
-                                                                    {
-                                                                        Settings.PSISettings.LimitBleedMult
-                                                                            = 3f;
-                                                                        Settings.PSISettings
-                                                                                .LimitDiseaseLess =
-                                                                            1f;
-                                                                        Settings.PSISettings
-                                                                                .LimitEfficiencyLess =
-                                                                            0.75f;
-                                                                        Settings.PSISettings.LimitFoodLess
-                                                                            = 0.25f;
+                                // PSISettings.LimitMoodLess = 0.2f;
+                                Settings.PSISettings.LimitRestLess
+                                    = 0.2f;
+                                Settings.PSISettings
+                                        .LimitTempComfortOffset
+                                    = 3f;
+                            }
+                            catch (IOException)
+                            {
+                                Log.Error(
+                                    "PSI.Settings.LoadPreset.UnableToLoad"
+                                        .Translate()
+                                    + "Less Sensitive");
+                            }
+                        }),
+                    new FloatMenuOption(
+                        "Standard",
+                        () =>
+                        {
+                            try
+                            {
+                                Settings.PSISettings.LimitBleedMult
+                                    = 3f;
+                                Settings.PSISettings
+                                        .LimitDiseaseLess =
+                                    1f;
+                                Settings.PSISettings
+                                        .LimitEfficiencyLess =
+                                    0.75f;
+                                Settings.PSISettings.LimitFoodLess
+                                    = 0.25f;
 
-                                                                        // PSISettings.LimitMoodLess = 0.25f;
-                                                                        Settings.PSISettings.LimitRestLess
-                                                                            = 0.25f;
-                                                                        Settings.PSISettings
-                                                                                .LimitTempComfortOffset
-                                                                            = 0f;
-                                                                    }
-                                                                    catch (IOException)
-                                                                    {
-                                                                        Log.Error(
-                                                                            "PSI.Settings.LoadPreset.UnableToLoad"
-                                                                                .Translate()
-                                                                            + "Standard");
-                                                                    }
-                                                                }),
-                                                        new FloatMenuOption(
-                                                            "More Sensitive",
-                                                            () =>
-                                                                {
-                                                                    try
-                                                                    {
-                                                                        Settings.PSISettings.LimitBleedMult
-                                                                            = 4f;
-                                                                        Settings.PSISettings
-                                                                                .LimitDiseaseLess =
-                                                                            1f;
-                                                                        Settings.PSISettings
-                                                                                .LimitEfficiencyLess =
-                                                                            0.9f;
-                                                                        Settings.PSISettings.LimitFoodLess
-                                                                            = 0.3f;
+                                // PSISettings.LimitMoodLess = 0.25f;
+                                Settings.PSISettings.LimitRestLess
+                                    = 0.25f;
+                                Settings.PSISettings
+                                        .LimitTempComfortOffset
+                                    = 0f;
+                            }
+                            catch (IOException)
+                            {
+                                Log.Error(
+                                    "PSI.Settings.LoadPreset.UnableToLoad"
+                                        .Translate()
+                                    + "Standard");
+                            }
+                        }),
+                    new FloatMenuOption(
+                        "More Sensitive",
+                        () =>
+                        {
+                            try
+                            {
+                                Settings.PSISettings.LimitBleedMult
+                                    = 4f;
+                                Settings.PSISettings
+                                        .LimitDiseaseLess =
+                                    1f;
+                                Settings.PSISettings
+                                        .LimitEfficiencyLess =
+                                    0.9f;
+                                Settings.PSISettings.LimitFoodLess
+                                    = 0.3f;
 
-                                                                        // PSISettings.LimitMoodLess = 0.3f;
-                                                                        Settings.PSISettings.LimitRestLess
-                                                                            = 0.3f;
-                                                                        Settings.PSISettings
-                                                                                .LimitTempComfortOffset
-                                                                            = -3f;
-                                                                    }
-                                                                    catch (IOException)
-                                                                    {
-                                                                        Log.Error(
-                                                                            "PSI.Settings.LoadPreset.UnableToLoad"
-                                                                                .Translate()
-                                                                            + "More Sensitive");
-                                                                    }
-                                                                })
-                                                    };
+                                // PSISettings.LimitMoodLess = 0.3f;
+                                Settings.PSISettings.LimitRestLess
+                                    = 0.3f;
+                                Settings.PSISettings
+                                        .LimitTempComfortOffset
+                                    = -3f;
+                            }
+                            catch (IOException)
+                            {
+                                Log.Error(
+                                    "PSI.Settings.LoadPreset.UnableToLoad"
+                                        .Translate()
+                                    + "More Sensitive");
+                            }
+                        })
+                };
 
                 Find.WindowStack.Add(new FloatMenu(options));
             }
@@ -1312,31 +1316,40 @@ namespace ColonistBarKF
             GUILayout.BeginVertical(_fondBoxes);
             GUILayout.Label(
                 "PSI.Settings.Sensitivity.Bleeding".Translate()
-                + ("PSI.Settings.Sensitivity.Bleeding." + Math.Round(Settings.PSISettings.LimitBleedMult - 0.25)).Translate());
-            Settings.PSISettings.LimitBleedMult = GUILayout.HorizontalSlider(Settings.PSISettings.LimitBleedMult, 0.5f, 5f);
+                + ("PSI.Settings.Sensitivity.Bleeding." + Math.Round(Settings.PSISettings.LimitBleedMult - 0.25))
+                .Translate());
+            Settings.PSISettings.LimitBleedMult =
+                GUILayout.HorizontalSlider(Settings.PSISettings.LimitBleedMult, 0.5f, 5f);
             GUILayout.EndVertical();
 
             GUILayout.BeginVertical(_fondBoxes);
             GUILayout.Label(
-                "PSI.Settings.Sensitivity.Injured".Translate() + (int)(Settings.PSISettings.LimitEfficiencyLess * 100.0) + " %");
-            Settings.PSISettings.LimitEfficiencyLess = GUILayout.HorizontalSlider(Settings.PSISettings.LimitEfficiencyLess, 0.01f, 1f);
+                "PSI.Settings.Sensitivity.Injured".Translate() +
+                (int) (Settings.PSISettings.LimitEfficiencyLess * 100.0) + " %");
+            Settings.PSISettings.LimitEfficiencyLess =
+                GUILayout.HorizontalSlider(Settings.PSISettings.LimitEfficiencyLess, 0.01f, 1f);
             GUILayout.EndVertical();
 
             GUILayout.BeginVertical(_fondBoxes);
             GUILayout.Label(
-                "PSI.Settings.Sensitivity.Food".Translate() + (int)(Settings.PSISettings.LimitFoodLess * 100.0) + " %");
-            Settings.PSISettings.LimitFoodLess = GUILayout.HorizontalSlider(Settings.PSISettings.LimitFoodLess, 0.01f, 0.99f);
+                "PSI.Settings.Sensitivity.Food".Translate() + (int) (Settings.PSISettings.LimitFoodLess * 100.0) +
+                " %");
+            Settings.PSISettings.LimitFoodLess =
+                GUILayout.HorizontalSlider(Settings.PSISettings.LimitFoodLess, 0.01f, 0.99f);
             GUILayout.EndVertical();
 
             GUILayout.BeginVertical(_fondBoxes);
             GUILayout.Label(
-                "PSI.Settings.Sensitivity.Rest".Translate() + (int)(Settings.PSISettings.LimitRestLess * 100.0) + " %");
-            Settings.PSISettings.LimitRestLess = GUILayout.HorizontalSlider(Settings.PSISettings.LimitRestLess, 0.01f, 0.99f);
+                "PSI.Settings.Sensitivity.Rest".Translate() + (int) (Settings.PSISettings.LimitRestLess * 100.0) +
+                " %");
+            Settings.PSISettings.LimitRestLess =
+                GUILayout.HorizontalSlider(Settings.PSISettings.LimitRestLess, 0.01f, 0.99f);
             GUILayout.EndVertical();
 
             GUILayout.BeginVertical(_fondBoxes);
             GUILayout.Label(
-                "PSI.Settings.Sensitivity.Temperature".Translate() + (int)Settings.PSISettings.LimitTempComfortOffset + " °C");
+                "PSI.Settings.Sensitivity.Temperature".Translate() + (int) Settings.PSISettings.LimitTempComfortOffset +
+                " °C");
             Settings.PSISettings.LimitTempComfortOffset =
                 GUILayout.HorizontalSlider(Settings.PSISettings.LimitTempComfortOffset, -10f, 10f);
             GUILayout.EndVertical();
@@ -1353,7 +1366,8 @@ namespace ColonistBarKF
             _scrollPositionPSISize = GUILayout.BeginScrollView(_scrollPositionPSISize);
 
             GUILayout.BeginVertical(_fondBoxes);
-            Settings.BarSettings.UsePSI = GUILayout.Toggle(Settings.BarSettings.UsePSI, "CBKF.Settings.UsePSIOnBar".Translate());
+            Settings.BarSettings.UsePSI =
+                GUILayout.Toggle(Settings.BarSettings.UsePSI, "CBKF.Settings.UsePSIOnBar".Translate());
             if (Settings.BarSettings.UsePSI)
             {
                 GUILayout.BeginHorizontal();
@@ -1363,14 +1377,17 @@ namespace ColonistBarKF
 
                 GUILayout.Space(Text.LineHeight / 2);
 
-                GUILayout.Label("PSI.Settings.Arrangement.IconsPerColumn".Translate() + Settings.BarSettings.IconsInColumn);
-                Settings.BarSettings.IconsInColumn = (int)GUILayout.HorizontalSlider(Settings.BarSettings.IconsInColumn, 2f, 5f);
+                GUILayout.Label("PSI.Settings.Arrangement.IconsPerColumn".Translate() +
+                                Settings.BarSettings.IconsInColumn);
+                Settings.BarSettings.IconsInColumn =
+                    (int) GUILayout.HorizontalSlider(Settings.BarSettings.IconsInColumn, 2f, 5f);
             }
 
             GUILayout.EndVertical();
 
             GUILayout.BeginVertical(_fondBoxes);
-            Settings.PSISettings.UsePSI = GUILayout.Toggle(Settings.PSISettings.UsePSI, "PSI.Settings.UsePSI".Translate());
+            Settings.PSISettings.UsePSI =
+                GUILayout.Toggle(Settings.PSISettings.UsePSI, "PSI.Settings.UsePSI".Translate());
             Settings.PSISettings.ShowRelationsOnStrangers = GUILayout.Toggle(
                 Settings.PSISettings.ShowRelationsOnStrangers,
                 "PSI.Settings.ShowRelationsOnStrangers".Translate());
@@ -1402,10 +1419,12 @@ namespace ColonistBarKF
 
                 GUILayout.Space(Text.LineHeight / 2);
 
-                GUILayout.Label("PSI.Settings.Arrangement.IconsPerColumn".Translate() + Settings.PSISettings.IconsInColumn);
-                Settings.PSISettings.IconsInColumn = (int)GUILayout.HorizontalSlider(Settings.PSISettings.IconsInColumn, 1f, 7f);
+                GUILayout.Label("PSI.Settings.Arrangement.IconsPerColumn".Translate() +
+                                Settings.PSISettings.IconsInColumn);
+                Settings.PSISettings.IconsInColumn =
+                    (int) GUILayout.HorizontalSlider(Settings.PSISettings.IconsInColumn, 1f, 7f);
 
-                var num = (int)(Settings.PSISettings.IconSize * 4.5);
+                var num = (int) (Settings.PSISettings.IconSize * 4.5);
 
                 if (num > 8)
                 {
@@ -1424,18 +1443,25 @@ namespace ColonistBarKF
 
                 GUILayout.BeginVertical(_fondBoxes);
                 GUILayout.Label(
-                    "PSI.Settings.Arrangement.IconPosition".Translate() + (int)(Settings.PSISettings.IconMarginX * 100.0)
-                    + " x, " + (int)(Settings.PSISettings.IconMarginY * 100.0) + " y");
-                Settings.PSISettings.IconMarginX = GUILayout.HorizontalSlider(Settings.PSISettings.IconMarginX, -2f, 2f);
-                Settings.PSISettings.IconMarginY = GUILayout.HorizontalSlider(Settings.PSISettings.IconMarginY, -2f, 2f);
+                    "PSI.Settings.Arrangement.IconPosition".Translate() + (int) (Settings.PSISettings.IconMarginX *
+                                                                            100.0)
+                                                                        + " x, " + (int) (Settings.PSISettings
+                                                                            .IconMarginY * 100.0) + " y");
+                Settings.PSISettings.IconMarginX =
+                    GUILayout.HorizontalSlider(Settings.PSISettings.IconMarginX, -2f, 2f);
+                Settings.PSISettings.IconMarginY =
+                    GUILayout.HorizontalSlider(Settings.PSISettings.IconMarginY, -2f, 2f);
                 GUILayout.EndVertical();
 
                 GUILayout.BeginVertical(_fondBoxes);
                 GUILayout.Label(
-                    "PSI.Settings.Arrangement.IconOffset".Translate() + (int)(Settings.PSISettings.IconOffsetX * 100.0) + " x, "
-                    + (int)(Settings.PSISettings.IconOffsetY * 100.0) + " y");
-                Settings.PSISettings.IconOffsetX = GUILayout.HorizontalSlider(Settings.PSISettings.IconOffsetX, -2f, 2f);
-                Settings.PSISettings.IconOffsetY = GUILayout.HorizontalSlider(Settings.PSISettings.IconOffsetY, -2f, 2f);
+                    "PSI.Settings.Arrangement.IconOffset".Translate() +
+                    (int) (Settings.PSISettings.IconOffsetX * 100.0) + " x, "
+                    + (int) (Settings.PSISettings.IconOffsetY * 100.0) + " y");
+                Settings.PSISettings.IconOffsetX =
+                    GUILayout.HorizontalSlider(Settings.PSISettings.IconOffsetX, -2f, 2f);
+                Settings.PSISettings.IconOffsetY =
+                    GUILayout.HorizontalSlider(Settings.PSISettings.IconOffsetY, -2f, 2f);
                 GUILayout.EndVertical();
 
                 // if (!listing.DoTextButton("PSI.Settings.ReturnButton".Translate()))

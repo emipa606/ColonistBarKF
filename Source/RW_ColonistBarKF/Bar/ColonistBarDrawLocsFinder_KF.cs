@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -56,7 +57,7 @@ namespace ColonistBarKF.Bar
         private void CalculateColonistsInGroup()
         {
             _entriesInGroup.Clear();
-            List<EntryKF> entries = ColonistBar_KF.BarHelperKF.Entries;
+            var entries = ColonistBar_KF.BarHelperKF.Entries;
             var num = CalculateGroupsCount();
             for (var i = 0; i < num; i++)
             {
@@ -66,15 +67,16 @@ namespace ColonistBarKF.Bar
             for (var j = 0; j < entries.Count; j++)
             {
                 List<int> list;
-                List<int> entryList = list = _entriesInGroup;
+                var entryList = list = _entriesInGroup;
                 int num2;
-                var entryGroup = num2 = entries[j].@group;
+                var entryGroup = num2 = entries[j].group;
                 num2 = list[num2];
                 entryList[entryGroup] = num2 + 1;
             }
         }
 
-        private void CalculateDrawLocs([NotNull] List<Vector2> outDrawLocs, float scale, bool onlyOneRow, int maxPerGlobalRow)
+        private void CalculateDrawLocs([NotNull] List<Vector2> outDrawLocs, float scale, bool onlyOneRow,
+            int maxPerGlobalRow)
         {
             outDrawLocs.Clear();
             var entriesCount = maxPerGlobalRow;
@@ -90,7 +92,7 @@ namespace ColonistBarKF.Bar
             }
 
             var groupsCount = CalculateGroupsCount();
-            List<EntryKF> entries = ColonistBar_KF.BarHelperKF.Entries;
+            var entries = ColonistBar_KF.BarHelperKF.Entries;
             var index = -1;
             var numInGroup = -1;
 
@@ -100,27 +102,28 @@ namespace ColonistBarKF.Bar
 
             for (var j = 0; j < entries.Count; j++)
             {
-                if (index != entries[j].@group)
+                if (index != entries[j].group)
                 {
                     if (index >= 0)
                     {
                         groupStartX += 25f * scale;
                         groupStartX += _horizontalSlotsPerGroup[index] * scale
-                                       * (ColonistBar_KF.BaseSize.x + ColonistBar_KF.WidthSpacingHorizontal);
+                                                                       * (ColonistBar_KF.BaseSize.x +
+                                                                          ColonistBar_KF.WidthSpacingHorizontal);
                     }
 
                     numInGroup = 0;
-                    index = entries[j].@group;
+                    index = entries[j].group;
                 }
                 else
                 {
                     numInGroup++;
                 }
 
-                Vector2 drawLoc = GetDrawLoc(
+                var drawLoc = GetDrawLoc(
                     groupStartX,
                     Settings.BarSettings.MarginTop,
-                    entries[j].@group,
+                    entries[j].group,
                     numInGroup,
                     scale);
                 outDrawLocs.Add(drawLoc);
@@ -129,16 +132,18 @@ namespace ColonistBarKF.Bar
 
         private int CalculateGroupsCount()
         {
-            List<EntryKF> entries = ColonistBar_KF.BarHelperKF.Entries;
+            var entries = ColonistBar_KF.BarHelperKF.Entries;
             var num = -1;
             var num2 = 0;
             for (var i = 0; i < entries.Count; i++)
             {
-                if (num != entries[i].@group)
+                if (num == entries[i].group)
                 {
-                    num2++;
-                    num = entries[i].@group;
+                    continue;
                 }
+
+                num2++;
+                num = entries[i].group;
             }
 
             return num2;
@@ -149,7 +154,7 @@ namespace ColonistBarKF.Bar
         private float FindBestScale(out bool onlyOneRow, out int maxPerGlobalRow)
         {
             var bestScale = 1f;
-            List<EntryKF> entries = ColonistBar_KF.BarHelperKF.Entries;
+            var entries = ColonistBar_KF.BarHelperKF.Entries;
             var groupsCount = CalculateGroupsCount();
             while (true)
             {
@@ -166,22 +171,26 @@ namespace ColonistBarKF.Bar
                     var mapNum = -1;
                     for (var i = 0; i < entries.Count; i++)
                     {
-                        if (mapNum != entries[i].@group)
+                        if (mapNum == entries[i].group)
                         {
-                            mapNum = entries[i].@group;
-                            var rows = Mathf.CeilToInt(_entriesInGroup[entries[i].@group]
-                                / (float)_horizontalSlotsPerGroup[entries[i].@group]);
-                            if (rows > 1)
-                            {
-                                onlyOneRow = false;
-                            }
-
-                            if (rows > allowedRowsCountForScale)
-                            {
-                                flag = false;
-                                break;
-                            }
+                            continue;
                         }
+
+                        mapNum = entries[i].group;
+                        var rows = Mathf.CeilToInt(_entriesInGroup[entries[i].group]
+                                                   / (float) _horizontalSlotsPerGroup[entries[i].group]);
+                        if (rows > 1)
+                        {
+                            onlyOneRow = false;
+                        }
+
+                        if (rows <= allowedRowsCountForScale)
+                        {
+                            continue;
+                        }
+
+                        flag = false;
+                        break;
                     }
 
                     if (flag)
@@ -199,19 +208,20 @@ namespace ColonistBarKF.Bar
         private Vector2 GetDrawLoc(float groupStartX, float groupStartY, int group, int numInGroup, float scale)
         {
             var x = groupStartX + (numInGroup % _horizontalSlotsPerGroup[group] * scale
-                      * (ColonistBar_KF.BaseSize.x + ColonistBar_KF.WidthSpacingHorizontal));
-            var y = groupStartY + (numInGroup / _horizontalSlotsPerGroup[group] * scale
-                      * (ColonistBar_KF.BaseSize.y + ColonistBar_KF.HeightSpacingVertical));
-            y += numInGroup / _horizontalSlotsPerGroup[group] * ColonistBar_KF.SpacingLabel;
+                * (ColonistBar_KF.BaseSize.x + ColonistBar_KF.WidthSpacingHorizontal));
+            var y = groupStartY + ((float) Math.Floor((float) numInGroup / _horizontalSlotsPerGroup[group]) * scale
+                * (ColonistBar_KF.BaseSize.y + ColonistBar_KF.HeightSpacingVertical));
+            y += (float) Math.Floor((float) numInGroup / _horizontalSlotsPerGroup[group]) * ColonistBar_KF.SpacingLabel;
 
-            var flag = numInGroup >= _entriesInGroup[group]
-                        - (_entriesInGroup[group] % _horizontalSlotsPerGroup[group]);
-            if (flag)
+            if (numInGroup < _entriesInGroup[group]
+                - (_entriesInGroup[group] % _horizontalSlotsPerGroup[group]))
             {
-                var num2 = _horizontalSlotsPerGroup[group]
-                           - (_entriesInGroup[group] % _horizontalSlotsPerGroup[group]);
-                x += num2 * scale * (ColonistBar_KF.BaseSize.x + ColonistBar_KF.WidthSpacingHorizontal) * 0.5f;
+                return new Vector2(x, y);
             }
+
+            var num2 = _horizontalSlotsPerGroup[group]
+                       - (_entriesInGroup[group] % _horizontalSlotsPerGroup[group]);
+            x += num2 * scale * (ColonistBar_KF.BaseSize.x + ColonistBar_KF.WidthSpacingHorizontal) * 0.5f;
 
             return new Vector2(x, y);
         }
@@ -226,31 +236,33 @@ namespace ColonistBarKF.Bar
             }
 
             GenMath.DHondtDistribution(_horizontalSlotsPerGroup,
-                i => (float)_entriesInGroup[i],
+                i => (float) _entriesInGroup[i],
                 maxPerGlobalRow);
             for (var j = 0; j < _horizontalSlotsPerGroup.Count; j++)
             {
-                if (_horizontalSlotsPerGroup[j] == 0)
+                if (_horizontalSlotsPerGroup[j] != 0)
                 {
-                    var maxSlots = _horizontalSlotsPerGroup.Max();
-                    if (maxSlots <= 1)
-                    {
-                        return false;
-                    }
-
-                    var num3 = _horizontalSlotsPerGroup.IndexOf(maxSlots);
-                    List<int> list;
-                    List<int> listInt = list = _horizontalSlotsPerGroup;
-                    int num4;
-                    var index = num4 = num3;
-                    num4 = list[num4];
-                    listInt[index] = num4 - 1;
-                    List<int> list2;
-                    List<int> slots = list2 = _horizontalSlotsPerGroup;
-                    var integerK = num4 = j;
-                    num4 = list2[num4];
-                    slots[integerK] = num4 + 1;
+                    continue;
                 }
+
+                var maxSlots = _horizontalSlotsPerGroup.Max();
+                if (maxSlots <= 1)
+                {
+                    return false;
+                }
+
+                var num3 = _horizontalSlotsPerGroup.IndexOf(maxSlots);
+                List<int> list;
+                var listInt = list = _horizontalSlotsPerGroup;
+                int num4;
+                var index = num4 = num3;
+                num4 = list[num4];
+                listInt[index] = num4 - 1;
+                List<int> list2;
+                var slots = list2 = _horizontalSlotsPerGroup;
+                var integerK = num4 = j;
+                num4 = list2[num4];
+                slots[integerK] = num4 + 1;
             }
 
             return true;

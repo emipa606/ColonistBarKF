@@ -1,9 +1,6 @@
 ﻿using System.Collections.Generic;
-
 using JetBrains.Annotations;
-
 using UnityEngine;
-
 using Verse;
 
 namespace KillfaceTools.FMO
@@ -22,9 +19,10 @@ namespace KillfaceTools.FMO
         {
             options.ForEach(
                 o =>
-                        // FloatMenuOptionSorting option = o as FloatMenuOptionSorting;
-                        // option.Label = PathInfo.GetJobReport(option.sortBy);
-                        o.SetSizeMode(FloatMenuSizeMode.Normal));
+
+                    // FloatMenuOptionSorting option = o as FloatMenuOptionSorting;
+                    // option.Label = PathInfo.GetJobReport(option.sortBy);
+                    o.SetSizeMode(FloatMenuSizeMode.Normal));
             windowRect = new Rect(windowRect.x, windowRect.y, InitialSize.x, InitialSize.y);
             base.DoWindowContents(windowRect);
         }

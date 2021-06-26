@@ -8,31 +8,29 @@ namespace ColonistBarKF
 {
     public class Materials
     {
-        [NotNull]
-        private readonly Material[] _data = new Material[40];
+        [NotNull] private readonly Material[] _data = new Material[40];
 
-        [NotNull]
-        private readonly string _matLibName;
+        [NotNull] private readonly string _matLibName;
 
         public Materials(string matLib = "default")
         {
             _matLibName = matLib;
         }
 
-        [CanBeNull]
-        public Material this[Icon icon] => _data[(int)icon];
+        [CanBeNull] public Material this[Icon icon] => _data[(int) icon];
 
         public void ReloadTextures(bool smooth = false)
         {
-            foreach (Icon icons in Enum.GetValues(typeof(Icon)).Cast<Icon>())
+            foreach (var icons in Enum.GetValues(typeof(Icon)).Cast<Icon>())
             {
                 switch (icons)
                 {
                     case Icon.None:
-                    case Icon.Length: continue;
+                    case Icon.Length:
+                        continue;
                     default:
                         var path = _matLibName + "/" + Enum.GetName(typeof(Icon), icons);
-                        _data[(int)icons] = LoadIconMat(path, smooth);
+                        _data[(int) icons] = LoadIconMat(path, smooth);
                         continue;
                 }
             }
@@ -41,7 +39,7 @@ namespace ColonistBarKF
         [CanBeNull]
         private Material LoadIconMat(string path, bool smooth = false)
         {
-            Texture2D tex = ContentFinder<Texture2D>.Get("UI/Overlays/PawnStateIcons/" + path, false);
+            var tex = ContentFinder<Texture2D>.Get("UI/Overlays/PawnStateIcons/" + path, false);
 
             Material material;
             if (tex == null)

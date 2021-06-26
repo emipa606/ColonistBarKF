@@ -7,15 +7,13 @@ namespace ColonistBarKF.Bar
     [StaticConstructorOnStartup]
     internal static class Textures
     {
-        [NotNull]
-        public static readonly Texture2D BgTexGrey = ContentFinder<Texture2D>.Get("UI/Widgets/CBKF/DesButBG_grey");
+        [NotNull] public static readonly Texture2D BgTexGrey =
+            ContentFinder<Texture2D>.Get("UI/Widgets/CBKF/DesButBG_grey");
 
-        [NotNull]
-        public static readonly Texture2D BgTexIconPSI =
+        [NotNull] public static readonly Texture2D BgTexIconPSI =
             SolidColorMaterials.NewSolidColorTexture(new Color(0f, 0f, 0f, 0.8f));
 
-        [NotNull]
-        public static readonly Texture2D BgTexVanilla =
+        [NotNull] public static readonly Texture2D BgTexVanilla =
             ContentFinder<Texture2D>.Get("UI/Widgets/CBKF/DesButBG_vanilla");
 
         public static readonly Color ColBlue = new Color32(0, 114, 178, 255);
@@ -46,73 +44,63 @@ namespace ColonistBarKF.Bar
         // Color blind palette
         public static readonly Color ColYellowBg = new Color32(176, 179, 0, 60);
 
-        [NotNull]
-        public static readonly Texture2D DarkGrayFond =
+        [NotNull] public static readonly Texture2D DarkGrayFond =
             SolidColorMaterials.NewSolidColorTexture(new Color(1, 1, 1, 0.05f));
 
-        [NotNull]
-        public static readonly Texture2D DeadColonistTex = ContentFinder<Texture2D>.Get("UI/Misc/DeadColonist");
+        [NotNull] public static readonly Texture2D DeadColonistTex =
+            ContentFinder<Texture2D>.Get("UI/Misc/DeadColonist");
 
         public static readonly Color FemaleColor = new Color(1f, 0.64f, 0.8f, 1f);
 
-        [NotNull]
-        public static readonly Texture2D GrayFond = SolidColorMaterials.NewSolidColorTexture(new Color(1, 1, 1, 0.07f));
+        [NotNull] public static readonly Texture2D GrayFond =
+            SolidColorMaterials.NewSolidColorTexture(new Color(1, 1, 1, 0.07f));
 
-        [NotNull]
-        public static readonly Texture2D GrayLines =
+        [NotNull] public static readonly Texture2D GrayLines =
             SolidColorMaterials.NewSolidColorTexture(new Color(1, 1, 1, 0.25f));
 
         public static readonly Color HighlightColor = new Color(0.5f, 0.5f, 0.5f, 1f);
 
-        [NotNull]
-        public static readonly Texture2D IconAttacking = ContentFinder<Texture2D>.Get("UI/Icons/ColonistBar/Attacking");
+        [NotNull] public static readonly Texture2D IconAttacking =
+            ContentFinder<Texture2D>.Get("UI/Icons/ColonistBar/Attacking");
 
-        [NotNull]
-        public static readonly Texture2D IconBurning = ContentFinder<Texture2D>.Get("UI/Icons/ColonistBar/Burning");
+        [NotNull] public static readonly Texture2D IconBurning =
+            ContentFinder<Texture2D>.Get("UI/Icons/ColonistBar/Burning");
 
-        [NotNull]
-        public static readonly Texture2D IconFleeing = ContentFinder<Texture2D>.Get("UI/Icons/ColonistBar/Fleeing");
+        [NotNull] public static readonly Texture2D IconFleeing =
+            ContentFinder<Texture2D>.Get("UI/Icons/ColonistBar/Fleeing");
 
-        [NotNull]
-        public static readonly Texture2D IconIdle = ContentFinder<Texture2D>.Get("UI/Icons/ColonistBar/Idle");
+        [NotNull] public static readonly Texture2D IconIdle = ContentFinder<Texture2D>.Get("UI/Icons/ColonistBar/Idle");
 
-        [NotNull]
-        public static readonly Texture2D IconMedicalRest =
+        [NotNull] public static readonly Texture2D IconMedicalRest =
             ContentFinder<Texture2D>.Get("UI/Icons/ColonistBar/MedicalRest");
 
-        [NotNull]
-        public static readonly Texture2D IconMentalStateAggro =
+        [NotNull] public static readonly Texture2D IconMentalStateAggro =
             ContentFinder<Texture2D>.Get("UI/Icons/ColonistBar/MentalStateAggro");
 
-        [NotNull]
-        public static readonly Texture2D IconMentalStateNonAggro =
+        [NotNull] public static readonly Texture2D IconMentalStateNonAggro =
             ContentFinder<Texture2D>.Get("UI/Icons/ColonistBar/MentalStateNonAggro");
 
-        [NotNull]
-        public static readonly Texture2D IconSleeping = ContentFinder<Texture2D>.Get("UI/Icons/ColonistBar/Sleeping");
+        [NotNull] public static readonly Texture2D IconSleeping =
+            ContentFinder<Texture2D>.Get("UI/Icons/ColonistBar/Sleeping");
 
         public static readonly Color MaleColor = new Color(0.52f, 0.75f, 0.92f, 1f);
 
-        [NotNull]
-        public static readonly Texture2D MoodBgTex =
+        [NotNull] public static readonly Texture2D MoodBgTex =
             SolidColorMaterials.NewSolidColorTexture(new Color(0f, 0f, 0f, 0.4f));
 
-        [NotNull]
-        public static readonly Texture2D MoodBreakTex =
+        [NotNull] public static readonly Texture2D MoodBreakTex =
             SolidColorMaterials.NewSolidColorTexture(new Color(0.1f, 0.2f, 0.22f, 0.8f));
 
-        [NotNull]
-        public static readonly Texture2D MoodNeutralBgTex = SolidColorMaterials.NewSolidColorTexture(ColorNeutralSoft);
+        [NotNull] public static readonly Texture2D MoodNeutralBgTex =
+            SolidColorMaterials.NewSolidColorTexture(ColorNeutralSoft);
 
-        [NotNull]
-        public static readonly Texture2D MoodNeutralTex = SolidColorMaterials.NewSolidColorTexture(Color.white);
+        [NotNull] public static readonly Texture2D MoodNeutralTex =
+            SolidColorMaterials.NewSolidColorTexture(Color.white);
 
-        [NotNull]
-        public static readonly Texture2D MoodTargetTex =
+        [NotNull] public static readonly Texture2D MoodTargetTex =
             SolidColorMaterials.NewSolidColorTexture(new Color(0.7f, 0.9f, 0.95f, 0.7f));
 
-        [NotNull]
-        public static readonly Texture2D RedHover =
+        [NotNull] public static readonly Texture2D RedHover =
             SolidColorMaterials.NewSolidColorTexture(new Color(0.7f, 0, 0, 0.12f));
 
         // public static readonly Texture2D MoodNeutralTex = SolidColorMaterials.NewSolidColorTexture(new Color(0.2f, 0.8f, 0.85f, 0.5f));
@@ -126,11 +114,10 @@ namespace ColonistBarKF.Bar
         // public static readonly Texture2D MoodExtremeCrossedBGTex = SolidColorMaterials.NewSolidColorTexture(new Color(0.6f, 0.15f, 0.00f, 0.44f));
         // public static readonly Texture2D MoodTargetTex = SolidColorMaterials.NewSolidColorTexture(new Color(0.7f, 0.9f, 0.95f, 0.7f));
         // public static readonly Texture2D MoodBreakTex = SolidColorMaterials.NewSolidColorTexture(new Color(0.1f, 0.2f, 0.22f, 0.8f));
-        [NotNull]
-        public static readonly Texture2D SelectedTex = ContentFinder<Texture2D>.Get("UI/Overlays/SelectionBracketGUI");
+        [NotNull] public static readonly Texture2D SelectedTex =
+            ContentFinder<Texture2D>.Get("UI/Overlays/SelectionBracketGUI");
 
-        [NotNull]
-        public static readonly Texture2D VanillaMoodBgTex =
+        [NotNull] public static readonly Texture2D VanillaMoodBgTex =
             SolidColorMaterials.NewSolidColorTexture(new Color(0.4f, 0.47f, 0.53f, 0.44f));
 
         public static Color Color05AndLess = new Color(0.8f, 0.75f, 0.59f);
@@ -141,20 +128,16 @@ namespace ColonistBarKF.Bar
         // public static Color Color25To21 = new Color(0.95f, 0f, 0f);
         public static Color ColorNeutralStatusOpaque = new Color(0.8f, 0.8f, 0.8f, 0.8f);
 
-        [NotNull]
-        public static Material HairMat;
+        [NotNull] public static Material HairMat;
 
         // public static Color ColorRedAlert = new Color(0.95f, 0, 0);
         // public static Color ColorOrangeAlert = Color20To16;
         // public static Color ColorYellowAlert = Color15To11;
-        [NotNull]
-        public static Texture2D ResolvedIcon;
+        [NotNull] public static Texture2D ResolvedIcon;
 
-        [NotNull]
-        public static Material SkinMat;
+        [NotNull] public static Material SkinMat;
 
-        [NotNull]
-        public static Material TargetMat;
+        [NotNull] public static Material TargetMat;
 
         // public static Color ColorHealthBarGreen = new Color(0f, 0.8f, 0f);
     }
