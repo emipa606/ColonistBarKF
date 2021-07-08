@@ -103,7 +103,7 @@ namespace ColonistBarKF.Bar
                 return;
             }
 
-            var iconTex = PortraitsCache.Get(pawn, ColonistBarColonistDrawer.PawnTextureSize,
+            var iconTex = PortraitsCache.Get(pawn, ColonistBarColonistDrawer.PawnTextureSize, Rot4.South,
                 ColonistBarColonistDrawer.PawnTextureCameraOffset, 1.28205f);
             var rect = new Rect(vector.x, vector.y, ColonistBar_KF.FullSize.x, ColonistBar_KF.FullSize.y);
             var pawnTextureRect = ColonistBar_KF.Drawer.GetPawnTextureRect(rect.position);

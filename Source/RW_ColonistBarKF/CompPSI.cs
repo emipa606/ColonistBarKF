@@ -636,7 +636,7 @@ namespace ColonistBarKF
             var efficiency = psiSettings.LimitEfficiencyLess;
             var efficiencyTotal = 1f;
             string efficiencyTip = null;
-            var flag2 = false;
+            var b = false;
 
             // temperature
             var temperatureForCell = GenTemperature.GetTemperatureForCell(Pawn.Position, Pawn.Map);
@@ -769,32 +769,33 @@ namespace ColonistBarKF
             if (health != null)
             {
                 _array = GameComponentPSI.PawnCapacities;
-                for (var i = 0; i < _array.Length; i++)
+                foreach (var pawnCapacityDef in _array)
                 {
-                    var pawnCapacityDef = _array[i];
                     {
                         // if (pawnCapacityDef != PawnCapacityDefOf.Consciousness)
                         var level = health?.capacities?.GetLevel(pawnCapacityDef) ?? 1f;
-                        if (level < efficiency)
+                        if (!(level < efficiency))
                         {
-                            if (efficiencyTip.NullOrEmpty())
-                            {
-                                efficiencyTip = "PSI.Efficiency".Translate() + ": " + pawnCapacityDef.LabelCap + " "
-                                                + level.ToStringPercent();
-                            }
-                            else
-                            {
-                                efficiencyTip += "\n" + "PSI.Efficiency".Translate() + ": " + pawnCapacityDef.LabelCap
-                                                 + " " + level.ToStringPercent();
-                            }
-
-                            efficiencyTotal = Mathf.Min(level, efficiencyTotal);
-                            flag2 = true;
+                            continue;
                         }
+
+                        if (efficiencyTip.NullOrEmpty())
+                        {
+                            efficiencyTip = "PSI.Efficiency".Translate() + ": " + pawnCapacityDef.LabelCap + " "
+                                            + level.ToStringPercent();
+                        }
+                        else
+                        {
+                            efficiencyTip += "\n" + "PSI.Efficiency".Translate() + ": " + pawnCapacityDef.LabelCap
+                                             + " " + level.ToStringPercent();
+                        }
+
+                        efficiencyTotal = Mathf.Min(level, efficiencyTotal);
+                        b = true;
                     }
                 }
 
-                if (flag2)
+                if (b)
                 {
                     var color =
                         Statics.GradientRedAlertToNeutral.Evaluate(
@@ -1049,7 +1050,7 @@ namespace ColonistBarKF
 
                 if (psiSettings.ShowToxicity)
                 {
-                    var tooltip = _toxicTip;
+                    var unused = _toxicTip;
 
                     psiIconList.Add(
                         new IconEntryPSI(
@@ -1083,9 +1084,9 @@ namespace ColonistBarKF
             {
                 if (GetThought(
                     ThoughtDefOf.ApparelDamaged,
-                    out var apparelStage,
+                    out _,
                     out var apparelTooltip,
-                    out var moodOffset))
+                    out _))
                 {
                     barAp = true;
                     psiAp = true;
@@ -1094,16 +1095,16 @@ namespace ColonistBarKF
 
                 if (GetThought(
                     ThoughtDefOf.HumanLeatherApparelSad,
-                    out apparelStage,
+                    out _,
                     out apparelTooltip,
-                    out moodOffset))
+                    out _))
                 {
                     barAp = true;
                     psiAp = true;
                     appareltip = appareltip == null ? apparelTooltip : appareltip + "\n" + apparelTooltip;
                 }
 
-                if (GetThought(ThoughtDefOf.DeadMansApparel, out apparelStage, out apparelTooltip, out moodOffset))
+                if (GetThought(ThoughtDefOf.DeadMansApparel, out _, out apparelTooltip, out _))
                 {
                     barAp = true;
                     psiAp = true;
@@ -1282,7 +1283,7 @@ namespace ColonistBarKF
 
                 if (psiSettings.ShowLeftUnburied)
                 {
-                    var tooltip = _unburiedTip;
+                    var unused = _unburiedTip;
                     psiIconList.Add(new IconEntryPSI(Icon.LeftUnburied, moodOffset, viewOpacity));
                 }
             }
@@ -1293,22 +1294,23 @@ namespace ColonistBarKF
             _addictionLabel = null;
             if (hediffs != null)
             {
-                for (var i = 0; i < hediffs.Count; i++)
+                foreach (var hediff in hediffs)
                 {
-                    var hediff = hediffs[i];
-                    if (hediff is Hediff_Addiction)
+                    if (hediff is not Hediff_Addiction)
                     {
-                        _isAddict = true;
-                        _withDrawalPercent = hediff.Severity;
-                        _withDrawal = hediff.CurStageIndex > 0;
-                        if (_addictionLabel.NullOrEmpty())
-                        {
-                            _addictionLabel = hediff.LabelCap;
-                        }
-                        else
-                        {
-                            _addictionLabel += "\n" + hediff.LabelCap;
-                        }
+                        continue;
+                    }
+
+                    _isAddict = true;
+                    _withDrawalPercent = hediff.Severity;
+                    _withDrawal = hediff.CurStageIndex > 0;
+                    if (_addictionLabel.NullOrEmpty())
+                    {
+                        _addictionLabel = hediff.LabelCap;
+                    }
+                    else
+                    {
+                        _addictionLabel += "\n" + hediff.LabelCap;
                     }
                 }
             }

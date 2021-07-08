@@ -284,11 +284,10 @@ namespace ColonistBarKF
             var mapHeld = thing.MapHeld;
             if (mapHeld != null && thing.PositionHeld.IsValid && thing.PositionHeld.InBounds(mapHeld))
             {
-                var flag = CameraJumper.TryHideWorld();
                 if (Current.Game.CurrentMap != mapHeld)
                 {
                     Current.Game.CurrentMap = mapHeld;
-                    if (!flag)
+                    if (!CameraJumper.TryHideWorld())
                     {
                         SoundDefOf.MapSelected.PlayOneShotOnCamera();
                     }
@@ -306,21 +305,23 @@ namespace ColonistBarKF
         {
             // to avoid cancelling the following immediately after it starts, allow the camera to move to the followed thing once
             // before starting to compare positions
-            if (_cameraHasJumpedAtLeastOnce)
+            if (!_cameraHasJumpedAtLeastOnce)
             {
-                // the actual location of the camera right now
-                var currentCameraPosition = Find.CameraDriver.MapPosition;
+                return;
+            }
 
-                // the location the camera has been requested to be at
-                var requestedCameraPosition = CameraRootPosition.ToIntVec3();
+            // the actual location of the camera right now
+            var currentCameraPosition = Find.CameraDriver.MapPosition;
 
-                // these normally stay in sync while following is active, since we were the last to request where the camera should go.
-                // If they get out of sync, it's because the camera has been asked to jump to somewhere else, and we should stop
-                // following our thing.
-                if ((currentCameraPosition - requestedCameraPosition).LengthHorizontal > 1)
-                {
-                    StopFollow("map moved (camera jump)");
-                }
+            // the location the camera has been requested to be at
+            var requestedCameraPosition = CameraRootPosition.ToIntVec3();
+
+            // these normally stay in sync while following is active, since we were the last to request where the camera should go.
+            // If they get out of sync, it's because the camera has been asked to jump to somewhere else, and we should stop
+            // following our thing.
+            if ((currentCameraPosition - requestedCameraPosition).LengthHorizontal > 1)
+            {
+                StopFollow("map moved (camera jump)");
             }
         }
 

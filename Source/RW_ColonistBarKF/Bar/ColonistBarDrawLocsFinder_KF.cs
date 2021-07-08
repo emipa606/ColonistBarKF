@@ -167,7 +167,7 @@ namespace ColonistBarKF.Bar
                 if (TryDistributeHorizontalSlotsBetweenGroups(maxPerGlobalRow))
                 {
                     var allowedRowsCountForScale = GetAllowedRowsCountForScale(bestScale);
-                    var flag = true;
+                    var b = true;
                     var mapNum = -1;
                     for (var i = 0; i < entries.Count; i++)
                     {
@@ -189,11 +189,11 @@ namespace ColonistBarKF.Bar
                             continue;
                         }
 
-                        flag = false;
+                        b = false;
                         break;
                     }
 
-                    if (flag)
+                    if (b)
                     {
                         break;
                     }

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
-using RimWorld;
 using RimWorld.Planet;
 using UnityEngine;
 using Verse;
@@ -38,21 +37,7 @@ namespace ColonistBarKF.Bar
             Settings.BarSettings.BaseIconSize,
             Settings.BarSettings.BaseIconSize) * Scale;
 
-        public static int PSIRowsOnBar
-        {
-            get
-            {
-                return 2;
-
-                var maxRows = 0;
-                foreach (var pawn in PawnsFinder.AllMaps_FreeColonistsSpawned)
-                {
-                    maxRows = Mathf.Max(pawn.GetComp<CompPSI>().ThisColCount, maxRows);
-                }
-
-                return maxRows;
-            }
-        }
+        public static int PSIRowsOnBar => 2;
 
         // public static readonly Vector2 PawnTextureSize = new Vector2(BaseSize.x - 2f, 75f);
         public static float Scale => BarHelperKF.CachedScale;
@@ -120,9 +105,8 @@ namespace ColonistBarKF.Bar
                         FullSize.x,
                         FullSize.y + SpacingLabel);
                     var entry = entries[i];
-                    var flag = num != entry.group;
                     num = entry.group;
-                    if (flag)
+                    if (num != entry.group)
                     {
                         reorderableGroup = ReorderableWidget.NewGroup(entry.reorderAction,
                             ReorderableDirection.Horizontal, SpaceBetweenColonistsHorizontal,
@@ -144,7 +128,7 @@ namespace ColonistBarKF.Bar
                         continue;
                     }
 
-                    if (flag && showGroupFrames)
+                    if (num != entry.group && showGroupFrames)
                     {
                         Drawer.DrawGroupFrame(entry.group);
                     }
@@ -167,9 +151,8 @@ namespace ColonistBarKF.Bar
                     {
                         var entry2 = entries[j];
                         var entry2Group = entry2.group;
-                        var flag2 = num != entry2Group;
                         num = entry2Group;
-                        if (flag2)
+                        if (num != entry2Group)
                         {
                             Drawer.HandleGroupFrameClicks(entry2Group);
                         }
@@ -218,18 +201,18 @@ namespace ColonistBarKF.Bar
                 BarHelperKF.TmpColonistsWithMap.Add(new Pair<Thing, Map>(first, entries[i].map));
             }
 
-            var flag = true;
+            var b = true;
 
             if (WorldRendererUtility.WorldRenderedNow)
             {
                 if (BarHelperKF.TmpColonistsWithMap.Any(x => x.Second == null))
                 {
                     BarHelperKF.TmpColonistsWithMap.RemoveAll(x => x.Second != null);
-                    flag = false;
+                    b = false;
                 }
             }
 
-            if (flag)
+            if (b)
             {
                 if (BarHelperKF.TmpColonistsWithMap.Any(x => x.Second == Find.CurrentMap))
                 {

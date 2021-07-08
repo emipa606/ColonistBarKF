@@ -179,6 +179,7 @@ namespace ColonistBarKF.Bar
                 PortraitsCache.Get(
                     colonist,
                     PawnTextureSize,
+                    Rot4.South,
                     PawnTextureCameraOffset,
                     Settings.BarSettings.PawnTextureCameraZoom));
             if (colonist.CurJob != null)
@@ -244,8 +245,6 @@ namespace ColonistBarKF.Bar
 
             //  Color color = new Color(0.23f, 0.23f, 0.23f, 0.4f);
 
-            var flag = Mouse.IsOver(position);
-
             // Caravan on world map
             if (map == null)
             {
@@ -274,66 +273,15 @@ namespace ColonistBarKF.Bar
                 }
             }
 
-            if (flag && num < 1f)
+            if (Mouse.IsOver(position) && num < 1f)
             {
                 num = 1f;
             }
 
             color.a *= num;
             Widgets.DrawRectFast(position, color);
-            return;
 
             // Stupid stuff
-            if (Mouse.IsOver(position) && Event.current.type == EventType.MouseDown)
-            {
-                var tmpColonists = new List<Pawn>();
-                for (var i = 0; i < entries.Count; i++)
-                {
-                    var pawn = entries[i].pawn;
-                    if (pawn == null)
-                    {
-                        continue;
-                    }
-
-                    tmpColonists.Add(pawn);
-                }
-
-                if (tmpColonists.Count != 0)
-                {
-                    var worldRenderedNow = WorldRendererUtility.WorldRenderedNow;
-                    var num3 = -1;
-                    var num2 = tmpColonists.Count - 1;
-                    while (num2 >= 0)
-                    {
-                        if (!worldRenderedNow && Find.Selector.IsSelected(tmpColonists[num2]))
-                        {
-                            goto IL_00c4;
-                        }
-
-                        if (worldRenderedNow && tmpColonists[num2].IsCaravanMember()
-                                             && Find.WorldSelector.IsSelected(tmpColonists[num2].GetCaravan()))
-                        {
-                            goto IL_00c4;
-                        }
-
-                        num2--;
-                        continue;
-
-                        IL_00c4:
-                        num3 = num2;
-                        break;
-                    }
-
-                    if (num3 == -1)
-                    {
-                        CameraJumper.TryJumpAndSelect(tmpColonists[0]);
-                    }
-                    else
-                    {
-                        CameraJumper.TryJumpAndSelect(tmpColonists[(num3 + 1) % tmpColonists.Count]);
-                    }
-                }
-            }
         }
 
         public void HandleClicks(Rect rect, [CanBeNull] Pawn colonist, int reorderableGroup, out bool reordering)
@@ -368,7 +316,7 @@ namespace ColonistBarKF.Bar
                             // Double click
                             // use event so it doesn't bubble through
                             Event.current.Use();
-                            var flag = false;
+                            var b = false;
                             if (colonist == null)
                             {
                             }
@@ -383,15 +331,15 @@ namespace ColonistBarKF.Bar
                                     }
                                     else
                                     {
-                                        flag = true;
+                                        b = true;
                                     }
                                 }
                                 else
                                 {
-                                    flag = true;
+                                    b = true;
                                 }
 
-                                if (flag)
+                                if (b)
                                 {
                                     CameraJumper.TryJump(colonist);
                                 }
@@ -455,9 +403,8 @@ namespace ColonistBarKF.Bar
                                         .TryStartFollow(colonist);
                                 });
 
-                            var flag = !FollowMe.CurrentlyFollowing
-                                       || FollowMe.CurrentlyFollowing && FollowMe.FollowedThing != colonist;
-                            if (flag)
+                            if (!FollowMe.CurrentlyFollowing
+                                || FollowMe.CurrentlyFollowing && FollowMe.FollowedThing != colonist)
                             {
                                 fluffyStart.Add(fluffyFollowAction);
 
@@ -1032,18 +979,16 @@ namespace ColonistBarKF.Bar
 
         private void ApplyEntryInAnotherMapAlphaFactor([CanBeNull] Map map, Rect rect, ref float alpha)
         {
-            var flag = Mouse.IsOver(rect);
-
             if (map == null)
             {
                 if (!WorldRendererUtility.WorldRenderedNow)
                 {
-                    alpha = Mathf.Min(alpha, flag ? 1f : 0.4f);
+                    alpha = Mathf.Min(alpha, Mouse.IsOver(rect) ? 1f : 0.4f);
                 }
             }
             else if (map != Find.CurrentMap || WorldRendererUtility.WorldRenderedNow)
             {
-                alpha = Mathf.Min(alpha, flag ? 1f : 0.4f);
+                alpha = Mathf.Min(alpha, Mouse.IsOver(rect) ? 1f : 0.4f);
             }
         }
 
@@ -1166,13 +1111,13 @@ namespace ColonistBarKF.Bar
             DrawSelectionOverlayOnGUI(bracketLocs, num);
         }
 
-        private void DrawSelectionOverlayOnGUI([NotNull] Vector2[] bracketLocs, float selectedTexScale)
+        private void DrawSelectionOverlayOnGUI([NotNull] Vector2[] vector2s, float selectedTexScale)
         {
             var num = 90;
             for (var i = 0; i < 4; i++)
             {
                 Widgets.DrawTextureRotated(
-                    bracketLocs[i],
+                    vector2s[i],
                     SelectionDrawerUtility.SelectedTexGUI,
                     num,
                     selectedTexScale);

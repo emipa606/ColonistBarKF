@@ -20,17 +20,17 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=729908976
 ![Image](https://i.imgur.com/NOW7jU1.png)
 
 **Development stopped.**
-*I've ceased all my modding activities, due to lack of free time and new found hobbies. 
-Please enjoy this mod while it's still working with RW 1.0, but don't expect any updates or fixes.*
+*I&apos;ve ceased all my modding activities, due to lack of free time and new found hobbies. 
+Please enjoy this mod while it&apos;s still working with RW 1.0, but don&apos;t expect any updates or fixes.*
 
 More options for the Colonist Bar.
 - Allows custom sorting as well as custom scaling.
 - All options available with Right Mouse Button click on any icon.
 - FollowMe™ functionality via Middle Mouse Button click.
 
-Includes icon stats based on 'Pawn State Icons™' by Dan Sadler
-Includes 'FollowMe™' functionality by Fluffy with updated code by alexschrod
-Includes 'ZoomToMouse™' functionality by Fluffy
+Includes icon stats based on &apos;Pawn State Icons™&apos; by Dan Sadler
+Includes &apos;FollowMe™&apos; functionality by Fluffy with updated code by alexschrod
+Includes &apos;ZoomToMouse™&apos; functionality by Fluffy
 
 To access the new options menu + sorting, right mouse click on any colonist icon.
 
@@ -47,11 +47,11 @@ German
 Russian – thx to skyarkhangel (taken from HardCore SK)
 Spanish – thx to Ninnetyer
 
-**Don't forget to rate this mod if you like it.**
+**Don&apos;t forget to rate this mod if you like it.**
 
 # License
  
-All textures ©Killface. Please don't repost without asking.
+All textures ©Killface. Please don&apos;t repost without asking.
 
 ![Image](https://i.imgur.com/Rs6T6cr.png)
 
