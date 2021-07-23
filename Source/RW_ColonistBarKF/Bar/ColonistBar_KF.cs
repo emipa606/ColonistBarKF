@@ -94,7 +94,7 @@ namespace ColonistBarKF.Bar
             if (Event.current.type != EventType.Layout)
             {
                 var entries = BarHelperKF.Entries;
-                var num = -1;
+                int num;
                 var showGroupFrames = BarHelperKF.ShowGroupFrames;
                 var reorderableGroup = -1;
                 for (var i = 0; i < BarHelperKF.DrawLocs.Count; i++)
@@ -144,7 +144,6 @@ namespace ColonistBarKF.Bar
                     }
                 }
 
-                num = -1;
                 if (showGroupFrames)
                 {
                     for (var j = 0; j < BarHelperKF.DrawLocs.Count; j++)
@@ -189,7 +188,7 @@ namespace ColonistBarKF.Bar
                 }
 
                 Thing first;
-                if (pawn.Dead && pawn.Corpse != null && pawn.Corpse.SpawnedOrAnyParentSpawned)
+                if (pawn.Dead && pawn.Corpse is {SpawnedOrAnyParentSpawned: true})
                 {
                     first = pawn.Corpse;
                 }

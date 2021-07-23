@@ -236,7 +236,7 @@ namespace ColonistBarKF.Bar
             }
 
             GenMath.DHondtDistribution(_horizontalSlotsPerGroup,
-                i => (float) _entriesInGroup[i],
+                i => _entriesInGroup[i],
                 maxPerGlobalRow);
             for (var j = 0; j < _horizontalSlotsPerGroup.Count; j++)
             {

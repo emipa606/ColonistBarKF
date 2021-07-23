@@ -564,7 +564,7 @@ namespace ColonistBarKF
 
             // Log.Message(pawn + " health: " + this.pawnHealth);
             // Idle - Colonist icon only
-            if (Pawn.mindState != null && Pawn.mindState.IsIdle)
+            if (Pawn.mindState is {IsIdle: true})
             {
                 if (psiSettings.ShowIdle && GenDate.DaysPassed >= 0.1)
                 {
@@ -1318,7 +1318,7 @@ namespace ColonistBarKF
             if (_isAddict || _drugDesire != 0)
             {
                 var color = new Color();
-                string tooltip = null;
+                string tooltip;
                 if (_isAddict)
                 {
                     if (_withDrawal)
