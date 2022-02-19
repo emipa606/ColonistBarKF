@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Defs>
-  <HugsLib.UpdateFeatureDef Abstract="true" Name="UpdateFeatureBase">
+  <HugsLib.UpdateFeatureDef Abstract="true" Name="ColonistBarKF_UpdateFeatureBase">
     <modNameReadable>ColonistBarKF</modNameReadable>
     <linkUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=2270454746</linkUrl>
   </HugsLib.UpdateFeatureDef>
-  <HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
+  <HugsLib.UpdateFeatureDef ParentName="ColonistBarKF_UpdateFeatureBase">
     <defName>ColonistBarKF_1_0_2_0</defName>
     <assemblyVersion>1.0.2.0</assemblyVersion>
     <content>Recompiled the mod using the last steam-version published by Killface (the original author) instead of the last github-version. 
