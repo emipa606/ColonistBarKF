@@ -3,246 +3,245 @@ using JetBrains.Annotations;
 using UnityEngine;
 using Verse;
 
-namespace ColonistBarKF.PSI
+namespace ColonistBarKF.PSI;
+
+public static class BarIconDrawer
 {
-    public static class BarIconDrawer
+    [NotNull] private static Vector3[] _iconPosRectsBar;
+
+    public static void DrawColonistIconsBar([NotNull] this Pawn pawn, Rect psiRect, float rectAlpha)
     {
-        [NotNull] private static Vector3[] _iconPosRectsBar;
+        var pawnStats = pawn.GetComp<CompPSI>();
 
-        public static void DrawColonistIconsBar([NotNull] this Pawn pawn, Rect psiRect, float rectAlpha)
+        if (pawn.Dead || !pawn.Spawned || pawn.holdingOwner == null || pawn.Map == null)
         {
-            var pawnStats = pawn.GetComp<CompPSI>();
-
-            if (pawn.Dead || !pawn.Spawned || pawn.holdingOwner == null || pawn.Map == null)
-            {
-                pawnStats.ThisColCount = 0;
-                return;
-            }
-
-            var colBarSettings = Settings.BarSettings;
-            var barIconNum = 0;
-            var rowCount = pawnStats.ThisColCount;
-
-            // Drafted
-            if (colBarSettings.ShowDraft && pawn.Drafted)
-            {
-                if (pawnStats.IsPacifist)
-                {
-                    DrawIconOnBar(psiRect, ref barIconNum, Icon.Draft, Textures.ColYellow, rectAlpha, rowCount);
-                }
-                else
-                {
-                    DrawIconOnBar(psiRect, ref barIconNum, Icon.Draft, Textures.ColVermillion, rectAlpha, rowCount);
-                }
-            }
-
-            var drawIconEntries = pawnStats.BarIconList;
-            if (!pawnStats.BarIconList.NullOrEmpty())
-            {
-                var maxIconCount = Mathf.Min(
-                    Settings.BarSettings.IconsInColumn * 2,
-                    drawIconEntries.Count + barIconNum);
-                for (var index = 0; index < maxIconCount - barIconNum; index++)
-                {
-                    var iconEntryBar = drawIconEntries[index];
-                    iconEntryBar.Color.a *= rectAlpha;
-                    DrawIconOnBar(psiRect, iconEntryBar, index + barIconNum, rowCount);
-                }
-
-                barIconNum += maxIconCount;
-            }
-
-            // Idle - bar icon already included - vanilla
-            var colCount = Mathf.CeilToInt((float) barIconNum / Settings.BarSettings.IconsInColumn);
-
-            pawnStats.ThisColCount = colCount;
+            pawnStats.ThisColCount = 0;
+            return;
         }
 
-        public static void RecalcBarPositionAndSize()
+        var colBarSettings = Settings.BarSettings;
+        var barIconNum = 0;
+        var rowCount = pawnStats.ThisColCount;
+
+        // Drafted
+        if (colBarSettings.ShowDraft && pawn.Drafted)
         {
-            var settings = Settings.BarSettings;
-            _iconPosRectsBar = new Vector3[40];
-            for (var index = 0; index < _iconPosRectsBar.Length; ++index)
+            if (pawnStats.IsPacifist)
             {
-                var num1 = index / settings.IconsInColumn;
-                var num2 = index % settings.IconsInColumn;
-                if (settings.IconsHorizontal)
-                {
-                    var num3 = num1;
-                    num1 = num2;
-                    num2 = num3;
-
-                    // num2 = index / ColBarSettings.IconsInColumn;
-                    // num1 = index % ColBarSettings.IconsInColumn;
-                }
-
-                _iconPosRectsBar[index] = new Vector3(-num1, 3f, num2);
+                DrawIconOnBar(psiRect, ref barIconNum, Icon.Draft, Textures.ColYellow, rectAlpha, rowCount);
+            }
+            else
+            {
+                DrawIconOnBar(psiRect, ref barIconNum, Icon.Draft, Textures.ColVermillion, rectAlpha, rowCount);
             }
         }
 
-        private static void DrawIcon_onBar(
-            Rect rect,
-            Vector3 posOffset,
-            [NotNull] Material material,
-            Color color,
-            float rectAlpha,
-            int rowCount,
-            [CanBeNull] string tooltip = null)
+        var drawIconEntries = pawnStats.BarIconList;
+        if (!pawnStats.BarIconList.NullOrEmpty())
         {
-            // Widgets.DrawBoxSolid(rect, Color.cyan);
-            color.a *= rectAlpha;
-            var guiColor = GUI.color;
-            guiColor.a = rectAlpha;
-            GUI.color = guiColor;
-
-            material.color = color;
-
-            var iconRect = new Rect(rect);
-
-            var size = Mathf.Min(iconRect.width, iconRect.height) / rowCount;
-
-            iconRect.height = iconRect.width = size;
-
-            switch (Settings.BarSettings.ColBarPSIIconPos)
+            var maxIconCount = Mathf.Min(
+                Settings.BarSettings.IconsInColumn * 2,
+                drawIconEntries.Count + barIconNum);
+            for (var index = 0; index < maxIconCount - barIconNum; index++)
             {
-                case Position.Alignment.Left:
-                    iconRect.x = rect.xMax - size;
-                    iconRect.y = rect.yMax - size;
-                    break;
-
-                case Position.Alignment.Right:
-                    iconRect.x = rect.xMin;
-                    iconRect.y = rect.yMax - size;
-                    break;
-
-                case Position.Alignment.Top:
-                    iconRect.y = rect.yMax - size;
-                    break;
-
-                case Position.Alignment.Bottom:
-                    iconRect.y = rect.yMin;
-                    break;
+                var iconEntryBar = drawIconEntries[index];
+                iconEntryBar.Color.a *= rectAlpha;
+                DrawIconOnBar(psiRect, iconEntryBar, index + barIconNum, rowCount);
             }
 
-            // iconRect.x += (-0.5f * CBKF.ColBarSettings.IconMarginX - 0.5f  * CBKF.ColBarSettings.IconOffsetX) * iconRect.width;
-            // iconRect.y -= (-0.5f * CBKF.ColBarSettings.IconDistanceY + 0.5f  * CBKF.ColBarSettings.IconOffsetY) * iconRect.height;
-            iconRect.x += Settings.BarSettings.IconOffsetX * posOffset.x * size;
-            iconRect.y -= Settings.BarSettings.IconOffsetY * posOffset.z * iconRect.height;
-
-            // On Colonist
-            // iconRect.x -= iconRect.width * 0.5f;
-            // iconRect.y -= iconRect.height * 0.5f;
-            GUI.DrawTexture(iconRect, Textures.BgTexIconPSI);
-            GUI.color = color;
-
-            iconRect.x += size * 0.1f;
-            iconRect.y += iconRect.height * 0.1f;
-            iconRect.width *= 0.8f;
-            iconRect.height *= 0.8f;
-
-            GUI.DrawTexture(iconRect, material.mainTexture, ScaleMode.ScaleToFit, true);
-            GUI.color = guiColor;
-
-            if (tooltip != null)
-            {
-                TooltipHandler.TipRegion(iconRect, tooltip);
-            }
+            barIconNum += maxIconCount;
         }
 
-        private static void DrawIconOnBar(
-            Rect psiRect,
-            ref int num,
-            Icon icon,
-            Color color,
-            float rectAlpha,
-            int rowCount,
-            [CanBeNull] string tooltip = null)
+        // Idle - bar icon already included - vanilla
+        var colCount = Mathf.CeilToInt((float)barIconNum / Settings.BarSettings.IconsInColumn);
+
+        pawnStats.ThisColCount = colCount;
+    }
+
+    public static void RecalcBarPositionAndSize()
+    {
+        var settings = Settings.BarSettings;
+        _iconPosRectsBar = new Vector3[40];
+        for (var index = 0; index < _iconPosRectsBar.Length; ++index)
         {
-            // only two columns visible
-            if (num == Settings.BarSettings.IconsInColumn * 2)
+            var num1 = index / settings.IconsInColumn;
+            var num2 = index % settings.IconsInColumn;
+            if (settings.IconsHorizontal)
             {
-                return;
+                var num3 = num1;
+                num1 = num2;
+                num2 = num3;
+
+                // num2 = index / ColBarSettings.IconsInColumn;
+                // num1 = index % ColBarSettings.IconsInColumn;
             }
 
-            var material = GameComponentPSI.PSIMaterials[icon];
+            _iconPosRectsBar[index] = new Vector3(-num1, 3f, num2);
+        }
+    }
 
-            if (material == null)
-            {
-                return;
-            }
+    private static void DrawIcon_onBar(
+        Rect rect,
+        Vector3 posOffset,
+        [NotNull] Material material,
+        Color color,
+        float rectAlpha,
+        int rowCount,
+        [CanBeNull] string tooltip = null)
+    {
+        // Widgets.DrawBoxSolid(rect, Color.cyan);
+        color.a *= rectAlpha;
+        var guiColor = GUI.color;
+        guiColor.a = rectAlpha;
+        GUI.color = guiColor;
 
-            DrawIcon_onBar(psiRect, _iconPosRectsBar[num], material, color, rectAlpha, rowCount, tooltip);
+        material.color = color;
 
-            num++;
+        var iconRect = new Rect(rect);
+
+        var size = Mathf.Min(iconRect.width, iconRect.height) / rowCount;
+
+        iconRect.height = iconRect.width = size;
+
+        switch (Settings.BarSettings.ColBarPSIIconPos)
+        {
+            case Position.Alignment.Left:
+                iconRect.x = rect.xMax - size;
+                iconRect.y = rect.yMax - size;
+                break;
+
+            case Position.Alignment.Right:
+                iconRect.x = rect.xMin;
+                iconRect.y = rect.yMax - size;
+                break;
+
+            case Position.Alignment.Top:
+                iconRect.y = rect.yMax - size;
+                break;
+
+            case Position.Alignment.Bottom:
+                iconRect.y = rect.yMin;
+                break;
         }
 
-        private static void DrawIconOnBar(Rect psiRect, IconEntryBar iconEntryBar, int entry, int rowCount)
+        // iconRect.x += (-0.5f * CBKF.ColBarSettings.IconMarginX - 0.5f  * CBKF.ColBarSettings.IconOffsetX) * iconRect.width;
+        // iconRect.y -= (-0.5f * CBKF.ColBarSettings.IconDistanceY + 0.5f  * CBKF.ColBarSettings.IconOffsetY) * iconRect.height;
+        iconRect.x += Settings.BarSettings.IconOffsetX * posOffset.x * size;
+        iconRect.y -= Settings.BarSettings.IconOffsetY * posOffset.z * iconRect.height;
+
+        // On Colonist
+        // iconRect.x -= iconRect.width * 0.5f;
+        // iconRect.y -= iconRect.height * 0.5f;
+        GUI.DrawTexture(iconRect, Textures.BgTexIconPSI);
+        GUI.color = color;
+
+        iconRect.x += size * 0.1f;
+        iconRect.y += iconRect.height * 0.1f;
+        iconRect.width *= 0.8f;
+        iconRect.height *= 0.8f;
+
+        GUI.DrawTexture(iconRect, material.mainTexture, ScaleMode.ScaleToFit, true);
+        GUI.color = guiColor;
+
+        if (tooltip != null)
         {
-            var material = GameComponentPSI.PSIMaterials[iconEntryBar.Icon];
+            TooltipHandler.TipRegion(iconRect, tooltip);
+        }
+    }
 
-            if (material == null)
-            {
-                return;
-            }
+    private static void DrawIconOnBar(
+        Rect psiRect,
+        ref int num,
+        Icon icon,
+        Color color,
+        float rectAlpha,
+        int rowCount,
+        [CanBeNull] string tooltip = null)
+    {
+        // only two columns visible
+        if (num == Settings.BarSettings.IconsInColumn * 2)
+        {
+            return;
+        }
 
-            var posOffset = _iconPosRectsBar[entry];
+        var material = GameComponentPSI.PSIMaterials[icon];
 
-            var guiColor = GUI.color;
-            guiColor.a = iconEntryBar.Color.a;
-            GUI.color = guiColor;
+        if (material == null)
+        {
+            return;
+        }
 
-            material.color = iconEntryBar.Color;
+        DrawIcon_onBar(psiRect, _iconPosRectsBar[num], material, color, rectAlpha, rowCount, tooltip);
 
-            var iconRect = new Rect(psiRect);
+        num++;
+    }
 
-            var size = Mathf.Min(iconRect.width, iconRect.height) / rowCount;
+    private static void DrawIconOnBar(Rect psiRect, IconEntryBar iconEntryBar, int entry, int rowCount)
+    {
+        var material = GameComponentPSI.PSIMaterials[iconEntryBar.Icon];
 
-            iconRect.height = iconRect.width = size;
+        if (material == null)
+        {
+            return;
+        }
 
-            switch (Settings.BarSettings.ColBarPSIIconPos)
-            {
-                case Position.Alignment.Left:
-                    iconRect.x = psiRect.xMax - size;
-                    iconRect.y = psiRect.yMax - size;
-                    break;
+        var posOffset = _iconPosRectsBar[entry];
 
-                case Position.Alignment.Right:
-                    iconRect.x = psiRect.xMin;
-                    iconRect.y = psiRect.yMax - size;
-                    break;
+        var guiColor = GUI.color;
+        guiColor.a = iconEntryBar.Color.a;
+        GUI.color = guiColor;
 
-                case Position.Alignment.Top:
-                    iconRect.y = psiRect.yMax - size;
-                    break;
+        material.color = iconEntryBar.Color;
 
-                case Position.Alignment.Bottom:
-                    iconRect.y = psiRect.yMin;
-                    break;
-            }
+        var iconRect = new Rect(psiRect);
 
-            // iconRect.x += (-0.5f * CBKF.ColBarSettings.IconMarginX - 0.5f  * CBKF.ColBarSettings.IconOffsetX) * iconRect.width;
-            // iconRect.y -= (-0.5f * CBKF.ColBarSettings.IconDistanceY + 0.5f  * CBKF.ColBarSettings.IconOffsetY) * iconRect.height;
-            iconRect.x += Settings.BarSettings.IconOffsetX * posOffset.x * size;
-            iconRect.y -= Settings.BarSettings.IconOffsetY * posOffset.z * iconRect.height;
+        var size = Mathf.Min(iconRect.width, iconRect.height) / rowCount;
 
-            // On Colonist
-            // iconRect.x -= iconRect.width * 0.5f;
-            // iconRect.y -= iconRect.height * 0.5f;
-            GUI.DrawTexture(iconRect, Textures.BgTexIconPSI);
-            GUI.color = iconEntryBar.Color;
+        iconRect.height = iconRect.width = size;
 
-            iconRect.x += size * 0.1f;
-            iconRect.y += iconRect.height * 0.1f;
-            iconRect.width *= 0.8f;
-            iconRect.height *= 0.8f;
+        switch (Settings.BarSettings.ColBarPSIIconPos)
+        {
+            case Position.Alignment.Left:
+                iconRect.x = psiRect.xMax - size;
+                iconRect.y = psiRect.yMax - size;
+                break;
 
-            GUI.DrawTexture(iconRect, material.mainTexture, ScaleMode.ScaleToFit, true);
-            GUI.color = guiColor;
+            case Position.Alignment.Right:
+                iconRect.x = psiRect.xMin;
+                iconRect.y = psiRect.yMax - size;
+                break;
 
-            if (iconEntryBar.Tooltip != null)
-            {
-                TooltipHandler.TipRegion(iconRect, iconEntryBar.Tooltip);
-            }
+            case Position.Alignment.Top:
+                iconRect.y = psiRect.yMax - size;
+                break;
+
+            case Position.Alignment.Bottom:
+                iconRect.y = psiRect.yMin;
+                break;
+        }
+
+        // iconRect.x += (-0.5f * CBKF.ColBarSettings.IconMarginX - 0.5f  * CBKF.ColBarSettings.IconOffsetX) * iconRect.width;
+        // iconRect.y -= (-0.5f * CBKF.ColBarSettings.IconDistanceY + 0.5f  * CBKF.ColBarSettings.IconOffsetY) * iconRect.height;
+        iconRect.x += Settings.BarSettings.IconOffsetX * posOffset.x * size;
+        iconRect.y -= Settings.BarSettings.IconOffsetY * posOffset.z * iconRect.height;
+
+        // On Colonist
+        // iconRect.x -= iconRect.width * 0.5f;
+        // iconRect.y -= iconRect.height * 0.5f;
+        GUI.DrawTexture(iconRect, Textures.BgTexIconPSI);
+        GUI.color = iconEntryBar.Color;
+
+        iconRect.x += size * 0.1f;
+        iconRect.y += iconRect.height * 0.1f;
+        iconRect.width *= 0.8f;
+        iconRect.height *= 0.8f;
+
+        GUI.DrawTexture(iconRect, material.mainTexture, ScaleMode.ScaleToFit, true);
+        GUI.color = guiColor;
+
+        if (iconEntryBar.Tooltip != null)
+        {
+            TooltipHandler.TipRegion(iconRect, iconEntryBar.Tooltip);
         }
     }
 }

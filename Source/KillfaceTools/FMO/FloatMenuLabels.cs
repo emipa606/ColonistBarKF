@@ -1,16 +1,15 @@
 ﻿using System.Collections.Generic;
 using Verse;
 
-namespace KillfaceTools.FMO
+namespace KillfaceTools.FMO;
+
+public class FloatMenuLabels : FloatMenu
 {
-    public class FloatMenuLabels : FloatMenu
+    public FloatMenuLabels(List<FloatMenuOption> options)
+        : base(options, null)
     {
-        public FloatMenuLabels(List<FloatMenuOption> options)
-            : base(options, null)
-        {
-            givesColonistOrders = false;
-            vanishIfMouseDistant = true;
-            closeOnClickedOutside = false;
-        }
+        givesColonistOrders = false;
+        vanishIfMouseDistant = true;
+        closeOnClickedOutside = false;
     }
 }

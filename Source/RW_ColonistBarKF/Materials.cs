@@ -4,73 +4,72 @@ using JetBrains.Annotations;
 using UnityEngine;
 using Verse;
 
-namespace ColonistBarKF
+namespace ColonistBarKF;
+
+public class Materials
 {
-    public class Materials
+    [NotNull] private readonly Material[] _data = new Material[40];
+
+    [NotNull] private readonly string _matLibName;
+
+    public Materials(string matLib = "default")
     {
-        [NotNull] private readonly Material[] _data = new Material[40];
+        _matLibName = matLib;
+    }
 
-        [NotNull] private readonly string _matLibName;
+    [CanBeNull] public Material this[Icon icon] => _data[(int)icon];
 
-        public Materials(string matLib = "default")
+    public void ReloadTextures(bool smooth = false)
+    {
+        foreach (var icons in Enum.GetValues(typeof(Icon)).Cast<Icon>())
         {
-            _matLibName = matLib;
-        }
-
-        [CanBeNull] public Material this[Icon icon] => _data[(int) icon];
-
-        public void ReloadTextures(bool smooth = false)
-        {
-            foreach (var icons in Enum.GetValues(typeof(Icon)).Cast<Icon>())
+            switch (icons)
             {
-                switch (icons)
-                {
-                    case Icon.None:
-                    case Icon.Length:
-                        continue;
-                    default:
-                        var path = _matLibName + "/" + Enum.GetName(typeof(Icon), icons);
-                        _data[(int) icons] = LoadIconMat(path, smooth);
-                        continue;
-                }
+                case Icon.None:
+                case Icon.Length:
+                    continue;
+                default:
+                    var path = _matLibName + "/" + Enum.GetName(typeof(Icon), icons);
+                    _data[(int)icons] = LoadIconMat(path, smooth);
+                    continue;
             }
         }
+    }
 
-        [CanBeNull]
-        private Material LoadIconMat(string path, bool smooth = false)
+    [CanBeNull]
+    private Material LoadIconMat(string path, bool smooth = false)
+    {
+        var tex = ContentFinder<Texture2D>.Get("UI/Overlays/PawnStateIcons/" + path, false);
+
+        Material material;
+        if (tex == null)
         {
-            var tex = ContentFinder<Texture2D>.Get("UI/Overlays/PawnStateIcons/" + path, false);
-
-            Material material;
-            if (tex == null)
+            material = null;
+        }
+        else
+        {
+            if (smooth)
             {
-                material = null;
+                tex.filterMode = FilterMode.Trilinear;
+                tex.mipMapBias = -0.5f;
+                tex.anisoLevel = 9;
+                tex.wrapMode = TextureWrapMode.Repeat;
+
+                // tex.Apply();
+                // tex.Compress(true);
             }
             else
             {
-                if (smooth)
-                {
-                    tex.filterMode = FilterMode.Trilinear;
-                    tex.mipMapBias = -0.5f;
-                    tex.anisoLevel = 9;
-                    tex.wrapMode = TextureWrapMode.Repeat;
+                tex.filterMode = FilterMode.Point;
+                tex.wrapMode = TextureWrapMode.Repeat;
 
-                    // tex.Apply();
-                    // tex.Compress(true);
-                }
-                else
-                {
-                    tex.filterMode = FilterMode.Point;
-                    tex.wrapMode = TextureWrapMode.Repeat;
-
-                    // tex.Apply();
-                    // tex.Compress(true);
-                }
-
-                material = MaterialPool.MatFrom(new MaterialRequest(tex, ShaderDatabase.MetaOverlay));
+                // tex.Apply();
+                // tex.Compress(true);
             }
 
-            return material;
+            material = MaterialPool.MatFrom(new MaterialRequest(tex, ShaderDatabase.MetaOverlay));
         }
+
+        return material;
     }
 }

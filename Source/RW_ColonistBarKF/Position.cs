@@ -1,16 +1,15 @@
-﻿namespace ColonistBarKF
+﻿namespace ColonistBarKF;
+
+public static class Position
 {
-    public static class Position
+    public enum Alignment
     {
-        public enum Alignment
-        {
-            Left,
+        Left,
 
-            Right,
+        Right,
 
-            Top,
+        Top,
 
-            Bottom
-        }
+        Bottom
     }
 }

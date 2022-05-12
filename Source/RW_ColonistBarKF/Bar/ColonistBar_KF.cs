@@ -94,7 +94,8 @@ public static class ColonistBar_KF
         if (Event.current.type != EventType.Layout)
         {
             var entries = BarHelperKF.Entries;
-            int num;
+            var num = -1;
+            var lastGroup = -1;
             var showGroupFrames = BarHelperKF.ShowGroupFrames;
             var reorderableGroup = -1;
             for (var i = 0; i < BarHelperKF.DrawLocs.Count; i++)
@@ -105,8 +106,7 @@ public static class ColonistBar_KF
                     FullSize.x,
                     FullSize.y + SpacingLabel);
                 var entry = entries[i];
-                num = entry.group;
-                if (num != entry.group)
+                if (lastGroup != entry.group)
                 {
                     reorderableGroup = ReorderableWidget.NewGroup_NewTemp(entry.reorderAction,
                         ReorderableDirection.Horizontal, SpaceBetweenColonistsHorizontal,
@@ -125,10 +125,11 @@ public static class ColonistBar_KF
 
                 if (Event.current.type != EventType.Repaint)
                 {
+                    lastGroup = entry.group;
                     continue;
                 }
 
-                if (num != entry.group && showGroupFrames)
+                if (lastGroup != entry.group && showGroupFrames)
                 {
                     Drawer.DrawGroupFrame(entry.group);
                 }
@@ -142,6 +143,8 @@ public static class ColonistBar_KF
                 {
                     Drawer.DrawEmptyFrame(rect, entry.map, entry.group);
                 }
+
+                lastGroup = entry.group;
             }
 
             if (showGroupFrames)
@@ -150,11 +153,13 @@ public static class ColonistBar_KF
                 {
                     var entry2 = entries[j];
                     var entry2Group = entry2.group;
-                    num = entry2Group;
-                    if (num != entry2Group)
+                    if (num == entry2Group)
                     {
-                        Drawer.HandleGroupFrameClicks(entry2Group);
+                        continue;
                     }
+
+                    Drawer.HandleGroupFrameClicks(entry2Group);
+                    num = entry2Group;
                 }
             }
         }

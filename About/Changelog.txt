@@ -1,5 +1,8 @@
 # Changelog for ColonistBarKF
 
+1.3.2 - It should now be possible to manually sort pawns with right-click drag (as in vanilla)
+
+
 1.3.1 - More unique defname for the HugLib-news base-definition, to avoid conflicts with other mods.
 
 

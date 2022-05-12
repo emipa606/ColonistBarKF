@@ -1,77 +1,76 @@
-namespace ColonistBarKF
+namespace ColonistBarKF;
+
+public enum Icon
 {
-    public enum Icon
-    {
-        None,
+    None,
 
-        Idle,
+    Idle,
 
-        Aggressive,
+    Aggressive,
 
-        Leave,
+    Leave,
 
-        Dazed,
+    Dazed,
 
-        Panic,
+    Panic,
 
-        Bloodloss,
+    Bloodloss,
 
-        Health,
+    Health,
 
-        MedicalAttention,
+    MedicalAttention,
 
-        Toxicity,
+    Toxicity,
 
-        Unarmed,
+    Unarmed,
 
-        Pacific,
+    Pacific,
 
-        Pyromaniac,
+    Pyromaniac,
 
-        Drunk,
+    Drunk,
 
-        Sad,
+    Sad,
 
-        Hungry,
+    Hungry,
 
-        Tired,
+    Tired,
 
-        TooCold,
+    TooCold,
 
-        TooHot,
+    TooHot,
 
-        Pain,
+    Pain,
 
-        ApparelHealth,
+    ApparelHealth,
 
-        Effectiveness,
+    Effectiveness,
 
-        Naked,
+    Naked,
 
-        NightOwl,
+    NightOwl,
 
-        Greedy,
+    Greedy,
 
-        Jealous,
+    Jealous,
 
-        Prosthophile,
+    Prosthophile,
 
-        Prosthophobe,
+    Prosthophobe,
 
-        CabinFever,
+    CabinFever,
 
-        LeftUnburied,
+    LeftUnburied,
 
-        Bedroom,
+    Bedroom,
 
-        Draft,
+    Draft,
 
-        Target,
+    Target,
 
-        TargetHair,
+    TargetHair,
 
-        TargetSkin,
+    TargetSkin,
 
-        Length
-    }
+    Length
 }
