@@ -230,7 +230,7 @@ public class ColonistBarColonistDrawer_KF
         GUI.color = color;
 
         GUI.color = color;
-        GUI.Label(pawnRect, groupCount + " in group");
+        GUI.Label(pawnRect, $"{groupCount} in group");
 
         GUI.color = Color.white;
     }
@@ -800,7 +800,7 @@ public class ColonistBarColonistDrawer_KF
                 var text2 = colonist.jobs.curDriver.GetReport().CapitalizeFirst();
                 if (!jobDescription.NullOrEmpty())
                 {
-                    jobDescription = jobDescription + ": " + text2;
+                    jobDescription = $"{jobDescription}: {text2}";
                 }
                 else
                 {
@@ -809,7 +809,7 @@ public class ColonistBarColonistDrawer_KF
             }
             catch (Exception arg)
             {
-                Log.Message("JobDriver.GetReport() exception: " + arg);
+                Log.Message($"JobDriver.GetReport() exception: {arg}");
             }
         }
 
@@ -1036,7 +1036,7 @@ public class ColonistBarColonistDrawer_KF
             }
             else if (def == JobDefOf.Wait_Combat)
             {
-                if (colonist.stances.curStance is Stance_Busy stanceBusy && stanceBusy.focusTarg.IsValid)
+                if (colonist.stances.curStance is Stance_Busy { focusTarg.IsValid: true })
                 {
                     attacking = true;
                 }

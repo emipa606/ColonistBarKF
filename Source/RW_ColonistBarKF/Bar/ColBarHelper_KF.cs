@@ -186,12 +186,11 @@ public class ColBarHelper_KF : IExposable
 
     public bool TryGetEntryAt(Vector2 pos, out EntryKF entry)
     {
-        var drawLocs = DrawLocs;
         var entries = Entries;
         var size = ColonistBar_KF.FullSize;
-        for (var i = 0; i < drawLocs.Count; i++)
+        for (var i = 0; i < DrawLocs.Count; i++)
         {
-            var rect = new Rect(drawLocs[i].x, drawLocs[i].y, size.x, size.y);
+            var rect = new Rect(DrawLocs[i].x, DrawLocs[i].y, size.x, size.y);
             if (!rect.Contains(pos))
             {
                 continue;

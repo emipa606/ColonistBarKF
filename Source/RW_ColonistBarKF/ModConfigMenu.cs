@@ -683,10 +683,7 @@ public class ColonistBarKfSettings : Window
 
         Settings.BarSettings.UseCustomIconSize = GUILayout.Toggle(
             Settings.BarSettings.UseCustomIconSize,
-            "CBKF.Settings.BasicSize".Translate() + Settings.BarSettings.BaseIconSize.ToString("N0") + " px, "
-            + ColonistBar_KF.BarHelperKF.CachedScale.ToStringPercent() + " %, "
-            + (int)Settings.BarSettings.BaseSpacingHorizontal + " x, " +
-            (int)Settings.BarSettings.BaseSpacingVertical + " y");
+            $"{"CBKF.Settings.BasicSize".Translate() + Settings.BarSettings.BaseIconSize.ToString("N0") + " px, " + ColonistBar_KF.BarHelperKF.CachedScale.ToStringPercent() + " %, "}{(int)Settings.BarSettings.BaseSpacingHorizontal} x, {(int)Settings.BarSettings.BaseSpacingVertical} y");
 
         if (Settings.BarSettings.UseCustomIconSize)
         {
@@ -795,9 +792,7 @@ public class ColonistBarKfSettings : Window
         GUILayout.BeginVertical(_fondBoxes);
         Settings.BarSettings.UseCustomMarginTop = GUILayout.Toggle(
             Settings.BarSettings.UseCustomMarginTop,
-            "CBKF.Settings.ColonistBarOffset".Translate() + (int)Settings.BarSettings.MarginTop + " y \n"
-            + "CBKF.Settings.MaxColonistBarWidth".Translate() + ": "
-            + ((float)UI.screenWidth - (int)Settings.BarSettings.MarginHorizontal) + " px");
+            $"{$"{"CBKF.Settings.ColonistBarOffset".Translate()}{(int)Settings.BarSettings.MarginTop} y \n" + "CBKF.Settings.MaxColonistBarWidth".Translate() + ": "}{(float)UI.screenWidth - (int)Settings.BarSettings.MarginHorizontal} px");
 
         if (Settings.BarSettings.UseCustomMarginTop)
         {
@@ -1324,32 +1319,28 @@ public class ColonistBarKfSettings : Window
 
         GUILayout.BeginVertical(_fondBoxes);
         GUILayout.Label(
-            "PSI.Settings.Sensitivity.Injured".Translate() +
-            (int)(Settings.PSISettings.LimitEfficiencyLess * 100.0) + " %");
+            $"{"PSI.Settings.Sensitivity.Injured".Translate()}{(int)(Settings.PSISettings.LimitEfficiencyLess * 100.0)} %");
         Settings.PSISettings.LimitEfficiencyLess =
             GUILayout.HorizontalSlider(Settings.PSISettings.LimitEfficiencyLess, 0.01f, 1f);
         GUILayout.EndVertical();
 
         GUILayout.BeginVertical(_fondBoxes);
         GUILayout.Label(
-            "PSI.Settings.Sensitivity.Food".Translate() + (int)(Settings.PSISettings.LimitFoodLess * 100.0) +
-            " %");
+            $"{"PSI.Settings.Sensitivity.Food".Translate()}{(int)(Settings.PSISettings.LimitFoodLess * 100.0)} %");
         Settings.PSISettings.LimitFoodLess =
             GUILayout.HorizontalSlider(Settings.PSISettings.LimitFoodLess, 0.01f, 0.99f);
         GUILayout.EndVertical();
 
         GUILayout.BeginVertical(_fondBoxes);
         GUILayout.Label(
-            "PSI.Settings.Sensitivity.Rest".Translate() + (int)(Settings.PSISettings.LimitRestLess * 100.0) +
-            " %");
+            $"{"PSI.Settings.Sensitivity.Rest".Translate()}{(int)(Settings.PSISettings.LimitRestLess * 100.0)} %");
         Settings.PSISettings.LimitRestLess =
             GUILayout.HorizontalSlider(Settings.PSISettings.LimitRestLess, 0.01f, 0.99f);
         GUILayout.EndVertical();
 
         GUILayout.BeginVertical(_fondBoxes);
         GUILayout.Label(
-            "PSI.Settings.Sensitivity.Temperature".Translate() + (int)Settings.PSISettings.LimitTempComfortOffset +
-            " °C");
+            $"{"PSI.Settings.Sensitivity.Temperature".Translate()}{(int)Settings.PSISettings.LimitTempComfortOffset} °C");
         Settings.PSISettings.LimitTempComfortOffset =
             GUILayout.HorizontalSlider(Settings.PSISettings.LimitTempComfortOffset, -10f, 10f);
         GUILayout.EndVertical();
@@ -1443,10 +1434,7 @@ public class ColonistBarKfSettings : Window
 
             GUILayout.BeginVertical(_fondBoxes);
             GUILayout.Label(
-                "PSI.Settings.Arrangement.IconPosition".Translate() + (int)(Settings.PSISettings.IconMarginX *
-                                                                            100.0)
-                                                                    + " x, " + (int)(Settings.PSISettings
-                                                                        .IconMarginY * 100.0) + " y");
+                $"{"PSI.Settings.Arrangement.IconPosition".Translate()}{(int)(Settings.PSISettings.IconMarginX * 100.0)} x, {(int)(Settings.PSISettings.IconMarginY * 100.0)} y");
             Settings.PSISettings.IconMarginX =
                 GUILayout.HorizontalSlider(Settings.PSISettings.IconMarginX, -2f, 2f);
             Settings.PSISettings.IconMarginY =
@@ -1455,9 +1443,7 @@ public class ColonistBarKfSettings : Window
 
             GUILayout.BeginVertical(_fondBoxes);
             GUILayout.Label(
-                "PSI.Settings.Arrangement.IconOffset".Translate() +
-                (int)(Settings.PSISettings.IconOffsetX * 100.0) + " x, "
-                + (int)(Settings.PSISettings.IconOffsetY * 100.0) + " y");
+                $"{"PSI.Settings.Arrangement.IconOffset".Translate()}{(int)(Settings.PSISettings.IconOffsetX * 100.0)} x, {(int)(Settings.PSISettings.IconOffsetY * 100.0)} y");
             Settings.PSISettings.IconOffsetX =
                 GUILayout.HorizontalSlider(Settings.PSISettings.IconOffsetX, -2f, 2f);
             Settings.PSISettings.IconOffsetY =

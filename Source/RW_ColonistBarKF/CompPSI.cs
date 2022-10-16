@@ -245,7 +245,7 @@ public class CompPSI : ThingComp
             moodOffset = thought.MoodOffset();
             if (!thought.LabelCap.NullOrEmpty())
             {
-                tooltip = thought.CurStage.description + "\n" + thought.LabelCap + "\n" + moodOffset;
+                tooltip = $"{thought.CurStage.description}\n{thought.LabelCap}\n{moodOffset}";
             }
 
             return true;
@@ -521,7 +521,7 @@ public class CompPSI : ThingComp
             needs.mood?.thoughts?.GetDistinctMoodThoughtGroups(Thoughts);
 
             // Hungry
-            if (needs.food?.CurLevel != null && (double)needs.food?.CurLevel < PSISettings.LimitFoodLess)
+            if (needs.food?.CurLevel != null && (double)needs.food.CurLevel < PSISettings.LimitFoodLess)
             {
                 var color =
                     Statics.GradientRedAlertToNeutral.Evaluate(
@@ -924,7 +924,7 @@ public class CompPSI : ThingComp
                             // this.ToxicBuildUpVisible
                             if (hediff.def == HediffDefOf.ToxicBuildup)
                             {
-                                _toxicTip = hediff.LabelCap + "\n" + hediff.SeverityLabel;
+                                _toxicTip = $"{hediff.LabelCap}\n{hediff.SeverityLabel}";
                                 _toxicBuildUpVisible = Mathf.InverseLerp(0.049f, 1f, hediff.Severity);
                                 continue;
                             }
@@ -983,10 +983,11 @@ public class CompPSI : ThingComp
 
                     if (_diseaseDisappearance < PSISettings.LimitDiseaseLess)
                     {
-                        var tooltip = _sickTip + "\n" + _healthTip + "\n" + "Immunity".Translate()
-                                      + " / " + "PSI.DiseaseProgress".Translate() + ": \n"
-                                      + _immunity.ToStringPercent() + " / " + _severity.ToStringPercent()
-                                      + ": \n" + _sickMoodOffset;
+                        var tooltip = $"{_sickTip}\n{_healthTip}\n" + "Immunity".Translate()
+                                                                    + " / " + "PSI.DiseaseProgress".Translate() + ": \n"
+                                                                    + _immunity.ToStringPercent() + " / " +
+                                                                    _severity.ToStringPercent()
+                                                                    + ": \n" + _sickMoodOffset;
 
                         var color =
                             Statics.Gradient4.Evaluate(_diseaseDisappearance / psiSettings.LimitDiseaseLess);
@@ -1090,7 +1091,7 @@ public class CompPSI : ThingComp
             {
                 barAp = true;
                 psiAp = true;
-                appareltip = appareltip == null ? apparelTooltip : appareltip + "\n" + apparelTooltip;
+                appareltip = appareltip == null ? apparelTooltip : $"{appareltip}\n{apparelTooltip}";
             }
 
             if (GetThought(
@@ -1101,14 +1102,14 @@ public class CompPSI : ThingComp
             {
                 barAp = true;
                 psiAp = true;
-                appareltip = appareltip == null ? apparelTooltip : appareltip + "\n" + apparelTooltip;
+                appareltip = appareltip == null ? apparelTooltip : $"{appareltip}\n{apparelTooltip}";
             }
 
             if (GetThought(ThoughtDefOf.DeadMansApparel, out _, out apparelTooltip, out _))
             {
                 barAp = true;
                 psiAp = true;
-                appareltip = appareltip == null ? apparelTooltip : appareltip + "\n" + apparelTooltip;
+                appareltip = appareltip == null ? apparelTooltip : $"{appareltip}\n{apparelTooltip}";
             }
 
             if (barAp)
@@ -1310,7 +1311,7 @@ public class CompPSI : ThingComp
                 }
                 else
                 {
-                    _addictionLabel += "\n" + hediff.LabelCap;
+                    _addictionLabel += $"\n{hediff.LabelCap}";
                 }
             }
         }
@@ -1330,14 +1331,7 @@ public class CompPSI : ThingComp
                     color = Textures.ColVermillion;
                 }
 
-                if (!_drugUserLabel.NullOrEmpty())
-                {
-                    tooltip = _drugUserLabel + "\n" + _addictionLabel;
-                }
-                else
-                {
-                    tooltip = _addictionLabel;
-                }
+                tooltip = !_drugUserLabel.NullOrEmpty() ? $"{_drugUserLabel}\n{_addictionLabel}" : _addictionLabel;
             }
             else
             {

@@ -29,7 +29,7 @@ public class Materials
                 case Icon.Length:
                     continue;
                 default:
-                    var path = _matLibName + "/" + Enum.GetName(typeof(Icon), icons);
+                    var path = $"{_matLibName}/{Enum.GetName(typeof(Icon), icons)}";
                     _data[(int)icons] = LoadIconMat(path, smooth);
                     continue;
             }
@@ -39,7 +39,7 @@ public class Materials
     [CanBeNull]
     private Material LoadIconMat(string path, bool smooth = false)
     {
-        var tex = ContentFinder<Texture2D>.Get("UI/Overlays/PawnStateIcons/" + path, false);
+        var tex = ContentFinder<Texture2D>.Get($"UI/Overlays/PawnStateIcons/{path}", false);
 
         Material material;
         if (tex == null)

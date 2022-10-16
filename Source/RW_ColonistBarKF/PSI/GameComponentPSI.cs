@@ -263,7 +263,7 @@ public class GameComponentPSI : GameComponent
             if (psiSettings.UseColoredTarget)
             {
                 var skinColor = pawn.story.SkinColor;
-                var hairColor = pawn.story.hairColor;
+                var hairColor = pawn.story.HairColor;
 
                 PSIDrawer.DrawIcon_posOffset(pawnStats.TargetPos, Vector3.zero, SkinMat, skinColor, 1f);
                 PSIDrawer.DrawIcon_posOffset(pawnStats.TargetPos, Vector3.zero, HairMat, hairColor, 1f);

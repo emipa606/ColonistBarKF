@@ -16,13 +16,13 @@ public static class Settings
     public static void SaveBarSettings([NotNull] string path = "ColonistBar_KF.xml")
     {
         var configFolder = Path.GetDirectoryName(GenFilePaths.ModsConfigFilePath);
-        DirectXmlSaver.SaveDataObject(BarSettings, configFolder + "/" + path);
+        DirectXmlSaver.SaveDataObject(BarSettings, $"{configFolder}/{path}");
     }
 
     public static void SavePSISettings([NotNull] string path = "ColonistBar_PSIKF.xml")
     {
         var configFolder = Path.GetDirectoryName(GenFilePaths.ModsConfigFilePath);
-        DirectXmlSaver.SaveDataObject(PSISettings, configFolder + "/" + path);
+        DirectXmlSaver.SaveDataObject(PSISettings, $"{configFolder}/{path}");
     }
 
     [NotNull]
@@ -30,7 +30,7 @@ public static class Settings
     {
         var configFolder = Path.GetDirectoryName(GenFilePaths.ModsConfigFilePath);
         var __result =
-            DirectXmlLoader.ItemFromXmlFile<SettingsColonistBar>(configFolder + "/" + path);
+            DirectXmlLoader.ItemFromXmlFile<SettingsColonistBar>($"{configFolder}/{path}");
         return __result;
     }
 
@@ -38,7 +38,7 @@ public static class Settings
     internal static SettingsPSI LoadPSISettings([NotNull] string path = "ColonistBar_PSIKF.xml")
     {
         var configFolder = Path.GetDirectoryName(GenFilePaths.ModsConfigFilePath);
-        var __result = DirectXmlLoader.ItemFromXmlFile<SettingsPSI>(configFolder + "/" + path);
+        var __result = DirectXmlLoader.ItemFromXmlFile<SettingsPSI>($"{configFolder}/{path}");
         return __result;
     }
 }

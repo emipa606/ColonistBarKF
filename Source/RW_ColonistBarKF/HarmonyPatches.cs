@@ -19,10 +19,9 @@ internal static class HarmonyPatches
         var injected = false;
         var patchLog = "Start injecting PSI to pawns ...";
         foreach (var def in DefDatabase<ThingDef>.AllDefs.Where(
-                     x => x.race != null && x.race.Humanlike &&
-                          x.race.IsFlesh))
+                     x => x.race is { Humanlike: true, IsFlesh: true }))
         {
-            patchLog += "\nPSI check: " + def;
+            patchLog += $"\nPSI check: {def}";
             if (def.comps == null)
             {
                 continue;
@@ -193,8 +192,7 @@ internal static class HarmonyPatches
             new HarmonyMethod(typeof(HarmonyPatches), nameof(PlaySettingsDirty_Postfix)));
 
         Log.Message(
-            "Colonistbar KF successfully completed " + harmony.GetPatchedMethods().Count()
-                                                     + " patches with harmony.");
+            $"Colonistbar KF successfully completed {harmony.GetPatchedMethods().Count()} patches with harmony.");
     }
 
     public static void MarkColonistsDirty_Postfix()
@@ -261,7 +259,7 @@ internal static class HarmonyPatches
 
         var pawn = entry.pawn;
         Thing result;
-        if (pawn != null && pawn.Dead && pawn.Corpse != null && pawn.Corpse.SpawnedOrAnyParentSpawned)
+        if (pawn is { Dead: true, Corpse.SpawnedOrAnyParentSpawned: true })
         {
             result = pawn.Corpse;
         }
@@ -388,7 +386,7 @@ internal static class HarmonyPatches
             return;
         }
 
-        if (corpse.InnerPawn != null && corpse.InnerPawn.Faction?.IsPlayer == true)
+        if (corpse.InnerPawn is { Faction.IsPlayer: true })
         {
             EntriesDirty_Postfix();
         }
@@ -490,7 +488,7 @@ internal static class HarmonyPatches
         }
     }
 
-    private static void StopFollow_Prefix_Vector3([NotNull] Vector3 loc)
+    private static void StopFollow_Prefix_Vector3(Vector3 loc)
     {
         if (!FollowMe.CurrentlyFollowing)
         {

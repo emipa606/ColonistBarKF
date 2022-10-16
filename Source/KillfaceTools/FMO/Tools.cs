@@ -28,11 +28,10 @@ public static class Tools
     {
         // List<SortByWhat> sortByWhats = fmo.Keys.ToList();
         var options = fmo.ToList();
-        var labelFixed = label;
-        var isSingle = options.Count == 1 && !labelFixed.Contains(NestedString);
+        var isSingle = options.Count == 1 && !label.Contains(NestedString);
 
         var option = new FloatMenuOptionNoClose(
-            labelFixed,
+            label,
             () =>
             {
                 if (isSingle && options[0].Disabled == false)
@@ -57,10 +56,9 @@ public static class Tools
                                 menuOption.Label,
                                 () =>
                                 {
-                                    var pawnOption = menuOption;
                                     actionMenu.Close();
                                     CloseLabelMenu(true);
-                                    pawnOption.action();
+                                    menuOption.action();
                                 },
                                 (MenuOptionPriority)i++,
                                 menuOption.mouseoverGuiAction,

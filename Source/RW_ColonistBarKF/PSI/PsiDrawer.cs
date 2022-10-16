@@ -22,9 +22,7 @@ public static class PSIDrawer
             var num2 = index % psiSettings.IconsInColumn;
             if (psiSettings.IconsHorizontal)
             {
-                var num3 = num1;
-                num1 = num2;
-                num2 = num3;
+                (num1, num2) = (num2, num1);
             }
 
             var y = AltitudeLayer.MetaOverlays.AltitudeFor();

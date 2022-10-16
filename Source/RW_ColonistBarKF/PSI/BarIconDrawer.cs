@@ -68,9 +68,7 @@ public static class BarIconDrawer
             var num2 = index % settings.IconsInColumn;
             if (settings.IconsHorizontal)
             {
-                var num3 = num1;
-                num1 = num2;
-                num2 = num3;
+                (num1, num2) = (num2, num1);
 
                 // num2 = index / ColBarSettings.IconsInColumn;
                 // num1 = index % ColBarSettings.IconsInColumn;

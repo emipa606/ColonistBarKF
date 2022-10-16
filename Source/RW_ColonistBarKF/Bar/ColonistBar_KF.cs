@@ -108,8 +108,8 @@ public static class ColonistBar_KF
                 var entry = entries[i];
                 if (lastGroup != entry.group)
                 {
-                    reorderableGroup = ReorderableWidget.NewGroup_NewTemp(entry.reorderAction,
-                        ReorderableDirection.Horizontal, SpaceBetweenColonistsHorizontal,
+                    reorderableGroup = ReorderableWidget.NewGroup(entry.reorderAction,
+                        ReorderableDirection.Horizontal, new Rect(), SpaceBetweenColonistsHorizontal,
                         entry.extraDraggedItemOnGUI);
                 }
 
@@ -236,12 +236,7 @@ public static class ColonistBar_KF
 
     public static float GetEntryRectAlpha(Rect rect)
     {
-        if (Messages.CollidesWithAnyMessage(rect, out var t))
-        {
-            return Mathf.Lerp(1f, 0.2f, t);
-        }
-
-        return 1f;
+        return Messages.CollidesWithAnyMessage(rect, out var t) ? Mathf.Lerp(1f, 0.2f, t) : 1f;
     }
 
     public static void RecalcSizes()

@@ -41,17 +41,15 @@ public class ColonistBarDrawLocsFinder_Kf
             return Mathf.RoundToInt(Mathf.Lerp(maxRowsCustom, 1f, scale));
         }
 
-        if (scale > 0.58f)
+        switch (scale)
         {
-            return 1;
+            case > 0.58f:
+                return 1;
+            case > 0.42f:
+                return 2;
+            default:
+                return 3;
         }
-
-        if (scale > 0.42f)
-        {
-            return 2;
-        }
-
-        return 3;
     }
 
     private void CalculateColonistsInGroup()
