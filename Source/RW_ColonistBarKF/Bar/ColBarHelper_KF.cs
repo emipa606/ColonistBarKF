@@ -226,6 +226,13 @@ public class ColBarHelper_KF : IExposable
                 break;
             }
 
+            case SettingsColonistBar.SortByWhat.age:
+            {
+                orderedEnumerable = tmpColonists.OrderBy(x => x.ageTracker?.AgeBiologicalYears).ToList();
+                tmpColonists = orderedEnumerable;
+                break;
+            }
+
             case SettingsColonistBar.SortByWhat.health:
             {
                 tmpColonists.SortBy(x => x.health.summaryHealth.SummaryHealthPercent);
@@ -347,6 +354,11 @@ public class ColBarHelper_KF : IExposable
                 tmpColonists.SortBy(x => x.thingIDNumber);
                 break;
             }
+        }
+
+        if (Settings.BarSettings.ReverseSort)
+        {
+            tmpColonists.Reverse();
         }
 
         Settings.SaveBarSettings();

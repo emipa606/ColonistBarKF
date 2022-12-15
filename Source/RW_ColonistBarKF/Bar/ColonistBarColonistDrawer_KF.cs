@@ -798,14 +798,7 @@ public class ColonistBarColonistDrawer_KF
             try
             {
                 var text2 = colonist.jobs.curDriver.GetReport().CapitalizeFirst();
-                if (!jobDescription.NullOrEmpty())
-                {
-                    jobDescription = $"{jobDescription}: {text2}";
-                }
-                else
-                {
-                    jobDescription = text2;
-                }
+                jobDescription = !jobDescription.NullOrEmpty() ? $"{jobDescription}: {text2}" : text2;
             }
             catch (Exception arg)
             {
@@ -1275,6 +1268,17 @@ public class ColonistBarColonistDrawer_KF
                 HarmonyPatches.MarkColonistsDirty_Postfix();
             });
 
+        labelMenu = Settings.BarSettings.SortBy == SettingsColonistBar.SortByWhat.age ? prefixActive : "";
+        labelMenu += "CBKF.Settings.Age".Translate();
+        var sortbyAge = new FloatMenuOption(
+            labelMenu,
+            delegate
+            {
+                Settings.BarSettings.SortBy =
+                    SettingsColonistBar.SortByWhat.age;
+                HarmonyPatches.MarkColonistsDirty_Postfix();
+            });
+
         labelMenu = Settings.BarSettings.SortBy == SettingsColonistBar.SortByWhat.mood ? prefixActive : "";
         labelMenu += "CBKF.Settings.Mood".Translate();
         var sortByMood = new FloatMenuOption(
@@ -1402,11 +1406,23 @@ public class ColonistBarColonistDrawer_KF
                     SettingsColonistBar.SortByWhat.moveSpeed;
                 HarmonyPatches.MarkColonistsDirty_Postfix();
             });
+
+        labelMenu = Settings.BarSettings.ReverseSort ? prefixActive : "";
+        labelMenu += "CBKF.Settings.Reverse".Translate();
+        var reverseSort = new FloatMenuOption(
+            labelMenu,
+            delegate
+            {
+                Settings.BarSettings.ReverseSort = !Settings.BarSettings.ReverseSort;
+                HarmonyPatches.MarkColonistsDirty_Postfix();
+            });
+
         sortList.Add(sortByVanilla);
         sortList.Add(sortByWeapons);
         sortList.Add(sortByName);
         sortList.Add(sortByMood);
         sortList.Add(sortbySexAge);
+        sortList.Add(sortbyAge);
         sortList.Add(sortByHealth);
 
         //    if (Find.WorldPawns.AllPawnsAlive.Any(x => x.IsColonist && x.health.hediffSet.BleedRateTotal > 0.01f))
@@ -1420,6 +1436,7 @@ public class ColonistBarColonistDrawer_KF
         sortList.Add(sortByShootingAccuracy);
         sortList.Add(sortByShootingSkill);
         sortList.Add(sortByMoveSpeed);
+        sortList.Add(reverseSort);
     }
 
     // RimWorld.ColonistBarColonistDrawer

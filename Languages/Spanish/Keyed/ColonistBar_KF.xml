@@ -154,4 +154,6 @@
   <CBKF.Settings.UseGrouping>Colapsar grupos</CBKF.Settings.UseGrouping>
   <CBKF.Settings.UseGroupColors>Codificación por colores de los grupos de colonos</CBKF.Settings.UseGroupColors>
   <CBKF.Settings.ChoicesForPawn>...las elecciones de {0} con {1}</CBKF.Settings.ChoicesForPawn>
+  <CBKF.Settings.Age>Edad</CBKF.Settings.Age>
+  <CBKF.Settings.Reverse>Clasificación inversa</CBKF.Settings.Reverse>
 </LanguageData>

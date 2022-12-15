@@ -158,4 +158,6 @@
   <CBKF.Settings.UseGrouping>Groupes d'effondrement</CBKF.Settings.UseGrouping>
   <CBKF.Settings.UseGroupColors>Code couleur des groupes de colons</CBKF.Settings.UseGroupColors>
   <CBKF.Settings.ChoicesForPawn>les choix de {0} avec {1}</CBKF.Settings.ChoicesForPawn>
+  <CBKF.Settings.Age>Âge</CBKF.Settings.Age>
+  <CBKF.Settings.Reverse>Triage inverse</CBKF.Settings.Reverse>
 </LanguageData>

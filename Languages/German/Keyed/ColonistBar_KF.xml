@@ -155,4 +155,6 @@
   <CBKF.Settings.UseGrouping>Gruppen kollabieren</CBKF.Settings.UseGrouping>
   <CBKF.Settings.UseGroupColors>Farbcode für Kolonistengruppen</CBKF.Settings.UseGroupColors>
   <CBKF.Settings.ChoicesForPawn>die Entscheidungen von {0} mit {1}</CBKF.Settings.ChoicesForPawn>
+  <CBKF.Settings.Age>Alter</CBKF.Settings.Age>
+  <CBKF.Settings.Reverse>Umgekehrte Sortierung</CBKF.Settings.Reverse>
 </LanguageData>

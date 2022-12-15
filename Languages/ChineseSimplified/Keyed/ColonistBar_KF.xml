@@ -154,4 +154,6 @@
   <CBKF.Settings.UseGrouping>折叠组</CBKF.Settings.UseGrouping>
   <CBKF.Settings.UseGroupColors>彩色编码的殖民者群体</CBKF.Settings.UseGroupColors>
   <CBKF.Settings.ChoicesForPawn>{0}的选择与{1}的选择</CBKF.Settings.ChoicesForPawn>
+  <CBKF.Settings.Age>年龄</CBKF.Settings.Age>
+  <CBKF.Settings.Reverse>反向排序</CBKF.Settings.Reverse>
 </LanguageData>

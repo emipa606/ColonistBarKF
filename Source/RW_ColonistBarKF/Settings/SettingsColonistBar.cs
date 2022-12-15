@@ -8,6 +8,8 @@ public class SettingsColonistBar
 
         sexage,
 
+        age,
+
         health,
 
         bleedRate,
@@ -72,6 +74,8 @@ public class SettingsColonistBar
     public float PawnTextureCameraVerticalOffset = 0.3f;
 
     public float PawnTextureCameraZoom = 1.28205f;
+
+    public bool ReverseSort = true;
 
     public bool ShowAggressive = true;
 

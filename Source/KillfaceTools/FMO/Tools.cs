@@ -26,7 +26,6 @@ public static class Tools
 
     public static FloatMenuOption MakeMenuItemForLabel([NotNull] string label, [NotNull] List<FloatMenuOption> fmo)
     {
-        // List<SortByWhat> sortByWhats = fmo.Keys.ToList();
         var options = fmo.ToList();
         var isSingle = options.Count == 1 && !label.Contains(NestedString);
 
