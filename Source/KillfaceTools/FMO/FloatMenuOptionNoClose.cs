@@ -4,14 +4,13 @@ using Verse;
 
 namespace KillfaceTools.FMO;
 
-public class FloatMenuOptionNoClose : FloatMenuOption
+public class FloatMenuOptionNoClose(
+    string label,
+    Action action,
+    float extraPartWidth,
+    Func<Rect, bool> extraPartOnGUI = null)
+    : FloatMenuOption(label, action, extraPartWidth: extraPartWidth, extraPartOnGUI: extraPartOnGUI)
 {
-    public FloatMenuOptionNoClose(string label, Action action, float extraPartWidth,
-        Func<Rect, bool> extraPartOnGUI = null)
-        : base(label, action, extraPartWidth: extraPartWidth, extraPartOnGUI: extraPartOnGUI)
-    {
-    }
-
     public override bool DoGUI(Rect rect, bool colonistOrdering, FloatMenu floatMenu)
     {
         base.DoGUI(rect, colonistOrdering, floatMenu);

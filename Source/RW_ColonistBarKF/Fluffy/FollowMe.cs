@@ -31,10 +31,10 @@ public class FollowMe : GameComponent
     private static bool _enabled = true;
 
     [NotNull] private readonly KeyBindingDef[] _followBreakingKeyBindingDefs =
-    {
+    [
         KeyBindingDefOf.MapDolly_Down, KeyBindingDefOf.MapDolly_Up, KeyBindingDefOf.MapDolly_Right,
         KeyBindingDefOf.MapDolly_Left
-    };
+    ];
 
     [NotNull] private readonly KeyBindingDef _followKey = KeyBindingDef.Named("FollowSelected");
 
@@ -342,11 +342,11 @@ public class FollowMe : GameComponent
 
         var mousePosition = Input.mousePosition;
         Rect[] screenCorners =
-        {
+        [
             new Rect(0f, 0f, 200f, 200f), new Rect(Screen.width - 250, 0f, 255f, 255f),
             new Rect(0f, Screen.height - 250, 225f, 255f),
             new Rect(Screen.width - 250, Screen.height - 250, 255f, 255f)
-        };
+        ];
         if (screenCorners.Any(e => e.Contains(mousePosition)))
         {
             return;

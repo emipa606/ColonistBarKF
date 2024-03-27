@@ -8,15 +8,15 @@ namespace ColonistBarKF;
 
 public struct EntryKF
 {
-    [CanBeNull] public Pawn pawn;
+    [CanBeNull] public readonly Pawn pawn;
 
-    [CanBeNull] public Map map;
+    [CanBeNull] public readonly Map map;
 
-    public int group;
+    public readonly int group;
 
-    public Action<int, int> reorderAction;
+    public readonly Action<int, int> reorderAction;
 
-    public Action<int, Vector2> extraDraggedItemOnGUI;
+    public readonly Action<int, Vector2> extraDraggedItemOnGUI;
 
 
     public EntryKF([CanBeNull] Pawn pawn, [CanBeNull] Map map, int group)

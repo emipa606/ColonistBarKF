@@ -11,12 +11,12 @@ public static class ColonistBar_KF
 {
     public const float SpacingLabel = 15f;
 
-    public static ColBarHelper_KF BarHelperKF = new ColBarHelper_KF();
-    private static readonly List<Pawn> colonistsToHighlight = new List<Pawn>();
+    public static readonly ColBarHelper_KF BarHelperKF = new ColBarHelper_KF();
+    private static readonly List<Pawn> colonistsToHighlight = [];
 
-    [NotNull] public static ColonistBarColonistDrawer_KF Drawer = new ColonistBarColonistDrawer_KF();
+    [NotNull] public static readonly ColonistBarColonistDrawer_KF Drawer = new ColonistBarColonistDrawer_KF();
 
-    [NotNull] public static ColonistBarDrawLocsFinder_Kf DrawLocsFinder = new ColonistBarDrawLocsFinder_Kf();
+    [NotNull] public static readonly ColonistBarDrawLocsFinder_Kf DrawLocsFinder = new ColonistBarDrawLocsFinder_Kf();
 
     public static Vector2 BaseSize => new Vector2(
         Settings.BarSettings.BaseIconSize,

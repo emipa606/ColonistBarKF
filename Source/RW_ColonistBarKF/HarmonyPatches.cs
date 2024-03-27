@@ -137,7 +137,7 @@ internal static class HarmonyPatches
             AccessTools.Method(
                 typeof(WorldCameraDriver),
                 nameof(WorldCameraDriver.JumpTo),
-                new[] { typeof(Vector3) }),
+                [typeof(Vector3)]),
             new HarmonyMethod(typeof(HarmonyPatches), nameof(StopFollow_Prefix)));
 
         harmony.Patch(
@@ -158,7 +158,7 @@ internal static class HarmonyPatches
             AccessTools.Method(
                 typeof(CameraDriver),
                 nameof(CameraDriver.JumpToCurrentMapLoc),
-                new[] { typeof(Vector3) }),
+                [typeof(Vector3)]),
             new HarmonyMethod(typeof(HarmonyPatches), nameof(StopFollow_Prefix_Vector3)));
 
         harmony.Patch(
@@ -274,7 +274,7 @@ internal static class HarmonyPatches
 
     private static void DeSpawn_Postfix([NotNull] Thing __instance)
     {
-        if (!(__instance is Pawn pawn))
+        if (__instance is not Pawn pawn)
         {
             return;
         }
@@ -418,7 +418,7 @@ internal static class HarmonyPatches
             typeof(Pawn_HealthTracker).GetField("pawn", BindingFlags.NonPublic | BindingFlags.Instance);
         var pawn = (Pawn)pawnFieldInfo?.GetValue(__instance);
 
-        if (pawn?.Faction == null || !pawn.Faction.IsPlayer || Current.ProgramState != ProgramState.Playing)
+        if (pawn?.Faction is not { IsPlayer: true } || Current.ProgramState != ProgramState.Playing)
         {
             return;
         }
@@ -447,7 +447,7 @@ internal static class HarmonyPatches
             return;
         }
 
-        if (__instance is IThingHolder && Find.ColonistBar != null)
+        if (Find.ColonistBar != null)
         {
             EntriesDirty_Postfix();
         }

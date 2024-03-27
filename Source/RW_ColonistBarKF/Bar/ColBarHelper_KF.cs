@@ -11,30 +11,30 @@ namespace ColonistBarKF.Bar;
 // ReSharper disable once InconsistentNaming
 public class ColBarHelper_KF : IExposable
 {
-    [NotNull] private readonly List<Map> _tmpMaps = new List<Map>();
+    [NotNull] private readonly List<Map> _tmpMaps = [];
 
-    [NotNull] private readonly List<EntryKF> cachedEntries = new List<EntryKF>();
+    [NotNull] private readonly List<EntryKF> cachedEntries = [];
+    [NotNull] public readonly List<Pawn> TmpCaravanPawns = [];
 
-    [NotNull] public readonly List<Pair<Thing, Map>> TmpColonistsWithMap = new List<Pair<Thing, Map>>();
+    [NotNull] public readonly List<Caravan> TmpCaravans = [];
+
+    [NotNull] public readonly List<Thing> TmpColonists = [];
+
+    [NotNull] public readonly List<Pawn> TmpColonistsInOrder = [];
+
+    [NotNull] public readonly List<Pair<Thing, Map>> TmpColonistsWithMap = [];
+
+    [NotNull] public readonly List<Thing> TmpMapColonistsOrCorpsesInScreenRect = [];
 
     public float CachedScale;
 
     public int DisplayGroupForBar;
 
     public bool EntriesDirty = true;
-    [NotNull] public List<Pawn> TmpCaravanPawns = new List<Pawn>();
 
-    [NotNull] public List<Caravan> TmpCaravans = new List<Caravan>();
+    [NotNull] private List<Pawn> tmpPawns = [];
 
-    [NotNull] public List<Thing> TmpColonists = new List<Thing>();
-
-    [NotNull] public List<Pawn> TmpColonistsInOrder = new List<Pawn>();
-
-    [NotNull] public List<Thing> TmpMapColonistsOrCorpsesInScreenRect = new List<Thing>();
-
-    [NotNull] private List<Pawn> tmpPawns = new List<Pawn>();
-
-    [NotNull] public List<Vector2> DrawLocs { get; } = new List<Vector2>();
+    [NotNull] public List<Vector2> DrawLocs { get; } = [];
 
     [NotNull]
     public List<EntryKF> Entries
@@ -421,9 +421,8 @@ public class ColBarHelper_KF : IExposable
                     SortCachedColonists(ref tmpPawns);
                 }
 
-                for (var index = 0; index < tmpPawns.Count; index++)
+                foreach (var tempPawn in tmpPawns)
                 {
-                    var tempPawn = tmpPawns[index];
                     cachedEntries.Add(new EntryKF(tempPawn, tempMap, groupInt));
 
                     if (!Settings.BarSettings.UseGrouping || groupInt == DisplayGroupForBar)

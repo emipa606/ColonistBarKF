@@ -6,16 +6,11 @@ using Verse;
 
 namespace ColonistBarKF;
 
-public class Materials
+public class Materials(string matLib = "default")
 {
     [NotNull] private readonly Material[] _data = new Material[40];
 
-    [NotNull] private readonly string _matLibName;
-
-    public Materials(string matLib = "default")
-    {
-        _matLibName = matLib;
-    }
+    [NotNull] private readonly string _matLibName = matLib;
 
     [CanBeNull] public Material this[Icon icon] => _data[(int)icon];
 

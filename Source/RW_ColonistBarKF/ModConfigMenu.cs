@@ -72,19 +72,19 @@ public class ColonistBarKfSettings : Window
         };
 
     [NotNull] private readonly string[] _mainToolbarStrings =
-        { "CBKF.Settings.ColonistBar".Translate(), "CBKF.Settings.PSI".Translate() };
+        ["CBKF.Settings.ColonistBar".Translate(), "CBKF.Settings.PSI".Translate()];
 
     [NotNull] private readonly string[] _positionStrings =
-    {
+    [
         "CBKF.Settings.useLeft".Translate(), "CBKF.Settings.useRight".Translate(),
         "CBKF.Settings.useTop".Translate(), "CBKF.Settings.useBottom".Translate()
-    };
+    ];
 
     [NotNull] private readonly string[] _psiToolbarStrings =
-    {
+    [
         "PSI.Settings.ArrangementButton".Translate(), "PSI.Settings.OpacityButton".Translate(),
         "PSI.Settings.IconButton".Translate(), "PSI.Settings.SensitivityButton".Translate()
-    };
+    ];
 
     private int _moodBarPositionInt;
 
@@ -522,32 +522,10 @@ public class ColonistBarKfSettings : Window
         GUILayout.BeginVertical();
         GUILayout.Space(Text.LineHeight / 2);
 
-        if (iconMaterial != null)
-        {
-            GUILayout.Label(
-                iconMaterial.mainTexture,
-                GUILayout.Width(Text.LineHeight * 2.5f),
-                GUILayout.Height(Text.LineHeight * 2.5f));
-        }
-        else
-        {
-            if (psiBarBool || colBarBool)
-            {
-                GUI.color = Color.red;
-                GUILayout.Label(
-                    "PSI.Settings.IconSet.IconNotAvailable".Translate(),
-                    GUILayout.Width(Text.LineHeight * 2.5f),
-                    GUILayout.Height(Text.LineHeight * 2.5f));
-                GUI.color = Color.white;
-            }
-            else
-            {
-                GUILayout.Label(
-                    string.Empty,
-                    GUILayout.Width(Text.LineHeight * 2.5f),
-                    GUILayout.Height(Text.LineHeight * 2.5f));
-            }
-        }
+        GUILayout.Label(
+            iconMaterial.mainTexture,
+            GUILayout.Width(Text.LineHeight * 2.5f),
+            GUILayout.Height(Text.LineHeight * 2.5f));
 
         GUILayout.Space(Text.LineHeight / 2);
 
@@ -590,59 +568,23 @@ public class ColonistBarKfSettings : Window
         {
             if (!Settings.PSISettings.UseColoredTarget)
             {
-                if (targetSingle != null)
-                {
-                    GUILayout.Label(
-                        targetSingle.mainTexture,
-                        GUILayout.Width(Text.LineHeight * 2.5f),
-                        GUILayout.Height(Text.LineHeight * 2.5f));
-                }
-                else
-                {
-                    GUI.color = Color.red;
-                    GUILayout.Label(
-                        "PSI.Settings.IconSet.IconNotAvailable".Translate(),
-                        GUILayout.Width(Text.LineHeight * 2.5f),
-                        GUILayout.Height(Text.LineHeight * 2.5f));
-                    GUI.color = Color.white;
-                }
+                GUILayout.Label(
+                    targetSingle.mainTexture,
+                    GUILayout.Width(Text.LineHeight * 2.5f),
+                    GUILayout.Height(Text.LineHeight * 2.5f));
             }
             else
             {
                 GUILayout.BeginHorizontal();
-                if (targetHair != null)
-                {
-                    GUILayout.Label(
-                        targetHair.mainTexture,
-                        GUILayout.Width(Text.LineHeight * 2.5f),
-                        GUILayout.Height(Text.LineHeight * 2.5f));
-                }
-                else
-                {
-                    GUI.color = Color.red;
-                    GUILayout.Label(
-                        "PSI.Settings.IconSet.IconNotAvailable".Translate() + " HairTarget",
-                        GUILayout.Width(Text.LineHeight * 2.5f),
-                        GUILayout.Height(Text.LineHeight * 2.5f));
-                    GUI.color = Color.white;
-                }
+                GUILayout.Label(
+                    targetHair.mainTexture,
+                    GUILayout.Width(Text.LineHeight * 2.5f),
+                    GUILayout.Height(Text.LineHeight * 2.5f));
 
-                if (targetSkin != null)
-                {
-                    GUILayout.Label(
-                        targetSkin.mainTexture,
-                        GUILayout.Width(Text.LineHeight * 2.5f),
-                        GUILayout.Height(Text.LineHeight * 2.5f));
-                }
-                else
-                {
-                    GUI.color = Color.red;
-                    GUILayout.Label(
-                        "PSI.Settings.IconSet.IconNotAvailable".Translate() + " SkinTarget",
-                        GUILayout.Width(Text.LineHeight * 2.5f),
-                        GUILayout.Height(Text.LineHeight * 2.5f));
-                    GUI.color = Color.white;
-                }
+                GUILayout.Label(
+                    targetSkin.mainTexture,
+                    GUILayout.Width(Text.LineHeight * 2.5f),
+                    GUILayout.Height(Text.LineHeight * 2.5f));
 
                 GUILayout.EndHorizontal();
             }

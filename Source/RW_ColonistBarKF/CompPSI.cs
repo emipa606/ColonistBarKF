@@ -15,7 +15,7 @@ namespace ColonistBarKF;
 [StaticConstructorOnStartup]
 public class CompPSI : ThingComp
 {
-    private static readonly List<Thought> Thoughts = new List<Thought>();
+    private static readonly List<Thought> Thoughts = [];
 
     private static PawnCapacityDef[] _array;
 
@@ -160,7 +160,7 @@ public class CompPSI : ThingComp
 
     public Pawn Pawn => parent as Pawn;
 
-    [NotNull] public List<IconEntryBar> BarIconList { get; private set; } = new List<IconEntryBar>();
+    [NotNull] public List<IconEntryBar> BarIconList { get; private set; } = [];
 
     public Color BgColor
     {
@@ -169,7 +169,7 @@ public class CompPSI : ThingComp
         set => _bgColor = value;
     }
 
-    [NotNull] public List<IconEntryPSI> PSIIconList { get; private set; } = new List<IconEntryPSI>();
+    [NotNull] public List<IconEntryPSI> PSIIconList { get; private set; } = [];
 
     public override void CompTick()
     {
@@ -197,7 +197,7 @@ public class CompPSI : ThingComp
     public override void PostSpawnSetup(bool respawningAfterLoad)
     {
         base.PostSpawnSetup(respawningAfterLoad);
-        if (!(parent is Pawn p))
+        if (parent is not Pawn p)
         {
             return;
         }
@@ -894,8 +894,7 @@ public class CompPSI : ThingComp
                     }
                 }
 
-                if ((health?.hediffSet?.AnyHediffMakesSickThought ?? false) && !Pawn.Destroyed
-                                                                            && Pawn.playerSettings.medCare >= 0)
+                if ((health?.hediffSet?.AnyHediffMakesSickThought ?? false) && !Pawn.Destroyed)
                 {
                     if (hediffs != null)
                     {
@@ -1051,7 +1050,7 @@ public class CompPSI : ThingComp
 
             if (psiSettings.ShowToxicity)
             {
-                var unused = _toxicTip;
+                _ = _toxicTip;
 
                 psiIconList.Add(
                     new IconEntryPSI(
@@ -1284,7 +1283,7 @@ public class CompPSI : ThingComp
 
             if (psiSettings.ShowLeftUnburied)
             {
-                var unused = _unburiedTip;
+                _ = _unburiedTip;
                 psiIconList.Add(new IconEntryPSI(Icon.LeftUnburied, moodOffset, viewOpacity));
             }
         }

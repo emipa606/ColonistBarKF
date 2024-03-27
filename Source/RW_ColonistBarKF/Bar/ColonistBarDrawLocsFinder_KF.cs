@@ -9,9 +9,9 @@ namespace ColonistBarKF.Bar;
 
 public class ColonistBarDrawLocsFinder_Kf
 {
-    private readonly List<int> _entriesInGroup = new List<int>();
+    private readonly List<int> _entriesInGroup = [];
 
-    private readonly List<int> _horizontalSlotsPerGroup = new List<int>();
+    private readonly List<int> _horizontalSlotsPerGroup = [];
 
     private static float MaxColonistBarWidth => UI.screenWidth - Settings.BarSettings.MarginHorizontal;
 

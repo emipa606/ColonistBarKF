@@ -28,14 +28,14 @@ public class GameComponentPSI : GameComponent
 
     public static void Reinit(bool reloadSettings = true, bool reloadIconSet = true, bool recalcIconPos = true)
     {
-        PawnCapacities = new[]
-        {
+        PawnCapacities =
+        [
             PawnCapacityDefOf.BloodFiltration, PawnCapacityDefOf.BloodPumping,
             PawnCapacityDefOf.Breathing, PawnCapacityDefOf.Consciousness,
-            PawnCapacityDefOf.Eating, PawnCapacityDefOf.Hearing,
-            PawnCapacityDefOf.Manipulation, PawnCapacityDefOf.Metabolism,
+            DefDatabase<PawnCapacityDef>.GetNamedSilentFail("Eating"), PawnCapacityDefOf.Hearing,
+            PawnCapacityDefOf.Manipulation, DefDatabase<PawnCapacityDef>.GetNamedSilentFail("Metabolism"),
             PawnCapacityDefOf.Moving, PawnCapacityDefOf.Sight, PawnCapacityDefOf.Talking
-        };
+        ];
 
         if (reloadSettings)
         {

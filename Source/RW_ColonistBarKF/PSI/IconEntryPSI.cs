@@ -2,21 +2,13 @@
 
 namespace ColonistBarKF.PSI;
 
-public struct IconEntryPSI
+public struct IconEntryPSI(Icon icon, Color color, float opacity, int priority = 10)
 {
-    public Icon Icon;
+    public readonly Icon Icon = icon;
 
-    public Color Color;
+    public Color Color = color;
 
-    public float Opacity;
+    public readonly float Opacity = opacity;
 
-    public int Priority;
-
-    public IconEntryPSI(Icon icon, Color color, float opacity, int priority = 10)
-    {
-        Icon = icon;
-        Color = color;
-        Opacity = opacity;
-        Priority = priority;
-    }
+    public int Priority = priority;
 }

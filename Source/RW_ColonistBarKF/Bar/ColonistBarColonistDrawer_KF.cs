@@ -243,7 +243,7 @@ public class ColonistBarColonistDrawer_KF
         float num;
         var color = new Color(0.5f, 0.5f, 0.5f, 0.4f);
 
-        //  Color color = new Color(0.23f, 0.23f, 0.23f, 0.4f);
+        //  Color = new Color(0.23f, 0.23f, 0.23f, 0.4f);
 
         // Caravan on world map
         if (map == null)
@@ -1219,7 +1219,7 @@ public class ColonistBarColonistDrawer_KF
 
     private void GetSortList([NotNull] out List<FloatMenuOption> sortList)
     {
-        sortList = new List<FloatMenuOption>();
+        sortList = [];
         var prefixActive = "• ";
 
         var labelMenu = Settings.BarSettings.SortBy == SettingsColonistBar.SortByWhat.vanilla ? prefixActive : "";

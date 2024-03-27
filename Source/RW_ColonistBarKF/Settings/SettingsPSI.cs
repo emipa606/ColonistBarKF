@@ -4,6 +4,8 @@ namespace ColonistBarKF;
 
 public class SettingsPSI
 {
+    public readonly float IconSizeMult = 1f;
+
     // PSI settings
     public int IconAlignment;
 
@@ -26,8 +28,6 @@ public class SettingsPSI
     public int IconsInColumn = 3;
 
     public float IconSize = 1f;
-
-    public float IconSizeMult = 1f;
 
     public bool IconsScreenScale = true;
 

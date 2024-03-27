@@ -3,21 +3,13 @@ using UnityEngine;
 
 namespace ColonistBarKF.PSI;
 
-public struct IconEntryBar
+public struct IconEntryBar(Icon icon, Color color, [CanBeNull] string tooltip, int priority = 10)
 {
-    public Icon Icon;
+    public readonly Icon Icon = icon;
 
-    public Color Color;
+    public Color Color = color;
 
-    public int Priority;
+    public int Priority = priority;
 
-    [CanBeNull] public string Tooltip;
-
-    public IconEntryBar(Icon icon, Color color, [CanBeNull] string tooltip, int priority = 10)
-    {
-        Icon = icon;
-        Color = color;
-        Tooltip = tooltip;
-        Priority = priority;
-    }
+    [CanBeNull] public readonly string Tooltip = tooltip;
 }
