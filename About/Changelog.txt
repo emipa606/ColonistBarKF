@@ -1,5 +1,8 @@
 # Changelog for ColonistBarKF
 
+1.5.1 - Bar should now also show mutants. Fixed some NRE when comparing disabled skills
+
+
 1.5.0 - Mod updated for 1.5 and passed autotests
 
 

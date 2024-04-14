@@ -266,8 +266,10 @@ public class ColBarHelper_KF : IExposable
 
             case SettingsColonistBar.SortByWhat.medicTendQuality:
             {
-                sort = tmpColonists.Where(x => !x?.WorkTypeIsDisabled(WorkTypeDefOf.Doctor) ?? false).ToList();
-                others = tmpColonists.Where(x => x?.WorkTypeIsDisabled(WorkTypeDefOf.Doctor) ?? true).ToList();
+                sort = tmpColonists.Where(x =>
+                    x?.WorkTypeIsDisabled(WorkTypeDefOf.Doctor) == false &&
+                    !StatDefOf.MedicalTendQuality.Worker.IsDisabledFor(x)).ToList();
+                others = tmpColonists.Except(sort).ToList();
 
                 sort.SortByDescending(b => b.GetStatValue(StatDefOf.MedicalTendQuality));
                 others.SortBy(x => x.LabelCap);
@@ -280,8 +282,10 @@ public class ColBarHelper_KF : IExposable
 
             case SettingsColonistBar.SortByWhat.medicSurgerySuccess:
             {
-                sort = tmpColonists.Where(x => !x?.WorkTypeIsDisabled(WorkTypeDefOf.Doctor) ?? false).ToList();
-                others = tmpColonists.Where(x => x?.WorkTypeIsDisabled(WorkTypeDefOf.Doctor) ?? true).ToList();
+                sort = tmpColonists.Where(x =>
+                    x?.WorkTypeIsDisabled(WorkTypeDefOf.Doctor) == false &&
+                    !StatDefOf.MedicalSurgerySuccessChance.Worker.IsDisabledFor(x)).ToList();
+                others = tmpColonists.Except(sort).ToList();
 
                 sort.SortByDescending(b => b.GetStatValue(StatDefOf.MedicalSurgerySuccessChance));
                 others.SortBy(x => x.LabelCap);
@@ -294,8 +298,10 @@ public class ColBarHelper_KF : IExposable
 
             case SettingsColonistBar.SortByWhat.diplomacy:
             {
-                sort = tmpColonists.Where(x => !x?.WorkTagIsDisabled(WorkTags.Social) ?? false).ToList();
-                others = tmpColonists.Where(x => x?.WorkTagIsDisabled(WorkTags.Social) ?? true).ToList();
+                sort = tmpColonists.Where(x =>
+                    x?.WorkTagIsDisabled(WorkTags.Social) == false &&
+                    !StatDefOf.NegotiationAbility.Worker.IsDisabledFor(x)).ToList();
+                others = tmpColonists.Except(sort).ToList();
 
                 sort.SortByDescending(b => b.GetStatValue(StatDefOf.NegotiationAbility));
                 others.SortBy(x => x.LabelCap);
@@ -308,8 +314,10 @@ public class ColBarHelper_KF : IExposable
 
             case SettingsColonistBar.SortByWhat.tradePrice:
             {
-                sort = tmpColonists.Where(x => !x?.WorkTagIsDisabled(WorkTags.Social) ?? false).ToList();
-                others = tmpColonists.Where(x => x?.WorkTagIsDisabled(WorkTags.Social) ?? true).ToList();
+                sort = tmpColonists.Where(x =>
+                    x?.WorkTagIsDisabled(WorkTags.Social) == false &&
+                    !StatDefOf.TradePriceImprovement.Worker.IsDisabledFor(x)).ToList();
+                others = tmpColonists.Except(sort).ToList();
 
                 sort.SortByDescending(b => b.GetStatValue(StatDefOf.TradePriceImprovement));
                 others.SortBy(x => x.LabelCap);
@@ -322,8 +330,10 @@ public class ColBarHelper_KF : IExposable
             //shooting accuracy
             case SettingsColonistBar.SortByWhat.shootingAccuracy:
             {
-                sort = tmpColonists.Where(x => !x?.WorkTypeIsDisabled(WorkTypeDefOf.Hunting) ?? false).ToList();
-                others = tmpColonists.Where(x => x?.WorkTypeIsDisabled(WorkTypeDefOf.Hunting) ?? true).ToList();
+                sort = tmpColonists.Where(x =>
+                    x?.WorkTypeIsDisabled(WorkTypeDefOf.Hunting) == false &&
+                    !StatDefOf.ShootingAccuracyPawn.Worker.IsDisabledFor(x)).ToList();
+                others = tmpColonists.Except(sort).ToList();
 
                 sort.SortByDescending(b => b.GetStatValue(StatDefOf.ShootingAccuracyPawn));
                 others.SortBy(x => x.LabelCap);
@@ -333,7 +343,7 @@ public class ColBarHelper_KF : IExposable
                 tmpColonists = sort;
                 break;
             }
-            //sort by shotting skill
+            //sort by shooting skill
             case SettingsColonistBar.SortByWhat.shootingSkill:
             {
                 orderedEnumerable = tmpColonists
@@ -383,6 +393,11 @@ public class ColBarHelper_KF : IExposable
             {
                 tmpPawns.Clear();
                 tmpPawns.AddRange(tempMap.mapPawns.FreeColonists);
+                if (ModLister.AnomalyInstalled)
+                {
+                    tmpPawns.AddRange(tempMap.mapPawns.ColonyMutants);
+                }
+
                 var list = tempMap.listerThings.ThingsInGroup(ThingRequestGroup.Corpse);
                 foreach (var thing in list)
                 {
