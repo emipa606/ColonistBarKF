@@ -354,6 +354,17 @@ public class ColBarHelper_KF : IExposable
                 break;
             }
 
+            //sort by melee skill
+            case SettingsColonistBar.SortByWhat.meleeSkill:
+            {
+                orderedEnumerable = tmpColonists
+                    .OrderByDescending(a => a?.skills?.GetSkill(SkillDefOf.Melee)?.Level)
+                    .ThenBy(b => b?.skills?.GetSkill(SkillDefOf.Melee)?.TotallyDisabled).ToList();
+
+                tmpColonists = orderedEnumerable;
+                break;
+            }
+
             case SettingsColonistBar.SortByWhat.moveSpeed:
             {
                 tmpColonists.SortByDescending(x => x.GetStatValue(StatDefOf.MoveSpeed));

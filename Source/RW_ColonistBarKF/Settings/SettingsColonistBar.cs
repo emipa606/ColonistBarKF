@@ -32,6 +32,8 @@ public class SettingsColonistBar
 
         shootingSkill,
 
+        meleeSkill,
+
         moveSpeed
     }
 

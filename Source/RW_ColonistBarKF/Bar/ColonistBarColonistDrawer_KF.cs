@@ -1395,6 +1395,16 @@ public class ColonistBarColonistDrawer_KF
                 HarmonyPatches.MarkColonistsDirty_Postfix();
             });
 
+        labelMenu = Settings.BarSettings.SortBy == SettingsColonistBar.SortByWhat.meleeSkill ? prefixActive : "";
+        labelMenu += SkillDefOf.Melee.LabelCap;
+        var sortByMeleeSkill = new FloatMenuOption(
+            labelMenu,
+            delegate
+            {
+                Settings.BarSettings.SortBy =
+                    SettingsColonistBar.SortByWhat.meleeSkill;
+                HarmonyPatches.MarkColonistsDirty_Postfix();
+            });
 
         labelMenu = Settings.BarSettings.SortBy == SettingsColonistBar.SortByWhat.moveSpeed ? prefixActive : "";
         labelMenu += StatDefOf.MoveSpeed.LabelCap;
@@ -1435,6 +1445,7 @@ public class ColonistBarColonistDrawer_KF
         sortList.Add(sortByTrade);
         sortList.Add(sortByShootingAccuracy);
         sortList.Add(sortByShootingSkill);
+        sortList.Add(sortByMeleeSkill);
         sortList.Add(sortByMoveSpeed);
         sortList.Add(reverseSort);
     }
