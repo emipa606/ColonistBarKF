@@ -406,7 +406,7 @@ public class ColBarHelper_KF : IExposable
                 tmpPawns.AddRange(tempMap.mapPawns.FreeColonists);
                 if (ModLister.AnomalyInstalled)
                 {
-                    tmpPawns.AddRange(tempMap.mapPawns.ColonyMutants);
+                    tmpPawns.AddRange(tempMap.mapPawns.ColonyMutantsPlayerControlled);
                 }
 
                 var list = tempMap.listerThings.ThingsInGroup(ThingRequestGroup.Corpse);

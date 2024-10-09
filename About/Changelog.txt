@@ -1,5 +1,8 @@
 # Changelog for ColonistBarKF
 
+1.5.3 - ColonyMutants was changed to ColonyMutantsPlayerControlled in the last Rimworld patch
+
+
 1.5.2 - Added Melee sorting
 
 
