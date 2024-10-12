@@ -60,6 +60,14 @@ internal static class HarmonyPatches
             new HarmonyMethod(typeof(HarmonyPatches), nameof(CaravanMemberCaravanAt_Prefix)));
 
         harmony.Patch(
+            AccessTools.Method(typeof(ColonistBar), $"get_{nameof(ColonistBar.DrawLocs)}"),
+            new HarmonyMethod(typeof(HarmonyPatches), nameof(DrawLocs_Prefix)));
+
+        harmony.Patch(
+            AccessTools.Method(typeof(ColonistBar), $"get_{nameof(ColonistBar.Size)}"),
+            new HarmonyMethod(typeof(HarmonyPatches), nameof(Size_Prefix)));
+
+        harmony.Patch(
             AccessTools.Method(typeof(ColonistBar), nameof(ColonistBar.GetColonistsInOrder)),
             new HarmonyMethod(typeof(HarmonyPatches), nameof(GetColonistsInOrder_Prefix)));
 
@@ -221,6 +229,18 @@ internal static class HarmonyPatches
         }
 
         __result = null;
+        return false;
+    }
+
+    private static bool DrawLocs_Prefix(ref List<Vector2> __result)
+    {
+        __result = ColonistBar_KF.BarHelperKF.DrawLocs;
+        return false;
+    }
+
+    private static bool Size_Prefix(ref Vector2 __result)
+    {
+        __result = ColonistBar_KF.FullSize;
         return false;
     }
 
