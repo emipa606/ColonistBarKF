@@ -21,7 +21,7 @@ public class ColonistBarColonistDrawer_KF
 
     private static Vector3 pawnTextureCameraOffset;
 
-    [NotNull] private readonly Dictionary<string, string> pawnLabelsCache = new Dictionary<string, string>();
+    [NotNull] private readonly Dictionary<string, string> pawnLabelsCache = new();
 
     private static Vector3 PawnTextureCameraOffset
     {
@@ -37,7 +37,7 @@ public class ColonistBarColonistDrawer_KF
         }
     }
 
-    private static Vector2 PawnTextureSize => new Vector2(
+    private static Vector2 PawnTextureSize => new(
         Settings.BarSettings.BaseIconSize - 2f,
         Settings.BarSettings.BaseIconSize * 1.5f);
 
@@ -146,7 +146,7 @@ public class ColonistBarColonistDrawer_KF
         // Rect rect2 = outerRect.ContractedBy(-2f * ColonistBar_KF.Scale);
         var rect2 = outerRect.ContractedBy(-2f);
 
-        if (colonistAlive && !WorldRendererUtility.WorldRenderedNow)
+        if (colonistAlive && !WorldRendererUtility.WorldRendered)
         {
             if (FollowMe.CurrentlyFollowing)
             {
@@ -166,8 +166,8 @@ public class ColonistBarColonistDrawer_KF
 
             DrawSelectionOverlayOnGUI(colonist, rect2);
         }
-        else if (WorldRendererUtility.WorldRenderedNow && colonist.IsCaravanMember()
-                                                       && Find.WorldSelector.IsSelected(colonist.GetCaravan()))
+        else if (WorldRendererUtility.WorldRendered && colonist.IsCaravanMember()
+                                                    && Find.WorldSelector.IsSelected(colonist.GetCaravan()))
         {
             DrawCaravanSelectionOverlayOnGUI(colonist.GetCaravan(), rect2);
         }
@@ -248,7 +248,7 @@ public class ColonistBarColonistDrawer_KF
         // Caravan on world map
         if (map == null)
         {
-            num = WorldRendererUtility.WorldRenderedNow ? 1f : 0.75f;
+            num = WorldRendererUtility.WorldRendered ? 1f : 0.75f;
 
             if (Settings.BarSettings.UseGroupColors)
             {
@@ -258,7 +258,7 @@ public class ColonistBarColonistDrawer_KF
         else
         {
             // other pawns, on map
-            if (map != Find.CurrentMap || WorldRendererUtility.WorldRenderedNow)
+            if (map != Find.CurrentMap || WorldRendererUtility.WorldRendered)
             {
                 num = 0.75f;
             }
@@ -381,9 +381,7 @@ public class ColonistBarColonistDrawer_KF
                     if (colonist != null && SelPawn != null && SelPawn != colonist && SelPawn.Map != null
                         && colonist.Map == SelPawn.Map && SelPawn.IsColonistPlayerControlled)
                     {
-                        foreach (var choice in FloatMenuMakerMap.ChoicesAtFor(
-                                     colonist.TrueCenter(),
-                                     SelPawn))
+                        foreach (var choice in FloatMenuMakerMap.GetOptions([SelPawn], colonist.TrueCenter(), out _))
                         {
                             choicesList.Add(choice);
 
@@ -490,16 +488,15 @@ public class ColonistBarColonistDrawer_KF
                     //                                                                   item
                     //                                                                   }));
                     //
-                    var items = labeledSortingActions.Keys.Select(
-                        label =>
-                        {
-                            var fmo =
-                                labeledSortingActions
-                                    [label];
-                            return Tools
-                                .MakeMenuItemForLabel(label,
-                                    fmo);
-                        }).ToList();
+                    var items = labeledSortingActions.Keys.Select(label =>
+                    {
+                        var fmo =
+                            labeledSortingActions
+                                [label];
+                        return Tools
+                            .MakeMenuItemForLabel(label,
+                                fmo);
+                    }).ToList();
 
                     Tools.LabelMenu = new FloatMenuLabels(items);
                     Find.WindowStack.Add(Tools.LabelMenu);
@@ -545,7 +542,7 @@ public class ColonistBarColonistDrawer_KF
             return;
         }
 
-        var worldRenderedNow = WorldRendererUtility.WorldRenderedNow;
+        var worldRenderedNow = WorldRendererUtility.WorldRendered;
         var entry = ColonistBar_KF.BarHelperKF.Entries.Find(x => x.group == group);
         var map = entry.map;
 
@@ -974,12 +971,12 @@ public class ColonistBarColonistDrawer_KF
     {
         if (map == null)
         {
-            if (!WorldRendererUtility.WorldRenderedNow)
+            if (!WorldRendererUtility.WorldRendered)
             {
                 alpha = Mathf.Min(alpha, Mouse.IsOver(rect) ? 1f : 0.4f);
             }
         }
-        else if (map != Find.CurrentMap || WorldRendererUtility.WorldRenderedNow)
+        else if (map != Find.CurrentMap || WorldRendererUtility.WorldRendered)
         {
             alpha = Mathf.Min(alpha, Mouse.IsOver(rect) ? 1f : 0.4f);
         }
@@ -1208,7 +1205,7 @@ public class ColonistBarColonistDrawer_KF
         TooltipHandler.TipRegion(rect2, faction.NameColored);
     }
 
-    public Rect GetPawnTextureRect(Vector2 pos)
+    public static Rect GetPawnTextureRect(Vector2 pos)
     {
         var x = pos.x;
         var y = pos.y;

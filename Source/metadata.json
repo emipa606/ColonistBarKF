@@ -2,11 +2,18 @@
   "Continued": true,
   "CanAdd": "0",
   "CanRemove": "0",
-  "PreviewVersion": "1.5",
+  "PreviewVersion": "1.6",
   "SocialImageSet": true,
   "SearchTags": [
     " colonist bar",
     " sorting",
     " customization"
-  ]
+  ],
+  "Patches": false,
+  "Defs": true,
+  "Assemblies": true,
+  "LinesOfCode": 268804,
+  "LinesOfXML": 262,
+  "CodeBaseSize": 86,
+  "LastXmlCleaning": "2025-07-30T15:46:03.1767609+02:00"
 }

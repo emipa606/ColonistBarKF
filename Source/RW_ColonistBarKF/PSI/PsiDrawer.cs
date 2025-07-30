@@ -8,7 +8,7 @@ namespace ColonistBarKF.PSI;
 
 public static class PSIDrawer
 {
-    [NotNull] public static Vector3[] IconPosVectorsPSI;
+    [NotNull] private static Vector3[] IconPosVectorsPSI;
 
     public static void RecalcIconPositionsPSI()
     {
@@ -80,7 +80,7 @@ public static class PSIDrawer
 
     public static void DrawIconOnColonist(Vector3 bodyPos, IconEntryPSI entryPSI, int entryCount)
     {
-        if (WorldRendererUtility.WorldRenderedNow)
+        if (WorldRendererUtility.WorldRendered)
         {
             return;
         }
@@ -130,7 +130,7 @@ public static class PSIDrawer
 
     public static void DrawIconOnColonist(Vector3 bodyPos, ref int num, Icon icon, Color color, float opacity)
     {
-        if (WorldRendererUtility.WorldRenderedNow)
+        if (WorldRendererUtility.WorldRendered)
         {
             return;
         }

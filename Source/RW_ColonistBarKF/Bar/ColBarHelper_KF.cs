@@ -106,7 +106,7 @@ public class ColBarHelper_KF : IExposable
         var iconTex = PortraitsCache.Get(pawn, ColonistBarColonistDrawer.PawnTextureSize, Rot4.South,
             ColonistBarColonistDrawer.PawnTextureCameraOffset, 1.28205f);
         var rect = new Rect(vector.x, vector.y, ColonistBar_KF.FullSize.x, ColonistBar_KF.FullSize.y);
-        var pawnTextureRect = ColonistBar_KF.Drawer.GetPawnTextureRect(rect.position);
+        var pawnTextureRect = ColonistBarColonistDrawer_KF.GetPawnTextureRect(rect.position);
         pawnTextureRect.position += Event.current.mousePosition - dragStartPos;
         GenUI.DrawMouseAttachment(iconTex, "", 0f, default, pawnTextureRect);
     }
@@ -406,7 +406,7 @@ public class ColBarHelper_KF : IExposable
                 tmpPawns.AddRange(tempMap.mapPawns.FreeColonists);
                 if (ModLister.AnomalyInstalled)
                 {
-                    tmpPawns.AddRange(tempMap.mapPawns.ColonyMutantsPlayerControlled);
+                    tmpPawns.AddRange(tempMap.mapPawns.ColonySubhumansControllable);
                 }
 
                 var list = tempMap.listerThings.ThingsInGroup(ThingRequestGroup.Corpse);
@@ -431,8 +431,8 @@ public class ColBarHelper_KF : IExposable
 
                 var allPawnsSpawned = tempMap.mapPawns.AllPawnsSpawned;
                 foreach (var corpse in allPawnsSpawned
-                             .Select(spawnedPawn => spawnedPawn.carryTracker.CarriedThing as Corpse).Where(
-                                 corpse => corpse != null && !corpse.IsDessicated() && corpse.InnerPawn.IsColonist))
+                             .Select(spawnedPawn => spawnedPawn.carryTracker.CarriedThing as Corpse).Where(corpse =>
+                                 corpse != null && !corpse.IsDessicated() && corpse.InnerPawn.IsColonist))
                 {
                     tmpPawns.Add(corpse.InnerPawn);
                 }

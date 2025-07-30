@@ -11,14 +11,14 @@ public static class ColonistBar_KF
 {
     public const float SpacingLabel = 15f;
 
-    public static readonly ColBarHelper_KF BarHelperKF = new ColBarHelper_KF();
+    public static readonly ColBarHelper_KF BarHelperKF = new();
     private static readonly List<Pawn> colonistsToHighlight = [];
 
-    [NotNull] public static readonly ColonistBarColonistDrawer_KF Drawer = new ColonistBarColonistDrawer_KF();
+    [NotNull] public static readonly ColonistBarColonistDrawer_KF Drawer = new();
 
-    [NotNull] public static readonly ColonistBarDrawLocsFinder_Kf DrawLocsFinder = new ColonistBarDrawLocsFinder_Kf();
+    [NotNull] public static readonly ColonistBarDrawLocsFinder_Kf DrawLocsFinder = new();
 
-    public static Vector2 BaseSize => new Vector2(
+    public static Vector2 BaseSize => new(
         Settings.BarSettings.BaseIconSize,
         Settings.BarSettings.BaseIconSize);
 
@@ -53,7 +53,7 @@ public static class ColonistBar_KF
 
 
     private static float WidthMoodBarHorizontal { get; set; }
-    public static float SpaceBetweenColonistsHorizontal => 24f * Scale;
+    private static float SpaceBetweenColonistsHorizontal => 24f * Scale;
 
     [NotNull]
     public static List<Pawn> CaravanMembersInScreenRect(Rect rect)
@@ -207,7 +207,7 @@ public static class ColonistBar_KF
 
         var b = true;
 
-        if (WorldRendererUtility.WorldRenderedNow)
+        if (WorldRendererUtility.WorldRendered)
         {
             if (BarHelperKF.TmpColonistsWithMap.Any(x => x.Second == null))
             {

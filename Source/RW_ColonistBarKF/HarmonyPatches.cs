@@ -18,8 +18,7 @@ internal static class HarmonyPatches
     {
         var injected = false;
         var patchLog = "Start injecting PSI to pawns ...";
-        foreach (var def in DefDatabase<ThingDef>.AllDefs.Where(
-                     x => x.race is { Humanlike: true, IsFlesh: true }))
+        foreach (var def in DefDatabase<ThingDef>.AllDefs.Where(x => x.race is { Humanlike: true, IsFlesh: true }))
         {
             patchLog += $"\nPSI check: {def}";
             if (def.comps == null)
@@ -265,13 +264,7 @@ internal static class HarmonyPatches
 
     private static bool ColonistOrCorpseAt_Prefix([CanBeNull] ref Thing __result, Vector2 pos)
     {
-        if (!ColonistBar_KF.Visible)
-        {
-            __result = null;
-            return false;
-        }
-
-        if (!ColonistBar_KF.BarHelperKF.TryGetEntryAt(pos, out var entry))
+        if (!ColonistBar_KF.Visible || !ColonistBar_KF.BarHelperKF.TryGetEntryAt(pos, out var entry))
         {
             __result = null;
             return false;

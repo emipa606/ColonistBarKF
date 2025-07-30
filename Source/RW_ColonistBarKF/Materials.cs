@@ -48,7 +48,6 @@ public class Materials(string matLib = "default")
                 tex.filterMode = FilterMode.Trilinear;
                 tex.mipMapBias = -0.5f;
                 tex.anisoLevel = 9;
-                tex.wrapMode = TextureWrapMode.Repeat;
 
                 // tex.Apply();
                 // tex.Compress(true);
@@ -56,11 +55,12 @@ public class Materials(string matLib = "default")
             else
             {
                 tex.filterMode = FilterMode.Point;
-                tex.wrapMode = TextureWrapMode.Repeat;
 
                 // tex.Apply();
                 // tex.Compress(true);
             }
+
+            tex.wrapMode = TextureWrapMode.Repeat;
 
             material = MaterialPool.MatFrom(new MaterialRequest(tex, ShaderDatabase.MetaOverlay));
         }

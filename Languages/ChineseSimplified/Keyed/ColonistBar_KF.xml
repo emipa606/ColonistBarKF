@@ -156,4 +156,5 @@
   <CBKF.Settings.ChoicesForPawn>{0}的选择与{1}的选择</CBKF.Settings.ChoicesForPawn>
   <CBKF.Settings.Age>年龄</CBKF.Settings.Age>
   <CBKF.Settings.Reverse>反向排序</CBKF.Settings.Reverse>
+  <!--New - August 2017-->
 </LanguageData>

@@ -6,11 +6,11 @@ namespace ColonistBarKF;
 
 public static class Statics
 {
-    [NotNull] public static readonly Gradient Gradient4 = new Gradient();
+    [NotNull] public static readonly Gradient Gradient4 = new();
 
-    [NotNull] public static readonly Gradient GradientRedAlertToNeutral = new Gradient();
+    [NotNull] public static readonly Gradient GradientRedAlertToNeutral = new();
 
-    [NotNull] private static readonly Gradient Gradient4Mood = new Gradient();
+    [NotNull] private static readonly Gradient Gradient4Mood = new();
 
     static Statics()
     {

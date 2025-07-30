@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using ColonistBarKF.Bar;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -11,15 +12,15 @@ namespace ColonistBarKF;
 
 public class ColonistBarKfSettings : Window
 {
-    private static readonly string Cbkfversion = "Colonist Bar KF 1.2";
+    // Dynamically fetch the assembly version and include it in the Cbkfversion string
+    private static readonly string Cbkfversion = $"Colonist Bar KF {Assembly.GetExecutingAssembly().GetName().Version}";
 
     private static int _iconLimit;
 
-    [NotNull] private readonly GUIStyle _darkGrayBgImage =
-        new GUIStyle { normal = { background = Textures.GrayFond } };
+    [NotNull] private readonly GUIStyle _darkGrayBgImage = new() { normal = { background = Textures.GrayFond } };
 
     [NotNull] private readonly GUIStyle _fondBoxes =
-        new GUIStyle
+        new()
         {
             normal =
             {
@@ -34,7 +35,7 @@ public class ColonistBarKfSettings : Window
         };
 
     [NotNull] private readonly GUIStyle _fondImages =
-        new GUIStyle
+        new()
         {
             normal =
             {
@@ -47,7 +48,7 @@ public class ColonistBarKfSettings : Window
         };
 
     [NotNull] private readonly GUIStyle _fontBold =
-        new GUIStyle
+        new()
         {
             fontStyle = FontStyle.Bold,
             normal =
@@ -57,10 +58,10 @@ public class ColonistBarKfSettings : Window
             padding = new RectOffset(0, 0, 5, 0)
         };
 
-    [NotNull] private readonly GUIStyle _grayLines = new GUIStyle { normal = { background = Textures.GrayLines } };
+    [NotNull] private readonly GUIStyle _grayLines = new() { normal = { background = Textures.GrayLines } };
 
     [NotNull] private readonly GUIStyle _headline =
-        new GUIStyle
+        new()
         {
             fontStyle = FontStyle.Bold,
             fontSize = 16,
@@ -114,7 +115,7 @@ public class ColonistBarKfSettings : Window
         Reinit(false);
     }
 
-    public override Vector2 InitialSize => new Vector2(540f, 650f);
+    public override Vector2 InitialSize => new(540f, 650f);
 
     private int MainToolbarInt { get; set; }
 
@@ -1144,7 +1145,7 @@ public class ColonistBarKfSettings : Window
         {
             var options = new List<FloatMenuOption>
             {
-                new FloatMenuOption(
+                new(
                     "Less Sensitive",
                     () =>
                     {
@@ -1176,7 +1177,7 @@ public class ColonistBarKfSettings : Window
                                 + "Less Sensitive");
                         }
                     }),
-                new FloatMenuOption(
+                new(
                     "Standard",
                     () =>
                     {
@@ -1208,7 +1209,7 @@ public class ColonistBarKfSettings : Window
                                 + "Standard");
                         }
                     }),
-                new FloatMenuOption(
+                new(
                     "More Sensitive",
                     () =>
                     {

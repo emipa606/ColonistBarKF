@@ -33,7 +33,7 @@ public static class Tools
             label,
             () =>
             {
-                if (isSingle && options[0].Disabled == false)
+                if (isSingle && !options[0].Disabled)
                 {
                     var action = options[0].action;
                     if (action == null)
@@ -48,24 +48,23 @@ public static class Tools
                 {
                     var i = 0;
                     var actions = new List<FloatMenuOption>();
-                    fmo.ForEach(
-                        menuOption =>
-                        {
-                            var floatMenuOption = new FloatMenuOption(
-                                menuOption.Label,
-                                () =>
-                                {
-                                    actionMenu.Close();
-                                    CloseLabelMenu(true);
-                                    menuOption.action();
-                                },
-                                (MenuOptionPriority)i++,
-                                menuOption.mouseoverGuiAction,
-                                menuOption.revalidateClickTarget,
-                                menuOption.extraPartWidth,
-                                menuOption.extraPartOnGUI);
-                            actions.Add(floatMenuOption);
-                        });
+                    fmo.ForEach(menuOption =>
+                    {
+                        var floatMenuOption = new FloatMenuOption(
+                            menuOption.Label,
+                            () =>
+                            {
+                                actionMenu.Close();
+                                CloseLabelMenu(true);
+                                menuOption.action();
+                            },
+                            (MenuOptionPriority)i++,
+                            menuOption.mouseoverGuiAction,
+                            menuOption.revalidateClickTarget,
+                            menuOption.extraPartWidth,
+                            menuOption.extraPartOnGUI);
+                        actions.Add(floatMenuOption);
+                    });
                     actionMenu = new FloatMenuNested(actions, null);
                     Find.WindowStack.Add(actionMenu);
                 }

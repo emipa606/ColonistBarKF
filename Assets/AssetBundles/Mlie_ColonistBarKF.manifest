@@ -1,0 +1,75 @@
+ManifestFileVersion: 0
+CRC: 1843644353
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: a236cc9b70616f3270ce85bc48c43eed
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 2612ac43db082a73502ee80f2eceb73f
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: a236cc9b70616f3270ce85bc48c43eed
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/default/Sad.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/default/Prosthophile.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/original/Panic.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/default/Pyromaniac.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/default/CabinFever.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/default/Draft.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/default/Bloodloss.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/default/Prosthophobe.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/default/Unarmed.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/default/Bedroom.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/default/TooHot.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/original/Bloodloss.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/original/TooHot.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/original/Tired.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/default/Greedy.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/default/TargetHair.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/default/ApparelHealth.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Widgets/CBKF/DesButBG_grey.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/original/TooCold.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/default/LeftUnburied.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/default/Health.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/default/Idle.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/default/Leave.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/original/Target.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/original/Hungry.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/default/Aggressive.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/original/Pacific.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/default/Hungry.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/default/Jealous.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/original/Leave.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/default/Drunk.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/default/Pacific.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/default/TooCold.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/default/Tired.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/original/Unarmed.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/original/ApparelHealth.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/default/Target.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/original/Effectiveness.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/default/Panic.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/original/Disease.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/original/Sad.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/default/TargetSkin.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Widgets/CBKF/DesButBG_vanilla.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/original/Naked.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/default/Effectiveness.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/default/MedicalAttention.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/original/Dazed.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/default/Pain.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/default/Dazed.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/original/Aggressive.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/original/Draft.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/original/Idle.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/original/Drunk.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/default/Naked.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/default/NightOwl.png
+- Assets/Data/Mlie.ColonistBarKF/Textures/UI/Overlays/PawnStateIcons/default/Toxicity.png
+Dependencies: []

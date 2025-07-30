@@ -11,7 +11,7 @@ public class GameComponentPSI : GameComponent
 {
     [NotNull] public static PawnCapacityDef[] PawnCapacities;
 
-    [NotNull] public static Materials PSIMaterials = new Materials();
+    [NotNull] public static Materials PSIMaterials = new();
 
     private CellRect _viewRect;
     private bool hidePSIOnGUI;
@@ -52,22 +52,21 @@ public class GameComponentPSI : GameComponent
 
         if (reloadIconSet)
         {
-            LongEventHandler.ExecuteWhenFinished(
-                () =>
-                {
-                    PSIMaterials = new Materials(Settings.PSISettings.IconSet);
+            LongEventHandler.ExecuteWhenFinished(() =>
+            {
+                PSIMaterials = new Materials(Settings.PSISettings.IconSet);
 
-                    // PSISettings SettingsPSI =
-                    // XmlLoader.ItemFromXmlFile<PSISettings>(GenFilePaths.CoreModsFolderPath + "/RW_PawnStateIcons/Textures/UI/Overlays/PawnStateIcons/" + PSI.SettingsPSI.IconSet + "/iconset.cfg");
-                    // PSI.PSISettings.IconSizeMult = SettingsPSI.IconSizeMult;
-                    PSIMaterials.ReloadTextures(true);
+                // PSISettings SettingsPSI =
+                // XmlLoader.ItemFromXmlFile<PSISettings>(GenFilePaths.CoreModsFolderPath + "/RW_PawnStateIcons/Textures/UI/Overlays/PawnStateIcons/" + PSI.SettingsPSI.IconSet + "/iconset.cfg");
+                // PSI.PSISettings.IconSizeMult = SettingsPSI.IconSizeMult;
+                PSIMaterials.ReloadTextures(true);
 
-                    SkinMat = PSIMaterials[Icon.TargetSkin];
-                    HairMat = PSIMaterials[Icon.TargetHair];
-                    TargetMat = PSIMaterials[Icon.Target];
+                SkinMat = PSIMaterials[Icon.TargetSkin];
+                HairMat = PSIMaterials[Icon.TargetHair];
+                TargetMat = PSIMaterials[Icon.Target];
 
-                    // Log.Message(GenFilePaths.CoreModsFolderPath + "/RW_PawnStateIcons/Textures/UI/Overlays/PawnStateIcons/" + ColBarSettings.IconSet + "/iconset.cfg");
-                });
+                // Log.Message(GenFilePaths.CoreModsFolderPath + "/RW_PawnStateIcons/Textures/UI/Overlays/PawnStateIcons/" + ColBarSettings.IconSet + "/iconset.cfg");
+            });
         }
     }
 
@@ -89,7 +88,7 @@ public class GameComponentPSI : GameComponent
             return;
         }
 
-        if (WorldRendererUtility.WorldRenderedNow)
+        if (WorldRendererUtility.WorldRendered)
         {
             return;
         }

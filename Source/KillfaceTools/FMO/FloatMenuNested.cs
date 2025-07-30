@@ -17,12 +17,11 @@ public class FloatMenuNested : FloatMenu
 
     public override void DoWindowContents(Rect rect)
     {
-        options.ForEach(
-            o =>
+        options.ForEach(o =>
 
-                // FloatMenuOptionSorting option = o as FloatMenuOptionSorting;
-                // option.Label = PathInfo.GetJobReport(option.sortBy);
-                o.SetSizeMode(FloatMenuSizeMode.Normal));
+            // FloatMenuOptionSorting option = o as FloatMenuOptionSorting;
+            // option.Label = PathInfo.GetJobReport(option.sortBy);
+            o.SetSizeMode(FloatMenuSizeMode.Normal));
         windowRect = new Rect(windowRect.x, windowRect.y, InitialSize.x, InitialSize.y);
         base.DoWindowContents(windowRect);
     }

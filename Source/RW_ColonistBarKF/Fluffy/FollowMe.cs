@@ -98,7 +98,7 @@ public class FollowMe : GameComponent
     public static void StopFollow([NotNull] string reason)
     {
 #if DEBUG
-            Log.Message($"FollowMe :: Stopped following {FollowedLabel} :: {reason}");
+        Log.Message($"FollowMe :: Stopped following {FollowedLabel} :: {reason}");
 #endif
         if (Settings.BarSettings.useFollowMessage)
         {
@@ -343,9 +343,9 @@ public class FollowMe : GameComponent
         var mousePosition = Input.mousePosition;
         Rect[] screenCorners =
         [
-            new Rect(0f, 0f, 200f, 200f), new Rect(Screen.width - 250, 0f, 255f, 255f),
-            new Rect(0f, Screen.height - 250, 225f, 255f),
-            new Rect(Screen.width - 250, Screen.height - 250, 255f, 255f)
+            new(0f, 0f, 200f, 200f), new(Screen.width - 250, 0f, 255f, 255f),
+            new(0f, Screen.height - 250, 225f, 255f),
+            new(Screen.width - 250, Screen.height - 250, 255f, 255f)
         ];
         if (screenCorners.Any(e => e.Contains(mousePosition)))
         {

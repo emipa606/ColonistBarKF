@@ -7,9 +7,9 @@ namespace ColonistBarKF;
 
 public static class Settings
 {
-    [NotNull] public static SettingsColonistBar BarSettings = new SettingsColonistBar();
+    [NotNull] public static SettingsColonistBar BarSettings = new();
 
-    [NotNull] public static SettingsPSI PSISettings = new SettingsPSI();
+    [NotNull] public static SettingsPSI PSISettings = new();
 
     public static float ViewOpacityCrit => Mathf.Max(PSISettings.IconOpacityCritical, PSISettings.IconOpacity);
 

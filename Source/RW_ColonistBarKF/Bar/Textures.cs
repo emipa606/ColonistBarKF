@@ -29,7 +29,7 @@ internal static class Textures
     // public static readonly Color32 ColVermillion = new Color32(179, 55, 0, 255);
     public static readonly Color ColOrangeBg = new Color32(177, 123, 0, 60);
 
-    public static readonly Color ColorNeutralSoft = new Color(0.6f, 0.6f, 0.6f, 0.3f);
+    public static readonly Color ColorNeutralSoft = new(0.6f, 0.6f, 0.6f, 0.3f);
 
     public static readonly Color ColReddishPurple = new Color32(204, 121, 167, 255);
 
@@ -50,7 +50,7 @@ internal static class Textures
     [NotNull] public static readonly Texture2D DeadColonistTex =
         ContentFinder<Texture2D>.Get("UI/Misc/DeadColonist");
 
-    public static readonly Color FemaleColor = new Color(1f, 0.64f, 0.8f, 1f);
+    public static readonly Color FemaleColor = new(1f, 0.64f, 0.8f, 1f);
 
     [NotNull] public static readonly Texture2D GrayFond =
         SolidColorMaterials.NewSolidColorTexture(new Color(1, 1, 1, 0.07f));
@@ -58,7 +58,7 @@ internal static class Textures
     [NotNull] public static readonly Texture2D GrayLines =
         SolidColorMaterials.NewSolidColorTexture(new Color(1, 1, 1, 0.25f));
 
-    public static readonly Color HighlightColor = new Color(0.5f, 0.5f, 0.5f, 1f);
+    public static readonly Color HighlightColor = new(0.5f, 0.5f, 0.5f, 1f);
 
     [NotNull] public static readonly Texture2D IconAttacking =
         ContentFinder<Texture2D>.Get("UI/Icons/ColonistBar/Attacking");
@@ -83,7 +83,7 @@ internal static class Textures
     [NotNull] public static readonly Texture2D IconSleeping =
         ContentFinder<Texture2D>.Get("UI/Icons/ColonistBar/Sleeping");
 
-    public static readonly Color MaleColor = new Color(0.52f, 0.75f, 0.92f, 1f);
+    public static readonly Color MaleColor = new(0.52f, 0.75f, 0.92f, 1f);
 
     [NotNull] public static readonly Texture2D MoodBgTex =
         SolidColorMaterials.NewSolidColorTexture(new Color(0f, 0f, 0f, 0.4f));
@@ -120,13 +120,13 @@ internal static class Textures
     [NotNull] public static readonly Texture2D VanillaMoodBgTex =
         SolidColorMaterials.NewSolidColorTexture(new Color(0.4f, 0.47f, 0.53f, 0.44f));
 
-    public static Color Color05AndLess = new Color(0.8f, 0.75f, 0.59f);
+    public static Color Color05AndLess = new(0.8f, 0.75f, 0.59f);
 
     // public static Color ColorMoodBoost = new Color(0f, 0.8f, 0f);
-    public static Color ColorNeutralStatus = new Color(0.8f, 0.8f, 0.8f);
+    public static Color ColorNeutralStatus = new(0.8f, 0.8f, 0.8f);
 
     // public static Color Color25To21 = new Color(0.95f, 0f, 0f);
-    public static Color ColorNeutralStatusOpaque = new Color(0.8f, 0.8f, 0.8f, 0.8f);
+    public static Color ColorNeutralStatusOpaque = new(0.8f, 0.8f, 0.8f, 0.8f);
 
     [NotNull] public static Material HairMat;
 

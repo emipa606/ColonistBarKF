@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/.github/">
+    <File Path="../.github/copilot-instructions.md" />
+  </Folder>
+  <Project Path="KillfaceTools/KillfaceTools.csproj" />
+  <Project Path="RW_ColonistBarKF/ColonistBarKF.csproj" />
+</Solution>
